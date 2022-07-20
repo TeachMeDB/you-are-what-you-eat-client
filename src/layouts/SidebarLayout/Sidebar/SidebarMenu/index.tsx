@@ -195,7 +195,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Overview
+                    精品锅底
                   </Button>
                 </NextLink>
               </ListItem>
@@ -206,7 +206,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Dashboards
+              新品体验
             </ListSubheader>
           }
         >
@@ -223,11 +223,11 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    Cryptocurrency
+                    全新套餐
                   </Button>
                 </NextLink>
               </ListItem>
-              <ListItem component="div">
+              {/* <ListItem component="div">
                 <NextLink href="/applications/messenger" passHref>
                   <Button
                     className={
@@ -241,7 +241,7 @@ function SidebarMenu() {
                     Messenger
                   </Button>
                 </NextLink>
-              </ListItem>
+              </ListItem> */}
             </List>
           </SubMenuWrapper>
         </List>
@@ -249,7 +249,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Management
+              畅销菜品
             </ListSubheader>
           }
         >
@@ -268,7 +268,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<TableChartTwoToneIcon />}
                   >
-                    Transactions List
+                    销量十佳
                   </Button>
                 </NextLink>
               </ListItem>
@@ -279,7 +279,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Accounts
+              美味主食
             </ListSubheader>
           }
         >
@@ -296,7 +296,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<AccountCircleTwoToneIcon />}
                   >
-                    User Profile
+                    荤菜
                   </Button>
                 </NextLink>
               </ListItem>
@@ -313,7 +313,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DisplaySettingsTwoToneIcon />}
                   >
-                    Account Settings
+                    素菜
                   </Button>
                 </NextLink>
               </ListItem>
@@ -324,7 +324,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Components
+              酒水甜点
             </ListSubheader>
           }
         >
@@ -341,7 +341,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<BallotTwoToneIcon />}
                   >
-                    Buttons
+                    酒水
                   </Button>
                 </NextLink>
               </ListItem>
@@ -356,7 +356,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<BeachAccessTwoToneIcon />}
                   >
-                    Modals
+                    甜点
                   </Button>
                 </NextLink>
               </ListItem>
