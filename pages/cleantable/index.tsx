@@ -9,8 +9,12 @@ export default function Cleantable(){
         sx={{height:'100%',textAlign:'center' }}
              background-img= "/static/images/status/clean.png">
             <Container>
+            <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+            <img
+            src="/static/images/status/clean.svg"></img>
+            <p>&nbsp;</p>
             <Typography variant="h1" color="text.secondary" >
-            <p>&nbsp;</p><p>&nbsp;</p>
+            
             桌面清理中...
 
             </Typography>
