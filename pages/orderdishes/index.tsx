@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 
 
 interface DishProps{
-    id:number;
     dishname:string;
     picture:string;
     price:number;
@@ -22,42 +21,36 @@ interface DishProps{
 const InitialDish=():Array<DishProps>=>{
 return [
     {
-        id:1,
         dishname:"清炒土豆丝",
         price:9,
         picture:"/static/images/status/potato.png",
         ordernum:1
     },
     {
-        id:2,
         dishname:"番茄炒蛋",
         price:5.5,
         picture:"/static/images/status/tomato.png",
         ordernum:1
     },
     {
-        id:3,
         dishname:"炒洋葱",
         price:100.01,
         picture:"/static/images/status/onion.png",
-        ordernum:1
+        ordernum:0
     },
     {
-        id:4,
         dishname:"歪比巴卜",
         price:40,
         picture:"/static/images/status/dave.png",
         ordernum:0
     },
     {
-        id:5,
         dishname:"歪比巴卜",
         price:51,
         picture:"/static/images/status/xrk.png",
         ordernum:0
     },
     {
-        id:6,
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
@@ -141,8 +134,9 @@ class MainPanel extends React.Component<any,any>{
        this.handleClickMinus(index);}}>
           <Minus ordernum={dish.ordernum}/>
           </IconButton> 
-          <Typography variant="body1" color="#123456"  lineHeight={3.5}>
-        {dish.ordernum}
+         
+         <Typography variant="body1" color="#123456"  lineHeight={3}>
+        {dish.ordernum>0?dish.ordernum:"  "}
        </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
        this.handleClickPlus(index);
