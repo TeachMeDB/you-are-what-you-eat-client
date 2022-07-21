@@ -11,34 +11,41 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 interface DishProps{
     dishname:string;
-    description:string;
+    picture:string;
+    price:number;
 }
 
 const InitialDish=():Array<DishProps>=>{
 return [
     {
         dishname:"清炒土豆丝",
-        description:"简单的做法，极致的美味"
+        price:9,
+        picture:"/static/images/status/potato.png"
     },
     {
         dishname:"番茄炒蛋",
-        description:"有点甜"
+        price:5.5,
+        picture:"/static/images/status/tomato.png"
     },
     {
         dishname:"炒洋葱",
-        description:"那是相当难吃"
+        price:100.01,
+        picture:"/static/images/status/onion.png"
     },
     {
         dishname:"歪比巴卜",
-        description:"僵尸吃掉了你的脑子！"
+        price:40,
+        picture:"/static/images/status/dave.png"
     },
     {
         dishname:"歪比巴卜",
-        description:"僵尸吃掉了你的脑子！"
+        price:51,
+        picture:"/static/images/status/xrk.png"
     },
     {
         dishname:"歪比巴卜",
-        description:"僵尸吃掉了你的脑子！"
+        price:13238936,
+        picture:"/static/images/status/wdss.png"
     }
 ]
 }
@@ -58,7 +65,7 @@ dishes=InitialDish();
       <CardMedia
         component="img"
         height="140" 
-        image="public\static\images\dishimg\potato.png"
+        image={dish.picture}
         alt="potatochips"
       />
       <CardContent>
@@ -67,7 +74,7 @@ dishes=InitialDish();
           {dish.dishname}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {dish.description}
+        {dish.price} 元/份
         </Typography>
       </CardContent>
       <CardActions>
