@@ -127,34 +127,39 @@ class MainPanel extends React.Component<any,any>{
         </Typography>
 
       </CardContent>
+      <Grid container spacing={2}>
+        <Grid item xs={8}>
+          <CardActions>
 
-      <CardActions>
+            <Stack direction="row" >
+            <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+            this.handleClickMinus(index);}}>
+            <Minus ordernum={dish.ordernum}/>
+            </IconButton> 
 
-          <Stack direction="row" >
-        <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.handleClickMinus(index);}}>
-          <Minus ordernum={dish.ordernum}/>
-          </IconButton> 
-         
-         <Typography variant="body1" color="#123456"  lineHeight={3}>
-        {dish.ordernum>0?dish.ordernum:"  "}
-       </Typography>
-        <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.handleClickPlus(index);
-       }}>
-          <Plus ordernum={dish.ordernum}/>
-        </IconButton>
-        </Stack>
+            <Typography variant="body1" color="#123456"  lineHeight={3}>
+            {dish.ordernum>0?dish.ordernum:"  "}
+            </Typography>
+            <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+            this.handleClickPlus(index);
+            }}>
+            <Plus ordernum={dish.ordernum}/>
+            </IconButton>
+            </Stack>
 
-      </CardActions>
+          </CardActions>
+        </Grid>
+        <Grid item xs={4}>
+          <MaxWidthDialog />
+        </Grid>
+      </Grid>
+      
      </Card> </Grid>
      
   
      )
     }
     </Grid> 
-
-    <MaxWidthDialog />
     </Box>
 
 

@@ -22,7 +22,7 @@ export default function MaxWidthDialog() {
   return (
     <React.Fragment>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open max-width dialog
+        查看详情
       </Button>
       <Dialog
         fullWidth={fullWidth}

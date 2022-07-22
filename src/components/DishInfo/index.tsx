@@ -87,10 +87,10 @@ class DishInfo extends Component {
                                     id: 'dish-spicy',
                                     }}
                                 >
-                                    <MenuItem value="大份">不辣</MenuItem>
-                                    <MenuItem value="大份">微辣</MenuItem>
-                                    <MenuItem value="中份">中辣</MenuItem>
-                                    <MenuItem value="小份">重辣</MenuItem>
+                                    <MenuItem value="不辣">不辣</MenuItem>
+                                    <MenuItem value="微辣">微辣</MenuItem>
+                                    <MenuItem value="中辣">中辣</MenuItem>
+                                    <MenuItem value="重辣">重辣</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
