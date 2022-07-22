@@ -59,7 +59,7 @@ return [
 ]
 }
 
-const Plus=(props)=>{
+export const Plus=(props)=>{
      return(
       <SvgIcon >
   <path fill="currentColor" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
@@ -67,7 +67,7 @@ const Plus=(props)=>{
    
      
 }
-const Minus=(props)=>{
+export const Minus=(props)=>{
   return(
     props.ordernum>0 &&
   <SvgIcon >
@@ -104,8 +104,7 @@ class MainPanel extends React.Component<any,any>{
 <Box sx={{minWidth:100}}>
  <Grid container spacing={1}> 
     {
-        this.state.dishes.map((dish,index)=>
-         
+      this.state.dishes.map((dish,index)=>
       <Grid item xs={4} key={index}>
         <Card sx={{ minWidth:320 }} >
       <CardMedia
