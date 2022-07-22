@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import DishInfo from '../../src/components/DishInfo/index'
 
 interface DishProps{
     dishname:string;
@@ -152,6 +152,7 @@ class MainPanel extends React.Component<any,any>{
      )
     }
     </Grid> 
+    <DishInfo />
     </Box>
 
 
