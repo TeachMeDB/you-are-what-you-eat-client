@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Grid';
 
 
@@ -22,10 +14,16 @@ class DishInfo extends Component {
         dishDescription:"同济4月新来的包菜，味道鲜美，先到先得，这不比牛腩好吃？",
         dishPrice:3.5,
         dishSize:"大份",
+        dishSpicy:"不辣",
     } 
     handleDishSizeChange = (event) => {
         this.setState({
             dishSize: event.target.value
+        });
+    }
+    handleDishSpicyChange = (event) => {
+        this.setState({
+            dishSpicy: event.target.value
         });
     }
 
@@ -78,20 +76,21 @@ class DishInfo extends Component {
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                                <InputLabel htmlFor="dish-size">大小</InputLabel>
+                                <InputLabel htmlFor="dish-spicy">辣度</InputLabel>
                                 <Select
                                     // autoFocus
-                                    value={this.state.dishSize}
-                                    onChange={this.handleDishSizeChange}
-                                    label="dishSize"
+                                    value={this.state.dishSpicy}
+                                    onChange={this.handleDishSpicyChange}
+                                    label="dishSpicy"
                                     inputProps={{
-                                    name: 'dish-size',
-                                    id: 'dish-size',
+                                    name: 'dish-spicy',
+                                    id: 'dish-spicy',
                                     }}
                                 >
-                                    <MenuItem value="大份">大份</MenuItem>
-                                    <MenuItem value="中份">中份</MenuItem>
-                                    <MenuItem value="小份">小份</MenuItem>
+                                    <MenuItem value="大份">不辣</MenuItem>
+                                    <MenuItem value="大份">微辣</MenuItem>
+                                    <MenuItem value="中份">中辣</MenuItem>
+                                    <MenuItem value="小份">重辣</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

@@ -10,6 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DishInfo from '../../src/components/DishInfo/index'
+import MaxWidthDialog from '../../src/components/DishInfoDialog/index'
 
 interface DishProps{
     dishname:string;
@@ -152,7 +153,8 @@ class MainPanel extends React.Component<any,any>{
      )
     }
     </Grid> 
-    <DishInfo />
+
+    <MaxWidthDialog />
     </Box>
 
 
