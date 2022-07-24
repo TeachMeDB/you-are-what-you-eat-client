@@ -93,7 +93,7 @@ function AccountBalance() {
           enabled: true,
           top: 1,
           left: 1,
-          blur: 1,
+          // blur: 1,
           color: theme.colors.alpha.black[70],
           opacity: 0.5
         }
@@ -102,7 +102,7 @@ function AccountBalance() {
         enabled: true,
         top: 1,
         left: 1,
-        blur: 1,
+        // blur: 1,
         color: theme.colors.alpha.black[50],
         opacity: 0.5
       }
