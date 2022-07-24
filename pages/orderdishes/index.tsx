@@ -1,7 +1,7 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
 import {Grid,Box,Stack, ButtonBase, SvgIcon } from '@mui/material';
-
+import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -17,6 +17,7 @@ interface DishProps{
     picture:string;
     price:number;
     ordernum:number;
+    rate:number;
 }
 
 const InitialDish=():Array<DishProps>=>{
@@ -25,85 +26,99 @@ return [
         dishname:"清炒土豆丝",
         price:9,
         picture:"/static/images/status/potato.png",
-        ordernum:1
+        ordernum:1,
+        rate:4.7
     },
     {
         dishname:"番茄炒蛋",
         price:5.5,
         picture:"/static/images/status/tomato.png",
-        ordernum:1
+        ordernum:1,
+        rate:4.6
     },
     {
         dishname:"炒洋葱",
         price:100.01,
         picture:"/static/images/status/onion.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.3
     },
     {
         dishname:"歪比巴卜",
         price:40,
         picture:"/static/images/status/dave.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.9
     },
     {
         dishname:"歪比巴卜",
         price:51,
         picture:"/static/images/status/xrk.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.0
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:3.9
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/wdss.png",
-        ordernum:0
+        ordernum:0,
+        rate:4.7
     }
 ]
 }
@@ -165,9 +180,25 @@ class MainPanel extends React.Component<any,any>{
       />
       <CardContent>
         
+        <Grid container spacing={1}>
+        <Grid item xs={9}>
         <Typography gutterBottom variant="h5" component="div">
           {dish.dishname}
         </Typography>
+        </Grid>
+
+        <Grid item xs={3}>
+          <Stack direction="row">
+       <Box >
+       <SvgIcon fontSize="small">
+         <path fill="#FFD700" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+       </SvgIcon></Box>
+        <Typography variant="body2" color="#9C9C9C" >
+         &nbsp;&nbsp;{dish.rate.toFixed(1)}
+        </Typography>
+        </Stack>
+        </Grid>
+        </Grid>
 
         <Typography variant="body2" color="text.secondary">
         {dish.price} 元/份
