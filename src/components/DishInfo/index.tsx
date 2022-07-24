@@ -5,6 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 
 class DishInfo extends Component {
@@ -15,6 +16,7 @@ class DishInfo extends Component {
         dishPrice:3.5,
         dishSize:"大份",
         dishSpicy:"不辣",
+        dishScore:4.9,
     } 
     handleDishSizeChange = (event) => {
         this.setState({
@@ -36,7 +38,17 @@ class DishInfo extends Component {
                     style={this.getImgStyles()}
                 />
                 <div>
-                    <h2>{this.state.dishName}</h2>
+                <Grid container spacing={2}>
+                    <Grid item xs={9}>
+                        <h2>{this.state.dishName}</h2>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <StarRateIcon sx={{ mt: 2.2,color: '#c869a4' }}/>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <h2 style={{fontWeight:'500',color:'#c869a4'}}>{this.state.dishScore}</h2>
+                    </Grid>
+                </Grid>
                     <div>
                         <p>{this.state.dishDescription}</p>
                     </div>
