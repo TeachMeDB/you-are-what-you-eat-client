@@ -4,6 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DishInfo from '../DishInfo/index';
+import { Typography } from '@mui/material';
 
 export default function MaxWidthDialog() {
   const [open, setOpen] = React.useState(false);
@@ -21,8 +22,8 @@ export default function MaxWidthDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        查看详情
+      <Button variant="text" size="small" onClick={handleClickOpen}>
+        <Typography lineHeight={3}  variant="h5">查看详情</Typography>
       </Button>
       <Dialog
         fullWidth={fullWidth}

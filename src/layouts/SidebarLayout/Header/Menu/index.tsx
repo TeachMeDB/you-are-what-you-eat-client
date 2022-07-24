@@ -164,11 +164,18 @@ class NewList extends React.Component<any,any>{
        <List>  
           <ListItem>
           <Grid container spacing={0}>
-           <Grid item xs={8}>
+           <Grid item xs={6}>
             <Typography variant="body1" color="#123456"  lineHeight={3}>
             {dish.dishname}
             </Typography>
             </Grid>
+
+          <Grid item xs={2}>
+          <Typography variant="body1" color="red"  lineHeight={3}>
+        ￥{dish.price*dish.ordernum}
+       </Typography>
+          </Grid>
+
             <Grid item xs={4}>
            
             <Grid container spacing={0} >

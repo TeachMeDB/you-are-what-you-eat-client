@@ -56,6 +56,54 @@ return [
         price:13238936,
         picture:"/static/images/status/wdss.png",
         ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
+    },
+    {
+        dishname:"歪比巴卜",
+        price:13238936,
+        picture:"/static/images/status/wdss.png",
+        ordernum:0
     }
 ]
 }
