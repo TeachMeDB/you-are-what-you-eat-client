@@ -29,6 +29,7 @@ export default function MaxWidthDialog() {
         maxWidth={maxWidth}
         open={open}
         onClose={handleClose}
+        scroll="body"
       >
         <DialogContent>
           <DishInfo />
