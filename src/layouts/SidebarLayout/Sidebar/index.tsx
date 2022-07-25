@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import Scrollbar from 'src/components/Scrollbar';
 import { SidebarContext } from 'src/contexts/SidebarContext';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import {
   Box,
@@ -36,6 +37,7 @@ function Sidebar() {
 
   return (
     <>
+
       <SidebarWrapper
         sx={{
           display: {
@@ -49,8 +51,8 @@ function Sidebar() {
             theme.palette.mode === 'dark'
               ? alpha(lighten(theme.header.background, 0.1), 0.5)
               : darken(theme.colors.alpha.black[100], 0.5),
-          boxShadow:
-            theme.palette.mode === 'dark' ? theme.sidebar.boxShadow : 'none'
+          // boxShadow:
+            // theme.palette.mode === 'dark' ? theme.sidebar.boxShadow : 'none'
         }}
       >
         <Scrollbar>
@@ -78,7 +80,7 @@ function Sidebar() {
             background: theme.colors.alpha.trueWhite[10]
           }}
         />
-        <Box p={2}>
+        <Box >
           <Button
             href="https://bloomui.com"
             target="_blank"
@@ -87,14 +89,22 @@ function Sidebar() {
             color="success"
             size="small"
             fullWidth
+            style={{
+              borderRadius:'0',
+              height:'50px',
+              backgroundColor:'#b3293e',
+              fontSize:'20px',
+              fontWeight:'500'
+            }}
           >
-            Upgrade to PRO
+            <ShoppingCartIcon style={{marginRight:'5px'}}/>
+            点击下单
           </Button>
         </Box>
       </SidebarWrapper>
       <Drawer
         sx={{
-          boxShadow: `${theme.sidebar.boxShadow}`
+          // boxShadow: `${theme.sidebar.boxShadow}`
         }}
         anchor={theme.direction === 'rtl' ? 'right' : 'left'}
         open={sidebarToggle}
@@ -132,6 +142,7 @@ function Sidebar() {
           </Scrollbar>
         </SidebarWrapper>
       </Drawer>
+
     </>
   );
 }
