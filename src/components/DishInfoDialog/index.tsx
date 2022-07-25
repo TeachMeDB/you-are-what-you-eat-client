@@ -5,6 +5,34 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DishInfo from '../DishInfo/index';
 import { Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#98313e",
+    },
+  },
+});
+declare module '@mui/material/styles' {
+  interface Theme {
+    palette: {
+      primary: {
+        main:string;
+      }
+    };
+  }
+
+  interface ThemeOptions {
+    palette?: {
+      primary?: {
+        main?:string;
+      }
+    };
+  }
+}
+
 
 export default function MaxWidthDialog() {
   const [open, setOpen] = React.useState(false);
@@ -22,9 +50,10 @@ export default function MaxWidthDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="text" size="small" onClick={handleClickOpen}>
+       <ThemeProvider theme={theme}>
+      <Button variant="text" size="small"  onClick={handleClickOpen}>
         <Typography lineHeight={3}  variant="h5">查看详情</Typography>
-      </Button>
+      </Button> 
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
@@ -42,6 +71,7 @@ export default function MaxWidthDialog() {
           >确定</Button>
         </DialogActions>
       </Dialog>
+       </ThemeProvider>
     </React.Fragment>
   );
 }
