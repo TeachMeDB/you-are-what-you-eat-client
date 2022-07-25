@@ -13,6 +13,10 @@ import DishInfo from '../../src/components/DishInfo/index'
 import MaxWidthDialog from '../../src/components/DishInfoDialog/index'
 import StarIcon from '@mui/icons-material/Star';
 import TextField from '@mui/material/TextField';
+import NextLink from 'next/link';
+import { useContext } from 'react';
+import { SidebarContext } from '@/contexts/SidebarContext';
+
 interface FinalDishProps{
     dishname:string;
     rate:number;
@@ -55,16 +59,16 @@ function Promt(props){
     );
 }
 const labels: { [index: string]: string } = {
-    0.5: 'Useless',
-    1: 'Useless+',
-    1.5: 'Poor',
-    2: 'Poor+',
-    2.5: 'Ok',
-    3: 'Ok+',
-    3.5: 'Good',
-    4: 'Good+',
-    4.5: 'Excellent',
-    5: 'Excellent+',
+    0.5: '极差',
+    1: '很差',
+    1.5: '差',
+    2: '比较差',
+    2.5: '有点差',
+    3: '一般',
+    3.5: '还好',
+    4: '不错',
+    4.5: '好',
+    5: '非常好',
   };
   
   function getLabelText(value: number) {
@@ -86,21 +90,48 @@ const RightArrow=()=>{
 </SvgIcon>
     );
 }
+const dishes=FinalDish();
+function DishCard(props){
+  if(props.index <= props.maxIndex){
+    console.log(props.index);
+    console.log(props.maxIndex);
+  return(
+    <Card sx={{ maxWidth: 345 }} >
+    <CardActionArea>
+      <CardMedia
+        component="img"
+        height={190}
+        image={dishes[props.index].picture}
+        alt="dishpic"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {dishes[props.index].dishname}
+        </Typography>
+          </CardContent>
+            </CardActionArea>
+           </Card>
 
-
+  );}
+  else
+  {
+    console.log("123");
+    return <img src="/static/images/status/service.png"/>
+  }
+}
 function Ratepanel() {
-   let dishes=FinalDish();
+  
    let maxIndex=dishes.length-1;
    //let index=0;
-   let dishend=0;
-   const [value, setValue] = React.useState<number | null>(2);
+   const [dishend,setDishend]=React.useState<number | null>(0);
+   const [value, setValue] = React.useState<number | null>(5);
    const [hover, setHover] = React.useState(-1);
    let [index,setIdx]=React.useState<number|null>(0);
         return(
         <Paper
         sx={{height:'100%',textAlign:'center' }}>
             <Container>
-            <p>&nbsp;</p>
+            <p>&nbsp;</p><p>&nbsp;</p>
             <Promt dishend={dishend}/>
             <p>&nbsp;</p>
             <Grid container spacing={10}>
@@ -109,33 +140,21 @@ function Ratepanel() {
                      onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
                         index--;
                         if(index>=0) setIdx(index);
+                        if(index<=maxIndex)setDishend(0);
                         else index++;
                         }}><LeftArrow/></Button></Grid>
                 <Grid item xs={4}>
-            <Card sx={{ maxWidth: 345 }} >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height={190}
-          image={dishes[index].picture}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {dishes[index].dishname}
-          </Typography>
-            </CardContent>
-              </CardActionArea>
-             </Card>
+              <DishCard index={index} maxIndex={maxIndex}/>
              </Grid>
              <Grid item xs={4}>
-                    <Button size="large"
+                     <Button size="large"
             onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
             index++;
             if(index<=maxIndex) setIdx(index);
-            else {index--;}
+            else {index=maxIndex+1;setIdx(maxIndex+1);setDishend(1);}
             }}
-                    ><RightArrow/></Button></Grid>
+                    ><RightArrow/></Button>
+                    </Grid>
              </Grid>
              <p>&nbsp;</p>
           
@@ -153,7 +172,7 @@ function Ratepanel() {
   }}
   emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}/>
   {value !== null && (
-        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+        <Box sx={{ ml: 0 }}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
 <Grid container spacing={0}>
 <Grid item xs={4}>
@@ -170,7 +189,7 @@ function Ratepanel() {
           variant="standard"
         /></Grid>
         <Grid item xs={4}>
-            <p></p>
+            <p>&nbsp;</p>
         </Grid>
         
         </Grid>
