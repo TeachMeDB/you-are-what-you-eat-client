@@ -44,79 +44,79 @@ return [
         rate:4.3
     },
     {
-        dishname:"歪比巴卜",
+        dishname:"北京烤鸭",
         price:40,
-        picture:"/static/images/status/dave.png",
+        picture:"/static/images/status/duck.jpg",
         ordernum:0,
         rate:4.9
     },
     {
-        dishname:"歪比巴卜",
+        dishname:"干锅花菜",
         price:51,
-        picture:"/static/images/status/xrk.png",
+        picture:"/static/images/status/broc.jpg",
         ordernum:0,
         rate:4.0
     },
     {
-        dishname:"歪比巴卜",
+        dishname:"土豆牛肉",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/beef.jpg",
         ordernum:0,
         rate:3.9
     },
     {
-        dishname:"歪比巴卜",
+        dishname:"新疆羊肉串",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/muttonchuan.jpg",
+        ordernum:0,
+        rate:4.7
+    },
+    {
+        dishname:"鱼豆腐",
+        price:13238936,
+        picture:"/static/images/status/tofu.png",
+        ordernum:0,
+        rate:4.7
+    },
+    {
+        dishname:"虾仁粉丝煲",
+        price:13238936,
+        picture:"/static/images/status/fans.jpg",
         ordernum:0,
         rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/tomato.png",
         ordernum:0,
         rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/potato.png",
         ordernum:0,
         rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/onion.png",
         ordernum:0,
         rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/broc.jpg",
         ordernum:0,
         rate:4.7
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
-        picture:"/static/images/status/wdss.png",
-        ordernum:0,
-        rate:4.7
-    },
-    {
-        dishname:"歪比巴卜",
-        price:13238936,
-        picture:"/static/images/status/wdss.png",
-        ordernum:0,
-        rate:4.7
-    },
-    {
-        dishname:"歪比巴卜",
-        price:13238936,
-        picture:"/static/images/status/wdss.png",
+        picture:"/static/images/status/tofu.png",
         ordernum:0,
         rate:4.7
     }
@@ -141,7 +141,7 @@ export const Minus=(props)=>{
 }
 
 class MainPanel extends React.Component<any,any>{
- //  dishes:Array<DishProps>= InitialDish();
+
    constructor(props){
     super(props);
     this.state={dishes:InitialDish()};
