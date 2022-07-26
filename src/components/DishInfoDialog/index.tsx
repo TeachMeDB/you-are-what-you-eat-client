@@ -64,9 +64,14 @@ export default function MaxWidthDialog() {
         <DialogContent>
           <DishInfo />
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{padding:'0'}}>
           <Button 
-            style={{width:"100%",backgroundColor:"#f2d632"}}
+            style={{
+              width:"100%",
+              backgroundColor:"#98313e",
+              color:'white',
+              borderRadius:'0',
+            }}
             onClick={handleClose}
           >确定</Button>
         </DialogActions>

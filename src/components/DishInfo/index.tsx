@@ -43,10 +43,10 @@ class DishInfo extends Component {
                         <h2>{this.state.dishName}</h2>
                     </Grid>
                     <Grid item xs={1}>
-                        <StarRateIcon sx={{ mt: 2.2,color: '#c869a4' }}/>
+                        <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
                     </Grid>
                     <Grid item xs={2}>
-                        <h2 style={{fontWeight:'500',color:'#c869a4'}}>{this.state.dishScore}</h2>
+                        <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.state.dishScore}</h2>
                     </Grid>
                 </Grid>
                     <div>
@@ -124,7 +124,7 @@ class DishInfo extends Component {
     }
     getPriceStyles() {
         let styles = {
-            color:"red",
+            color:"#98313e",
             fontSize: "24px",
 
         }
