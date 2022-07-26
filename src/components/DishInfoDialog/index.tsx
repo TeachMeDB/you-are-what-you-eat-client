@@ -34,7 +34,7 @@ declare module '@mui/material/styles' {
 }
 
 
-export default function MaxWidthDialog() {
+export default function DishInfoDialog() {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('xs');

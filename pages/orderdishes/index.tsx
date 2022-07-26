@@ -10,7 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DishInfo from '../../src/components/DishInfo/index'
-import MaxWidthDialog from '../../src/components/DishInfoDialog/index'
+import DishInfoDialog from '../../src/components/DishInfoDialog/index'
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -189,6 +189,7 @@ class MainPanel extends React.Component<any,any>{
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                     aria-label={`info about ${item.dishname}`}
                   >
+                    <DishInfoDialog />
                     <InfoIcon />
                   </IconButton>
                 }
@@ -262,7 +263,7 @@ class MainPanel extends React.Component<any,any>{
 //           </CardActions>
 //         </Grid>
 //         <Grid item xs={4}>
-//           <MaxWidthDialog />
+//           <DishInfoDialog />
 //         </Grid>
 //       </Grid>
       
