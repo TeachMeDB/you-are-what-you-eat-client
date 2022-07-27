@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -17,6 +17,15 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import InfoIcon from '@mui/icons-material/Info';
+
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import { AddShoppingCart } from '@mui/icons-material';
+import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
+
 
 interface DishProps{
     dishname:string;
@@ -171,6 +180,7 @@ class MainPanel extends React.Component<any,any>{
 
     render(){
       return(
+        <>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
@@ -197,6 +207,8 @@ class MainPanel extends React.Component<any,any>{
             </ImageListItem>
           ))}
         </ImageList>
+        <ShoppingCartFab/>
+        </>
       )
 
 //         return(

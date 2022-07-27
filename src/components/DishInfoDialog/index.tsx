@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DishInfo from '../DishInfo/index';
 import { Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
+
 
 const theme = createTheme({
   palette: {
