@@ -141,7 +141,7 @@ class NewList extends React.Component<any,any>{
 
    render(){
     return(
-        <div>{
+        <>{
         this.state.dishes.map((dish,index)=>
        <List>  
           <ListItem>
@@ -159,7 +159,6 @@ class NewList extends React.Component<any,any>{
           </Grid>
 
             <Grid item xs={4}>
-           
             <Grid container spacing={0} >
         <Grid item xs={6}>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
@@ -183,16 +182,10 @@ class NewList extends React.Component<any,any>{
             </Grid>
             </Grid>
           </ListItem>
-        <Divider />
+        {/* <Divider /> */}
         </List>
       )}
-      <Grid container spacing={0}>
-      <Grid item xs={9}>&nbsp;</Grid>
-      <Grid item xs={3}>
-         <Button variant="outlined" size="small">下单</Button>
-      </Grid>
-      </Grid>
-    </div>
+    </>
     );
   }
 }
@@ -218,16 +211,13 @@ function ShoppingCartFab(){
   return(
     <React.Fragment>
       <ThemeProvider theme={theme}>
-      
-      <Button variant="outlined" size="small" >sjsjsjeifsj</Button>
        <Box sx={{ '& > :not(style)': { m: 1 } }}>
       <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} ref={ref} onClick={handleOpen}>
         {fab.icon} 
       </Fab>
     </Box>
     
-    <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen} >
-
+    <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
       <Box sx={{ borderBottom: 0, borderColor: 0, width:320}}>
         <Tabs value={value}
               onChange={handleChange} 
@@ -240,6 +230,14 @@ function ShoppingCartFab(){
       </Box>
       <TabPanel value={value} index={0}>
        <NewList/>
+       <Button 
+          style={{
+            width:"100%",
+            backgroundColor:"#98313e",
+            color:"white",
+            borderRadius:"0"
+          }}>
+       下单</Button>
        </TabPanel>
       <TabPanel value={value} index={1} >
         <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
