@@ -34,13 +34,14 @@ declare module '@mui/material/styles' {
 }
 
 
-export default function DishInfoDialog() {
+export default function DishInfoDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('xs');
 
   const handleClickOpen = () => {
     setOpen(true);
+    console.log(props);
   };
 
   const handleClose = () => {
@@ -59,8 +60,13 @@ export default function DishInfoDialog() {
         onClose={handleClose}
         scroll="body"
       >
-        <DialogContent>
-          <DishInfo />
+        <DialogContent style={{padding: '0'}}>
+          <DishInfo 
+            dish={props.dish}
+            handleClickPlus={props.hdPlus}
+            handleClickMinus={props.hdMinus}
+            index={props.index}
+          />
         </DialogContent>
         <DialogActions style={{padding:'0'}}>
           <Button 
