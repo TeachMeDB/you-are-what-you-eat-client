@@ -36,6 +36,7 @@ declare module '@mui/material/styles' {
 interface NewDishProps{
   dishname:string;
   price:number;
+  picture:string;
   ordernum:number;
 }
 
@@ -50,18 +51,57 @@ const InitNewDish=():Array<NewDishProps>=>{
       {
           dishname:"清炒土豆丝",
           price:9,
+          picture:"/static/images/status/potato.png",
           ordernum:1
       },
       {
           dishname:"番茄炒蛋",
           price:5.5,
+          picture:"/static/images/status/tomato.png",
           ordernum:1
       },
       {
           dishname:"虾仁粉丝煲",
           price:25.5,
+          picture:"/static/images/status/fans.jpg",
           ordernum:2
-      }
+      } ,
+      {
+        dishname:"炒洋葱",
+        price:48,
+        picture:"/static/images/status/onion.png",
+        ordernum:1
+    },
+    {
+        dishname:"北京烤鸭",
+        price:40,
+        picture:"/static/images/status/duck.jpg",
+        ordernum:1
+    },
+    {
+        dishname:"干锅花菜",
+        price:51,
+        picture:"/static/images/status/broc.jpg",
+        ordernum:1
+    },
+    {
+        dishname:"土豆牛肉",
+        price:50,
+        picture:"/static/images/status/beef.jpg",
+        ordernum:1
+    },
+    {
+        dishname:"新疆羊肉串",
+        price:38,
+        picture:"/static/images/status/muttonchuan.jpg",
+        ordernum:1
+    },
+    {
+        dishname:"鱼豆腐",
+        price:20.5,
+        picture:"/static/images/status/tofu.png",
+        ordernum:1
+    },
     ]
   }
 
@@ -146,32 +186,43 @@ class NewList extends React.Component<any,any>{
        <List>  
           <ListItem>
           <Grid container spacing={0}>
+          <Grid item xs={2.5}> 
+          <img src= {dish.picture} width={60} height={60}
+               style={{borderRadius:10}} />
+            </Grid>
            <Grid item xs={6}>
-            <Typography variant="body1" color="#123456"  lineHeight={3}>
+            <Typography variant="body1" color="#123456"  lineHeight={2}>
             {dish.dishname}
             </Typography>
-            </Grid>
-
-          <Grid item xs={2}>
-          <Typography variant="body1" color="red"  lineHeight={3}>
+            <Typography variant="body1" color="red"  >
         ￥{dish.price*dish.ordernum}
        </Typography>
-          </Grid>
+            </Grid>
 
-            <Grid item xs={4}>
+
+            <Grid item xs={3}>
             <Grid container spacing={0} >
         <Grid item xs={6}>
+        <Typography variant="body1" lineHeight={1.3}>
+            &nbsp;
+            </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
        this.handleClickMinus(index);}}>
           <Minus ordernum={dish.ordernum}/>
           </IconButton> 
          </Grid>
          <Grid  item xs={2}>
-         <Typography variant="body1" color="#123456"  lineHeight={3}>
+         <Typography variant="body1" lineHeight={1.3}>
+            &nbsp;
+            </Typography>
+         <Typography variant="body1" color="#123456"  lineHeight={2.5}>
         {dish.ordernum>0?dish.ordernum:"  "}
        </Typography>
        </Grid>
        <Grid  item xs={4}>
+       <Typography variant="body1" lineHeight={1.3}>
+            &nbsp;
+            </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
        this.handleClickPlus(index);
        }}>
@@ -218,7 +269,7 @@ function ShoppingCartFab(){
     </Box>
     
     <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
-      <Box sx={{ borderBottom: 0, borderColor: 0, width:320}}>
+      <Box sx={{ borderBottom: 0, borderColor: 0, width:400}}>
         <Tabs value={value}
               onChange={handleChange} 
               aria-label="basic tabs example"
