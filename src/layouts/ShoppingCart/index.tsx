@@ -154,6 +154,11 @@ function a11yProps(index: number) {
   };
 }
 
+Array.prototype.deleteIndex = function(index){
+  return this.slice(0,index).concat(this.slice(parseInt(index,10)+1));
+}
+
+
 
 class NewList extends React.Component<any,any>{
     
@@ -175,12 +180,19 @@ class NewList extends React.Component<any,any>{
         this.setState(function(state){
             if(this.state.dishes[index].ordernum>=1)
                 this.state.dishes[index].ordernum--;
-            else{}//删除
+            if(this.state.dishes[index].ordernum<=0)
+                this.state.dishes.splice(index,1);
             return{dishes:state.dishes};
         });
       }  
 
    render(){
+    console.log(this.state.dishes.length);
+    if(this.state.dishes.length<=0)
+    return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
+    暂无</Typography>);
+
+    else
     return(
         <>{
         this.state.dishes.map((dish,index)=>
@@ -237,6 +249,14 @@ class NewList extends React.Component<any,any>{
         {/* <Divider /> */}
         </List>)
       )}
+       <Button 
+          style={{
+            width:"100%",
+            backgroundColor:"#98313e",
+            color:"white",
+            borderRadius:"0"
+          }}>
+       下单</Button>
     </>
     );
   }
@@ -282,14 +302,7 @@ function ShoppingCartFab(){
       </Box>
       <TabPanel value={value} index={0}>
        <NewList/>
-       <Button 
-          style={{
-            width:"100%",
-            backgroundColor:"#98313e",
-            color:"white",
-            borderRadius:"0"
-          }}>
-       下单</Button>
+      
        </TabPanel>
       <TabPanel value={value} index={1} >
      <OrderList/>
