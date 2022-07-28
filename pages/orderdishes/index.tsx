@@ -56,7 +56,7 @@ return [
     },
     {
         dishname:"炒洋葱",
-        price:100.01,
+        price:10,
         picture:"/static/images/status/onion.png",
         ordernum:0,
         rate:4.3,
@@ -64,9 +64,9 @@ return [
     },
     {
         dishname:"北京烤鸭",
-        price:40,
+        price:106,
         picture:"/static/images/status/duck.jpg",
-        ordernum:0,
+        ordernum:1,
         rate:4.9,
         description:"正宗烤鸭，现烤现卖"
     },
@@ -74,29 +74,29 @@ return [
         dishname:"干锅花菜",
         price:51,
         picture:"/static/images/status/broc.jpg",
-        ordernum:0,
+        ordernum:1,
         rate:4.0,
         description:"烈火中盛开的...花菜"
     },
     {
         dishname:"土豆牛肉",
-        price:13238936,
+        price:40,
         picture:"/static/images/status/beef.jpg",
-        ordernum:0,
+        ordernum:1,
         rate:3.9,
         description:"简单的做法，极致的美味"
     },
     {
         dishname:"新疆羊肉串",
-        price:13238936,
+        price:30,
         picture:"/static/images/status/muttonchuan.jpg",
-        ordernum:0,
+        ordernum:1,
         rate:4.7,
         description:"简单的做法，极致的美味"
     },
     {
         dishname:"鱼豆腐",
-        price:13238936,
+        price:20,
         picture:"/static/images/status/tofu.png",
         ordernum:0,
         rate:4.7,
@@ -104,7 +104,7 @@ return [
     },
     {
         dishname:"虾仁粉丝煲",
-        price:13238936,
+        price:60,
         picture:"/static/images/status/fans.jpg",
         ordernum:0,
         rate:4.7,
@@ -112,7 +112,7 @@ return [
     },
     {
         dishname:"歪比巴卜",
-        price:13238936,
+        price:20,
         picture:"/static/images/status/tomato.png",
         ordernum:0,
         rate:4.7,
@@ -120,7 +120,7 @@ return [
     },
     {
         dishname:"歪比巴卜",
-        price:13238936,
+        price:97,
         picture:"/static/images/status/potato.png",
         ordernum:0,
         rate:4.7,
@@ -224,7 +224,7 @@ class MainPanel extends React.Component<any,any>{
                       hdMinus={this.handleClickMinus}
                       index={index}
                     />
-                    <InfoIcon />
+                    {/* <InfoIcon /> */}
                   </IconButton>
                 }
               />

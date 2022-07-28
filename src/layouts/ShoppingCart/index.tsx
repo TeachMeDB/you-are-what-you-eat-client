@@ -173,7 +173,7 @@ class NewList extends React.Component<any,any>{
   
       handleClickMinus(index:number){
         this.setState(function(state){
-            if(this.state.dishes[index].ordernum>1)
+            if(this.state.dishes[index].ordernum>=1)
                 this.state.dishes[index].ordernum--;
             else{}//删除
             return{dishes:state.dishes};
@@ -184,7 +184,7 @@ class NewList extends React.Component<any,any>{
     return(
         <>{
         this.state.dishes.map((dish,index)=>
-       <List>  
+       dish.ordernum>0&&(<List>  
           <ListItem>
           <Grid container spacing={0}>
           <Grid item xs={2.5}> 
@@ -235,7 +235,7 @@ class NewList extends React.Component<any,any>{
             </Grid>
           </ListItem>
         {/* <Divider /> */}
-        </List>
+        </List>)
       )}
     </>
     );

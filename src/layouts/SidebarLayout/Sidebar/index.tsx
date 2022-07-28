@@ -80,7 +80,7 @@ function Sidebar() {
             background: theme.colors.alpha.trueWhite[10]
           }}
         />
-        <Box >
+        {/* <Box >
           <Button
             href="https://bloomui.com"
             target="_blank"
@@ -100,7 +100,7 @@ function Sidebar() {
             <ShoppingCartIcon style={{marginRight:'5px'}}/>
             点击下单
           </Button>
-        </Box>
+        </Box> */}
       </SidebarWrapper>
       <Drawer
         sx={{
