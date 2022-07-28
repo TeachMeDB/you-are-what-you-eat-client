@@ -13,6 +13,9 @@ const theme = createTheme({
     primary: {
       main: "#98313e",
     },
+    secondary:{
+      main:"rgba(255, 255, 255, 0.74)"
+    }
   },
 });
 declare module '@mui/material/styles' {
@@ -51,7 +54,8 @@ export default function DishInfoDialog() {
   return (
     <React.Fragment>
        <ThemeProvider theme={theme}>
-      <InfoIcon onClick={handleClickOpen}/>
+        <Button color="secondary" variant="outlined" onClick={handleClickOpen}>选规格</Button>
+      {/* <InfoIcon /> */}
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}

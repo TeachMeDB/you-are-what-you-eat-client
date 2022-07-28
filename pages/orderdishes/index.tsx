@@ -33,6 +33,7 @@ interface DishProps{
     price:number;
     ordernum:number;
     rate:number;
+    description:string;
 }
 
 const InitialDish=():Array<DishProps>=>{
@@ -42,98 +43,112 @@ return [
         price:9,
         picture:"/static/images/status/potato.png",
         ordernum:1,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"番茄炒蛋",
         price:5.5,
         picture:"/static/images/status/tomato.png",
         ordernum:1,
-        rate:4.6
+        rate:4.6,
+        description:"有点甜"
     },
     {
         dishname:"炒洋葱",
         price:100.01,
         picture:"/static/images/status/onion.png",
         ordernum:0,
-        rate:4.3
+        rate:4.3,
+        description:"让人眼前一亮"
     },
     {
         dishname:"北京烤鸭",
         price:40,
         picture:"/static/images/status/duck.jpg",
         ordernum:0,
-        rate:4.9
+        rate:4.9,
+        description:"正宗烤鸭，现烤现卖"
     },
     {
         dishname:"干锅花菜",
         price:51,
         picture:"/static/images/status/broc.jpg",
         ordernum:0,
-        rate:4.0
+        rate:4.0,
+        description:"烈火中盛开的...花菜"
     },
     {
         dishname:"土豆牛肉",
         price:13238936,
         picture:"/static/images/status/beef.jpg",
         ordernum:0,
-        rate:3.9
+        rate:3.9,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"新疆羊肉串",
         price:13238936,
         picture:"/static/images/status/muttonchuan.jpg",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"鱼豆腐",
         price:13238936,
         picture:"/static/images/status/tofu.png",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"虾仁粉丝煲",
         price:13238936,
         picture:"/static/images/status/fans.jpg",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/tomato.png",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/potato.png",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/onion.png",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/broc.jpg",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     },
     {
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/tofu.png",
         ordernum:0,
-        rate:4.7
+        rate:4.7,
+        description:"简单的做法，极致的美味"
     }
 ]
 }
@@ -193,8 +208,11 @@ class MainPanel extends React.Component<any,any>{
                 loading="lazy"
               />
               <ImageListItemBar
-                title={item.dishname}
-                subtitle={123243566}
+                title={item.dishname+"\n"}
+                subtitle={item.price+" 元/份"}
+                sx={{
+                  height:100
+                }}
                 actionIcon={
                   <IconButton
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
