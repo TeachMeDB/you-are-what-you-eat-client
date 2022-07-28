@@ -7,6 +7,7 @@ import React, { useRef, useState } from "react";
 import { Minus, Plus } from "pages/orderdishes";
 import { ThemeProvider } from "@mui/material/styles";
 import { useTheme } from '@mui/material/styles';
+import OrderList from "../Order";
 
 const theme = createTheme({
   palette: {
@@ -291,9 +292,7 @@ function ShoppingCartFab(){
        下单</Button>
        </TabPanel>
       <TabPanel value={value} index={1} >
-        <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
-         暂无
-        </Typography>
+     <OrderList/>
       </TabPanel>
       </Menu></ThemeProvider>
       </React.Fragment>

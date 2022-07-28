@@ -194,13 +194,13 @@ class MainPanel extends React.Component<any,any>{
               />
               <ImageListItemBar
                 title={item.dishname}
+                subtitle={123243566}
                 actionIcon={
                   <IconButton
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                     aria-label={`info about ${item.dishname}`}
                   >
                     <DishInfoDialog />
-                    <InfoIcon />
                   </IconButton>
                 }
               />

@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DishInfo from '../DishInfo/index';
 import { Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import InfoIcon from '@mui/icons-material/Info';
 
 const theme = createTheme({
   palette: {
@@ -51,9 +51,7 @@ export default function DishInfoDialog() {
   return (
     <React.Fragment>
        <ThemeProvider theme={theme}>
-      <Button variant="text" size="small"  onClick={handleClickOpen}>
-        <Typography lineHeight={3}  variant="h5">查看详情</Typography>
-      </Button> 
+      <InfoIcon onClick={handleClickOpen}/>
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
