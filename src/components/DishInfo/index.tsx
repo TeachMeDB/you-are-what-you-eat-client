@@ -6,7 +6,31 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import StarRateIcon from '@mui/icons-material/StarRate';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import {Stack, ButtonBase, SvgIcon, SxProps } from '@mui/material';
+import IconButton from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
+
+
+export const Minus=(props)=>{
+    return(
+      props.ordernum>0 &&
+    <SvgIcon >
+    <path fill="#98313e" d="M17,13H7V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+     </SvgIcon>
+     );
+}
+
+export const Plus=(props)=>{
+    return(
+     <SvgIcon >
+ <path fill="#98313e" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+    </SvgIcon>);
+  
+    
+}
 
 class DishInfo extends Component {
     state = { 
@@ -28,33 +52,62 @@ class DishInfo extends Component {
             dishSpicy: event.target.value
         });
     }
-
+    test = () => {
+        console.log(this.props.index)
+        console.log(this.props.dish);
+    }
     render() { 
         return (
             <React.Fragment>
                 <img 
-                    src= {this.state.image}
+                    src= {this.props.dish.picture}
                     alt="" 
                     style={this.getImgStyles()}
                 />
-                <div>
-                <Grid container spacing={2}>
-                    <Grid item xs={9}>
-                        <h2>{this.state.dishName}</h2>
+                <div style={{padding: '0 27px'}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={9}>
+                            <h2>{this.props.dish.dishname}</h2>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.state.dishScore}</h2>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={1}>
-                        <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.state.dishScore}</h2>
-                    </Grid>
-                </Grid>
                     <div>
                         <p>{this.state.dishDescription}</p>
                     </div>
-                    <div>
-                        <p style={this.getPriceStyles()}>¥ {this.state.dishPrice} / 份</p>
-                    </div>
+                    <Grid container spacing={2}>
+                        <Grid item xs={7}>
+                            <div>
+                                <p style={this.getPriceStyles()}>¥ {this.props.dish.price} / 份</p>
+                            </div>
+                        </Grid>
+                        <Grid item xs={5}>
+                            <CardActions sx={{ mt: 1.2}}>
+
+                                <Stack direction="row" >
+                                <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+                                this.props.handleClickMinus(this.props.index);}}>
+                                <Minus ordernum={this.props.dish.ordernum}/>
+                                </IconButton> 
+
+                                <Typography variant="body1" color="#123456"  lineHeight={3}>
+                                {this.props.dish.ordernum>0?this.props.dish.ordernum:"  "}
+                                </Typography>
+                                <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+                                this.props.handleClickPlus(this.props.index);
+                                }}>
+                                <Plus ordernum={this.props.dish.ordernum}/>
+                                </IconButton>
+                                </Stack>
+
+                            </CardActions>
+                        </Grid>
+                    </Grid>
+                    
                 </div>
                 <Box
                     noValidate
@@ -66,7 +119,7 @@ class DishInfo extends Component {
                     width: 'fit-content',
                     }}
                 >
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} style={{marginBottom: '27px'}}>
                         <Grid item xs={6}>
                             <FormControl sx={{ mt: 2, minWidth: 120 }}>
                                 <InputLabel htmlFor="dish-size">大小</InputLabel>
@@ -107,9 +160,10 @@ class DishInfo extends Component {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    
-                    
+                                       
                 </Box>
+                {/* <button onClick={this.test}></button> */}
+                
             </React.Fragment>
         );
     }

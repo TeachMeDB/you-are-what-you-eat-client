@@ -200,7 +200,7 @@ class MainPanel extends React.Component<any,any>{
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
           </ImageListItem> */}
-          {this.state.dishes.map((item) => (
+          {this.state.dishes.map((item,index) => (
             <ImageListItem key={item.picture}>
               <img
                 src={item.picture}
@@ -218,7 +218,13 @@ class MainPanel extends React.Component<any,any>{
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                     aria-label={`info about ${item.dishname}`}
                   >
-                    <DishInfoDialog />
+                    <DishInfoDialog 
+                      dish={item}
+                      hdPlus={this.handleClickPlus}
+                      hdMinus={this.handleClickMinus}
+                      index={index}
+                    />
+                    <InfoIcon />
                   </IconButton>
                 }
               />
@@ -293,7 +299,9 @@ class MainPanel extends React.Component<any,any>{
 //           </CardActions>
 //         </Grid>
 //         <Grid item xs={4}>
-//           <DishInfoDialog />
+//           <DishInfoDialog 
+//             dish={dish}
+//           />
 //         </Grid>
 //       </Grid>
       
