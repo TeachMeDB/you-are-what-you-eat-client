@@ -159,32 +159,13 @@ function a11yProps(index: number) {
 class NewList extends React.Component<any,any>{
     
 
-    // constructor(props){
-    //   super(props);
-    //   this.state={dishes:InitNewDish()};
-    //  this.handleClickPlus=this.handleClickPlus.bind(this);
-    //  this.handleClickMinus=this.handleClickMinus.bind(this);
-    //  }
-    //   handleClickPlus(index:number){
-    //     this.setState(function(state){
-    //         this.state.dishes[index].ordernum++;
-    //         return{dishes:state.dishes};
-    //     });
-    //   }
-  
-    //   handleClickMinus(index:number){
-    //     this.setState(function(state){
-    //         if(this.state.dishes[index].ordernum>=1)
-    //             this.state.dishes[index].ordernum--;
-    //         if(this.state.dishes[index].ordernum<=0)
-    //             this.state.dishes.splice(index,1);
-    //         return{dishes:state.dishes};
-    //     });
-    //   }  
-
    render(){
     console.log(this.props.dishes.length);
-    if(this.props.dishes.length<=0)
+    let empt=true;
+    for(let i=0;i<this.props.dishes.length;i++)
+        if(this.props.dishes[i].ordernum>0){empt=false;break;}
+  
+    if(empt)
     return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
     暂无</Typography>);
 
