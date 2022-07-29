@@ -154,48 +154,44 @@ function a11yProps(index: number) {
   };
 }
 
-Array.prototype.deleteIndex = function(index){
-  return this.slice(0,index).concat(this.slice(parseInt(index,10)+1));
-}
-
 
 
 class NewList extends React.Component<any,any>{
     
 
-    constructor(props){
-      super(props);
-      this.state={dishes:InitNewDish()};
-     this.handleClickPlus=this.handleClickPlus.bind(this);
-     this.handleClickMinus=this.handleClickMinus.bind(this);
-     }
-      handleClickPlus(index:number){
-        this.setState(function(state){
-            this.state.dishes[index].ordernum++;
-            return{dishes:state.dishes};
-        });
-      }
+    // constructor(props){
+    //   super(props);
+    //   this.state={dishes:InitNewDish()};
+    //  this.handleClickPlus=this.handleClickPlus.bind(this);
+    //  this.handleClickMinus=this.handleClickMinus.bind(this);
+    //  }
+    //   handleClickPlus(index:number){
+    //     this.setState(function(state){
+    //         this.state.dishes[index].ordernum++;
+    //         return{dishes:state.dishes};
+    //     });
+    //   }
   
-      handleClickMinus(index:number){
-        this.setState(function(state){
-            if(this.state.dishes[index].ordernum>=1)
-                this.state.dishes[index].ordernum--;
-            if(this.state.dishes[index].ordernum<=0)
-                this.state.dishes.splice(index,1);
-            return{dishes:state.dishes};
-        });
-      }  
+    //   handleClickMinus(index:number){
+    //     this.setState(function(state){
+    //         if(this.state.dishes[index].ordernum>=1)
+    //             this.state.dishes[index].ordernum--;
+    //         if(this.state.dishes[index].ordernum<=0)
+    //             this.state.dishes.splice(index,1);
+    //         return{dishes:state.dishes};
+    //     });
+    //   }  
 
    render(){
-    console.log(this.state.dishes.length);
-    if(this.state.dishes.length<=0)
+    console.log(this.props.dishes.length);
+    if(this.props.dishes.length<=0)
     return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
     暂无</Typography>);
 
     else
     return(
         <>{
-        this.state.dishes.map((dish,index)=>
+        this.props.dishes.map((dish,index)=>
        dish.ordernum>0&&(<List>  
           <ListItem>
           <Grid container spacing={0}>
@@ -220,7 +216,7 @@ class NewList extends React.Component<any,any>{
             &nbsp;
             </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.handleClickMinus(index);}}>
+       this.props.handleClickMinus(index);}}>
           <Minus ordernum={dish.ordernum}/>
           </IconButton> 
          </Grid>
@@ -237,7 +233,7 @@ class NewList extends React.Component<any,any>{
             &nbsp;
             </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.handleClickPlus(index);
+       this.props.handleClickPlus(index);
        }}>
           <Plus ordernum={dish.ordernum}/>
         </IconButton>
@@ -262,7 +258,7 @@ class NewList extends React.Component<any,any>{
   }
 }
 
-function ShoppingCartFab(){
+function ShoppingCartFab(props){
   // const theme=useTheme();
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -301,7 +297,9 @@ function ShoppingCartFab(){
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-       <NewList/>
+       <NewList dishes={props.dishes}
+                handleClickPlus={props.hdPlus}
+                handleClickMinus={props.hdMinus}/>
       
        </TabPanel>
       <TabPanel value={value} index={1} >

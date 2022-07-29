@@ -231,7 +231,9 @@ class MainPanel extends React.Component<any,any>{
             </ImageListItem>
           ))}
         </ImageList>
-        <ShoppingCartFab/>
+        <ShoppingCartFab dishes={this.state.dishes}
+                         hdPlus={this.handleClickPlus}
+                         hdMinus={this.handleClickMinus}/>
         </>
       )
 
