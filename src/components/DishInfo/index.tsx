@@ -40,7 +40,7 @@ class DishInfo extends Component {
         dishPrice:3.5,
         dishSize:"大份",
         dishSpicy:"不辣",
-        dishScore:4.9,
+        dishScore:this.props.dish.rate,
     } 
     handleDishSizeChange = (event) => {
         this.setState({
