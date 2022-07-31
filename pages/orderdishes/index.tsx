@@ -34,6 +34,8 @@ interface DishProps{
     ordernum:number;
     rate:number;
     description:string;
+    dishsize:string;
+    dishspicy:string;
 }
 
 const InitialDish=():Array<DishProps>=>{
@@ -44,7 +46,9 @@ return [
         picture:"/static/images/status/potato.png",
         ordernum:1,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"番茄炒蛋",
@@ -52,7 +56,9 @@ return [
         picture:"/static/images/status/tomato.png",
         ordernum:1,
         rate:4.6,
-        description:"有点甜"
+        description:"有点甜",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"炒洋葱",
@@ -60,7 +66,9 @@ return [
         picture:"/static/images/status/onion.png",
         ordernum:0,
         rate:4.3,
-        description:"让人眼前一亮"
+        description:"让人眼前一亮",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"北京烤鸭",
@@ -68,7 +76,9 @@ return [
         picture:"/static/images/status/duck.jpg",
         ordernum:1,
         rate:4.9,
-        description:"正宗烤鸭，现烤现卖"
+        description:"正宗烤鸭，现烤现卖",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"干锅花菜",
@@ -76,7 +86,9 @@ return [
         picture:"/static/images/status/broc.jpg",
         ordernum:1,
         rate:4.0,
-        description:"烈火中盛开的...花菜"
+        description:"烈火中盛开的...花菜",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"土豆牛肉",
@@ -84,7 +96,9 @@ return [
         picture:"/static/images/status/beef.jpg",
         ordernum:1,
         rate:3.9,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"新疆羊肉串",
@@ -92,7 +106,9 @@ return [
         picture:"/static/images/status/muttonchuan.jpg",
         ordernum:1,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"鱼豆腐",
@@ -100,7 +116,9 @@ return [
         picture:"/static/images/status/tofu.png",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"虾仁粉丝煲",
@@ -108,7 +126,9 @@ return [
         picture:"/static/images/status/fans.jpg",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"歪比巴卜",
@@ -116,7 +136,9 @@ return [
         picture:"/static/images/status/tomato.png",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"歪比巴卜",
@@ -124,7 +146,9 @@ return [
         picture:"/static/images/status/potato.png",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"歪比巴卜",
@@ -132,7 +156,9 @@ return [
         picture:"/static/images/status/onion.png",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"歪比巴卜",
@@ -140,7 +166,9 @@ return [
         picture:"/static/images/status/broc.jpg",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     },
     {
         dishname:"歪比巴卜",
@@ -148,7 +176,9 @@ return [
         picture:"/static/images/status/tofu.png",
         ordernum:0,
         rate:4.7,
-        description:"简单的做法，极致的美味"
+        description:"简单的做法，极致的美味",
+        dishsize:"大份",
+        dishspicy:"不辣",
     }
 ]
 }
@@ -193,6 +223,23 @@ class MainPanel extends React.Component<any,any>{
       });
     }
 
+    handleDishSizeChange = (event,index) => {
+      console.log(event.target.value);
+      const dishes=this.state.dishes;
+      dishes[index].dishsize=event.target.value;
+      this.setState({
+          dishes
+      });
+    }
+    handleDishSpicyChange = (event,index) => {
+      console.log(event.target.value);
+      const dishes=this.state.dishes;
+      dishes[index].dishspicy=event.target.value;
+      this.setState({
+          dishes
+      });
+    }
+
     render(){
       return(
         <>
@@ -223,6 +270,8 @@ class MainPanel extends React.Component<any,any>{
                       hdPlus={this.handleClickPlus}
                       hdMinus={this.handleClickMinus}
                       index={index}
+                      hdSize={this.handleDishSizeChange}
+                      hdSpicy={this.handleDishSpicyChange}
                     />
                     {/* <InfoIcon /> */}
                   </IconButton>

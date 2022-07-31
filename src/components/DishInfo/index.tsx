@@ -33,28 +33,25 @@ export const Plus=(props)=>{
 }
 
 class DishInfo extends Component {
-    state = { 
-        image:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F17f9f8c3ed5c7c96d63956d9fd0bbdcb53b7a33824b93-UBXEZI_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661006558&t=37414eaa22292a44caa613e33e809168",
-        dishName:"美味同济嘉定包菜",
-        dishDescription:"同济4月新来的包菜，味道鲜美，先到先得，这不比牛腩好吃？",
-        dishPrice:3.5,
-        dishSize:"大份",
-        dishSpicy:"不辣",
-        dishScore:this.props.dish.rate,
-    } 
+    // state = { 
+    //     image:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F17f9f8c3ed5c7c96d63956d9fd0bbdcb53b7a33824b93-UBXEZI_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661006558&t=37414eaa22292a44caa613e33e809168",
+    //     dishName:"美味同济嘉定包菜",
+    //     dishDescription:"同济4月新来的包菜，味道鲜美，先到先得，这不比牛腩好吃？",
+    //     dishPrice:3.5,
+    //     dishSize:"大份",
+    //     dishSpicy:"不辣",
+    //     dishScore:this.props.dish.rate,
+    // } 
     handleDishSizeChange = (event) => {
-        this.setState({
-            dishSize: event.target.value
-        });
+        this.props.handleDishSizeChange(event,this.props.index);
     }
     handleDishSpicyChange = (event) => {
-        this.setState({
-            dishSpicy: event.target.value
-        });
+        this.props.handleDishSpicyChange(event,this.props.index);
     }
     test = () => {
-        console.log(this.props.index)
+        console.log(this.props.index);
         console.log(this.props.dish);
+        console.log(this.props);
     }
     render() { 
         return (
@@ -73,11 +70,11 @@ class DishInfo extends Component {
                             <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
                         </Grid>
                         <Grid item xs={2}>
-                            <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.state.dishScore}</h2>
+                            <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.props.dish.rate}</h2>
                         </Grid>
                     </Grid>
                     <div>
-                        <p>{this.state.dishDescription}</p>
+                        <p>{this.props.dish.description}</p>
                     </div>
                     <Grid container spacing={2}>
                         <Grid item xs={7}>
@@ -125,7 +122,7 @@ class DishInfo extends Component {
                                 <InputLabel htmlFor="dish-size">大小</InputLabel>
                                 <Select
                                     // autoFocus
-                                    value={this.state.dishSize}
+                                    value={this.props.dish.dishsize}
                                     onChange={this.handleDishSizeChange}
                                     label="dishSize"
                                     inputProps={{
@@ -144,7 +141,7 @@ class DishInfo extends Component {
                                 <InputLabel htmlFor="dish-spicy">辣度</InputLabel>
                                 <Select
                                     // autoFocus
-                                    value={this.state.dishSpicy}
+                                    value={this.props.dish.dishspicy}
                                     onChange={this.handleDishSpicyChange}
                                     label="dishSpicy"
                                     inputProps={{
@@ -162,7 +159,7 @@ class DishInfo extends Component {
                     </Grid>
                                        
                 </Box>
-                {/* <button onClick={this.test}></button> */}
+                <button onClick={this.test}></button>
                 
             </React.Fragment>
         );
