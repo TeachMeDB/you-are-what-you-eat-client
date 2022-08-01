@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,FormControl } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -25,9 +25,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { AddShoppingCart } from '@mui/icons-material';
 import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
+import TextField from '@mui/material/TextField';
+import {ChangeEvent} from 'react';
 
 
 interface DishProps{
+    dishid:integer;
     dishname:string;
     picture:string;
     price:number;
@@ -204,7 +207,7 @@ class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
-    this.state={dishes:InitialDish()};
+    this.state={dishes:InitialDish(),dishesShow:InitialDish()};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
    }
@@ -240,14 +243,45 @@ class MainPanel extends React.Component<any,any>{
       });
     }
 
+    handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
+      let value = null;
+  
+      if (e.target.value !== null) {
+        value = e.target.value;
+      }
+      
+      let dishes = this.state.dishes;
+
+      dishes = dishes.filter((dish) => {
+        let matches = true;
+        if(value && !(dish.dishname.includes(value)))
+        {
+          matches=false;
+        }
+        return matches;
+      });
+
+      this.setState({
+        dishesShow: dishes
+      })
+    };
+
     render(){
       return(
         <>
+        <FormControl variant="outlined"  sx={{ m: 1, minWidth: 120 }}>
+          <TextField 
+          id="outlined-basic" 
+          label="搜索菜品名称" 
+          variant="outlined"
+          onChange={this.handleSearchChange} 
+          />
+        </FormControl>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
           </ImageListItem> */}
-          {this.state.dishes.map((item,index) => (
+          {this.state.dishesShow.map((item,index) => (
             <ImageListItem key={item.picture}>
               <img
                 src={item.picture}
