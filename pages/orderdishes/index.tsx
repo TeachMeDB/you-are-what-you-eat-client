@@ -30,158 +30,202 @@ import {ChangeEvent} from 'react';
 
 
 interface DishProps{
-    dishid:integer;
+    dishid:number;
     dishname:string;
     picture:string;
     price:number;
     ordernum:number;
     rate:number;
     description:string;
-    dishsize:string;
+    dishsalt:string;
     dishspicy:string;
+    dishsweet:string;
+    searched:boolean;
 }
 
 const InitialDish=():Array<DishProps>=>{
 return [
     {
+        dishid:1,
         dishname:"清炒土豆丝",
         price:9,
         picture:"/static/images/status/potato.png",
         ordernum:1,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:2,
         dishname:"番茄炒蛋",
         price:5.5,
         picture:"/static/images/status/tomato.png",
         ordernum:1,
         rate:4.6,
         description:"有点甜",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:3,
         dishname:"炒洋葱",
         price:10,
         picture:"/static/images/status/onion.png",
         ordernum:0,
         rate:4.3,
         description:"让人眼前一亮",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:4,
         dishname:"北京烤鸭",
         price:106,
         picture:"/static/images/status/duck.jpg",
         ordernum:1,
         rate:4.9,
         description:"正宗烤鸭，现烤现卖",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:5,
         dishname:"干锅花菜",
         price:51,
         picture:"/static/images/status/broc.jpg",
         ordernum:1,
         rate:4.0,
         description:"烈火中盛开的...花菜",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:6,
         dishname:"土豆牛肉",
         price:40,
         picture:"/static/images/status/beef.jpg",
         ordernum:1,
         rate:3.9,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:7,
         dishname:"新疆羊肉串",
         price:30,
         picture:"/static/images/status/muttonchuan.jpg",
         ordernum:1,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:8,
         dishname:"鱼豆腐",
         price:20,
         picture:"/static/images/status/tofu.png",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:9,
         dishname:"虾仁粉丝煲",
         price:60,
         picture:"/static/images/status/fans.jpg",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:10,
         dishname:"歪比巴卜",
         price:20,
         picture:"/static/images/status/tomato.png",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:11,
         dishname:"歪比巴卜",
         price:97,
         picture:"/static/images/status/potato.png",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:12,
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/onion.png",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:13,
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/broc.jpg",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     },
     {
+        dishid:14,
         dishname:"歪比巴卜",
         price:13238936,
         picture:"/static/images/status/tofu.png",
         ordernum:0,
         rate:4.7,
         description:"简单的做法，极致的美味",
-        dishsize:"大份",
+        dishsalt:"正常盐",
         dishspicy:"不辣",
+        dishsweet:"少糖",
+        searched:true,
     }
 ]
 }
@@ -207,37 +251,100 @@ class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
-    this.state={dishes:InitialDish(),dishesShow:InitialDish()};
+    this.state={dishes:InitialDish()};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
    }
-    handleClickPlus(index:number){
-      this.setState(function(state){
-          this.state.dishes[index].ordernum++;
-          return{dishes:state.dishes};
+    handleClickPlus(dishid:number){
+      let index=0;
+      for(let i = 0;i<this.state.dishes.length;i++){
+        if(this.state.dishes[i].dishid == dishid){
+          index=i;
+          break;
+        }
+      }
+      // console.log(index);
+      // console.log(this.state.dishesShow);
+      // console.log("click plus-----------");
+      let dishes = this.state.dishes;
+      dishes[index].ordernum++;
+      // console.log(this.state.dishes);
+      this.setState({
+        dishes:dishes
       });
+      // this.setState(function(state){
+      //     this.state.dishes[index].ordernum++;
+      //     return{dishes:state.dishes};
+      // });
     }
 
-    handleClickMinus(index:number){
-      this.setState(function(state){
-          if(this.state.dishes[index].ordernum>0)
-              this.state.dishes[index].ordernum--;
-          return{dishes:state.dishes};
+    handleClickMinus(dishid:number){
+      let index=0;
+      for(let i = 0;i<this.state.dishes.length;i++){
+        if(this.state.dishes[i].dishid == dishid){
+          index=i;
+          break;
+        }
+      }
+      console.log(index);
+      let dishes = this.state.dishes;
+      dishes[index].ordernum--;
+      console.log(this.state.dishes);
+      this.setState({
+        dishes:dishes
       });
+      // this.setState(function(state){
+      //     if(this.state.dishes[index].ordernum>0)
+      //         this.state.dishes[index].ordernum--;
+      //     return{dishes:state.dishes};
+      // });
     }
 
-    handleDishSizeChange = (event,index) => {
+    handleDishSaltChange = (event,dishid) => {
+      let index=0;
+      for(let i = 0;i<this.state.dishes.length;i++){
+        if(this.state.dishes[i].dishid == dishid){
+          index=i;
+          break;
+        }
+      }
+
       console.log(event.target.value);
       const dishes=this.state.dishes;
-      dishes[index].dishsize=event.target.value;
+      dishes[index].dishsalt=event.target.value;
       this.setState({
           dishes
       });
     }
-    handleDishSpicyChange = (event,index) => {
+    handleDishSpicyChange = (event,dishid) => {
+      let index=0;
+      for(let i = 0;i<this.state.dishes.length;i++){
+        if(this.state.dishes[i].dishid == dishid){
+          index=i;
+          break;
+        }
+      }
+
       console.log(event.target.value);
       const dishes=this.state.dishes;
       dishes[index].dishspicy=event.target.value;
+      this.setState({
+          dishes
+      });
+    }
+
+    handleDishSweetChange = (event,dishid) => {
+      let index=0;
+      for(let i = 0;i<this.state.dishes.length;i++){
+        if(this.state.dishes[i].dishid == dishid){
+          index=i;
+          break;
+        }
+      }
+
+      console.log(event.target.value);
+      const dishes=this.state.dishes;
+      dishes[index].dishsweet=event.target.value;
       this.setState({
           dishes
       });
@@ -249,21 +356,41 @@ class MainPanel extends React.Component<any,any>{
       if (e.target.value !== null) {
         value = e.target.value;
       }
-      
+      console.log(value);
+
       let dishes = this.state.dishes;
 
-      dishes = dishes.filter((dish) => {
-        let matches = true;
-        if(value && !(dish.dishname.includes(value)))
-        {
-          matches=false;
+      for(let i = 0;i<dishes.length;i++){
+        dishes[i].searched=true;
+        if(value && !(dishes[i].dishname.includes(value))){
+          dishes[i].searched=false;
         }
-        return matches;
-      });
-
+      }
+      console.log(dishes);
       this.setState({
-        dishesShow: dishes
+        dishes: dishes
       })
+      console.log(this.state.dishes);
+      // let dishes1 = this.state.dishes;
+
+      // dishes1 = dishes1.filter((dish) => {
+      //   let matches = true;
+      //   if(value && !(dish.dishname.includes(value)))
+      //   {
+      //     matches=false;
+      //   }
+      //   return matches;
+      // });
+      // console.log(dishes1);
+      // console.log(this.state.dishesShow);
+      // console.log("search change-------------------");
+      // this.setState({
+      //   dishesShow: dishes
+      // })
+      // this.setState(function(){
+      //     console.log("搜索的setstate触发了");
+      //     return{dishesShow: dishes1};
+      // });
     };
 
     render(){
@@ -281,8 +408,9 @@ class MainPanel extends React.Component<any,any>{
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
           </ImageListItem> */}
-          {this.state.dishesShow.map((item,index) => (
-            <ImageListItem key={item.picture}>
+          {this.state.dishes.map((item) => (
+            item.searched &&
+            <ImageListItem key={item.dishid}>
               <img
                 src={item.picture}
                 alt={item.dishname}
@@ -303,9 +431,9 @@ class MainPanel extends React.Component<any,any>{
                       dish={item}
                       hdPlus={this.handleClickPlus}
                       hdMinus={this.handleClickMinus}
-                      index={index}
-                      hdSize={this.handleDishSizeChange}
+                      hdSalt={this.handleDishSaltChange}
                       hdSpicy={this.handleDishSpicyChange}
+                      hdSweet={this.handleDishSweetChange}
                     />
                     {/* <InfoIcon /> */}
                   </IconButton>

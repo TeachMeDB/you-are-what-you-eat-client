@@ -42,11 +42,14 @@ class DishInfo extends Component {
     //     dishSpicy:"不辣",
     //     dishScore:this.props.dish.rate,
     // } 
-    handleDishSizeChange = (event) => {
-        this.props.handleDishSizeChange(event,this.props.index);
+    handleDishSaltChange = (event) => {
+        this.props.handleDishSaltChange(event,this.props.dish.dishid);
     }
     handleDishSpicyChange = (event) => {
-        this.props.handleDishSpicyChange(event,this.props.index);
+        this.props.handleDishSpicyChange(event,this.props.dish.dishid);
+    }
+    handleDishSweetChange = (event) => {
+        this.props.handleDishSweetChange(event,this.props.dish.dishid);
     }
     test = () => {
         console.log(this.props.index);
@@ -87,7 +90,7 @@ class DishInfo extends Component {
 
                                 <Stack direction="row" >
                                 <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-                                this.props.handleClickMinus(this.props.index);}}>
+                                this.props.handleClickMinus(this.props.dish.dishid);}}>
                                 <Minus ordernum={this.props.dish.ordernum}/>
                                 </IconButton> 
 
@@ -95,7 +98,7 @@ class DishInfo extends Component {
                                 {this.props.dish.ordernum>0?this.props.dish.ordernum:"  "}
                                 </Typography>
                                 <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-                                this.props.handleClickPlus(this.props.index);
+                                this.props.handleClickPlus(this.props.dish.dishid);
                                 }}>
                                 <Plus ordernum={this.props.dish.ordernum}/>
                                 </IconButton>
@@ -117,26 +120,26 @@ class DishInfo extends Component {
                     }}
                 >
                     <Grid container spacing={2} style={{marginBottom: '27px'}}>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                                <InputLabel htmlFor="dish-size">大小</InputLabel>
+                                <InputLabel htmlFor="dish-salt">咸度</InputLabel>
                                 <Select
                                     // autoFocus
-                                    value={this.props.dish.dishsize}
-                                    onChange={this.handleDishSizeChange}
-                                    label="dishSize"
+                                    value={this.props.dish.dishsalt}
+                                    onChange={this.handleDishSaltChange}
+                                    label="dishSalt"
                                     inputProps={{
-                                    name: 'dish-size',
-                                    id: 'dish-size',
+                                    name: 'dish-salt',
+                                    id: 'dish-salt',
                                     }}
                                 >
-                                    <MenuItem value="大份">大份</MenuItem>
-                                    <MenuItem value="中份">中份</MenuItem>
-                                    <MenuItem value="小份">小份</MenuItem>
+                                    <MenuItem value="正常盐">正常盐</MenuItem>
+                                    <MenuItem value="少盐">少盐</MenuItem>
+                                    <MenuItem value="多盐">多盐</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <FormControl sx={{ mt: 2, minWidth: 120 }}>
                                 <InputLabel htmlFor="dish-spicy">辣度</InputLabel>
                                 <Select
@@ -153,6 +156,25 @@ class DishInfo extends Component {
                                     <MenuItem value="微辣">微辣</MenuItem>
                                     <MenuItem value="中辣">中辣</MenuItem>
                                     <MenuItem value="重辣">重辣</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                                <InputLabel htmlFor="dish-sweet">甜度</InputLabel>
+                                <Select
+                                    // autoFocus
+                                    value={this.props.dish.dishsweet}
+                                    onChange={this.handleDishSweetChange}
+                                    label="dishSweet"
+                                    inputProps={{
+                                    name: 'dish-sweet',
+                                    id: 'dish-sweet',
+                                    }}
+                                >
+                                    <MenuItem value="正常糖">正常糖</MenuItem>
+                                    <MenuItem value="少糖">少糖</MenuItem>
+                                    <MenuItem value="多糖">多糖</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

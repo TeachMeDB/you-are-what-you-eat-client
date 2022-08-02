@@ -69,9 +69,9 @@ export default function DishInfoDialog(props) {
             dish={props.dish}
             handleClickPlus={props.hdPlus}
             handleClickMinus={props.hdMinus}
-            index={props.index}
-            handleDishSizeChange={props.hdSize}
+            handleDishSaltChange={props.hdSalt}
             handleDishSpicyChange={props.hdSpicy}
+            handleDishSweetChange={props.hdSweet}
           />
         </DialogContent>
         <DialogActions style={{padding:'0'}}>

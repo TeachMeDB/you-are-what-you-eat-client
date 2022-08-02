@@ -197,7 +197,7 @@ class NewList extends React.Component<any,any>{
             &nbsp;
             </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.props.handleClickMinus(index);}}>
+       this.props.handleClickMinus(dish.dishid);}}>
           <Minus ordernum={dish.ordernum}/>
           </IconButton> 
          </Grid>
@@ -214,7 +214,7 @@ class NewList extends React.Component<any,any>{
             &nbsp;
             </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.props.handleClickPlus(index);
+       this.props.handleClickPlus(dish.dishid);
        }}>
           <Plus ordernum={dish.ordernum}/>
         </IconButton>
