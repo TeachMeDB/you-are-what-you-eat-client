@@ -101,7 +101,27 @@ interface DishProps{
              dish_picture:"/static/images/status/potato.png"
            },
           discount:0.5
-       }
+       },
+       {
+         dish:{
+            dish_id:108,
+            dish_name:"鱼豆腐",
+            dish_price:20,
+            dish_description:"简单的做法，极致的美味",
+            dish_picture:"/static/images/status/tofu.png"
+          },
+         discount:0.95
+      },
+      {
+        dish:{
+           dish_id:107,
+           dish_name:"新疆羊肉串",
+           dish_price:40,
+           dish_description:"简单的做法，极致的美味",
+           dish_picture:"/static/images/status/muttonchuan.jpg"
+         },
+        discount:0.95
+     }
         ]
       },
       {
@@ -185,7 +205,9 @@ interface DishProps{
        >
          <DialogContent style={{padding: '0'}}>
           {/* <h1>Hello!</h1> */}
-          <PromotionInfo id={props.id} />
+          <PromotionInfo id={props.id} dishes={props.dishes}/>
+
+          
          </DialogContent>
          <DialogActions style={{padding:'0'}}>
            <Button 
@@ -212,7 +234,7 @@ export default function PromotionAd(){
     return (
         <Carousel>{
                 promotions.map((promo, index) =>
-               <Backgrd id={promo.promotion_id}/>)
+               <Backgrd id={promo.promotion_id} dishes={promo.dishes}/>)
         }
         </Carousel>
     );
