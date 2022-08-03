@@ -7,13 +7,21 @@ import SvgIcon from '@mui/material/SvgIcon';
 
 import InfoIcon from '@mui/icons-material/Info';
 
+import PromoInfo from '../PromotionInfo';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import PromotionInfo from '../PromotionInfo';
 
 const theme = createTheme({
     palette: {
       primary: {
-        main: "#F8F8FF",
+        main: "#98313e",
       },
+      secondary:{
+        main:"#F8F8FF",
+    }
     },
   });
   declare module '@mui/material/styles' {
@@ -135,26 +143,66 @@ interface DishProps{
 
 
   function Backgrd(props){
+
+    const [open, setOpen] = React.useState(false);
+    const [fullWidth] = React.useState(true);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+      console.log(props);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
     const str="/static/images/status/promo_"+props.id+".png";
     return(
+        <React.Fragment>
+       <ThemeProvider theme={theme}>
     <Item sx={{
                         minHeight:450,
                         backgroundImage:`url(${str})`,
-                    }}  >
-                <ThemeProvider theme={theme}>
+                    }}  onClick={handleClickOpen}>
+
                 <Grid container spacing={0}>
                     <Grid item xs={10}></Grid>
                     <Grid item xs={2}>
                 <Typography lineHeight={24}>&nbsp;</Typography>
                 {/* <InfoIcon/> */}
-                <Button className="promoInfo" color='primary' size="large">
+                <Button className="promoInfo" color='secondary' size="large">
                     点击查看活动详情
                     </Button>
 
                     </Grid>
                 </Grid>
-                </ThemeProvider>
                 </Item>
+
+        <Dialog
+         fullWidth={fullWidth}
+         open={open}
+         onClose={handleClose}
+         scroll="body"
+       >
+         <DialogContent style={{padding: '0'}}>
+          {/* <h1>Hello!</h1> */}
+          <PromotionInfo id={props.id} />
+         </DialogContent>
+         <DialogActions style={{padding:'0'}}>
+           <Button 
+             style={{
+               width:"100%",
+               backgroundColor:"#98313e",
+               color:'white',
+               borderRadius:'0',
+             }}
+             onClick={handleClose}
+           >参与活动</Button>
+         </DialogActions>
+       </Dialog>
+       
+       </ThemeProvider>
+
+        </React.Fragment>
     );
     }
 
