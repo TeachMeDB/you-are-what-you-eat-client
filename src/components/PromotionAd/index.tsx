@@ -1,8 +1,39 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button } from '@mui/material'
+import { Paper, Button, styled, createTheme,ThemeProvider, Box, Grid, Typography } from '@mui/material'
+
+import IconButton from '@mui/material/IconButton';
+import SvgIcon from '@mui/material/SvgIcon';
+
+import InfoIcon from '@mui/icons-material/Info';
 
 
+
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#F8F8FF",
+      },
+    },
+  });
+  declare module '@mui/material/styles' {
+    interface Theme {
+      palette: {
+        primary: {
+          main:string;
+        }
+      };
+    }
+  
+    interface ThemeOptions {
+      palette?: {
+        primary?: {
+          main?:string;
+        }
+      };
+    }
+  }
+  
 interface DishProps{
     dish_id:number,
     dish_name:string,
@@ -41,7 +72,7 @@ interface DishProps{
       },
       {
         promotion_id:102,
-        description:"五周年感恩回馈",
+        description:"新品西餐抢先尝",
         dishes:[
         {
            dish:{
@@ -95,41 +126,48 @@ interface DishProps{
   }
   
 
-export default function PromotionAd(props)
-{
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    backgroundRepeat:'no-repeat',
+    backgroundSize:"cover"
+  }));
+
+
+  function Backgrd(props){
+    const str="/static/images/status/promo_"+props.id+".png";
+    return(
+    <Item sx={{
+                        minHeight:450,
+                        backgroundImage:`url(${str})`,
+                    }}  >
+                <ThemeProvider theme={theme}>
+                <Grid container spacing={0}>
+                    <Grid item xs={10}></Grid>
+                    <Grid item xs={2}>
+                <Typography lineHeight={24}>&nbsp;</Typography>
+                {/* <InfoIcon/> */}
+                <Button className="promoInfo" color='primary' size="large">
+                    点击查看活动详情
+                    </Button>
+
+                    </Grid>
+                </Grid>
+                </ThemeProvider>
+                </Item>
+    );
+    }
+
+export default function PromotionAd(){
+
     const promotions=InitialPromo();
-    var items = [
-        {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!"
-        },
-        {
-            name: "Random Name #2",
-            description: "Hello World!"
+    return (
+        <Carousel>{
+                promotions.map((promo, index) =>
+               <Backgrd id={promo.promotion_id}/>)
         }
-    ]
-
-    return (
-        <Carousel>
-            {
-                promotions.map( (promo, index) =>
-                 <Item key={index} item={promo} />
-            )
-            }
         </Carousel>
-    )
+    );
 }
 
-function Item(props)
-{
-    return (
-        <Paper sx={{minHeight:300}}>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
 
-            <Button className="CheckButton">
-                Check it out!
-            </Button>
-        </Paper>
-    )
-}
