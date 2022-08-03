@@ -27,7 +27,7 @@ import { AddShoppingCart } from '@mui/icons-material';
 import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
 import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
-
+import PromotionAd from '../../src/components/PromotionAd/index';
 
 interface DishProps{
     dishid:number;
@@ -396,6 +396,7 @@ class MainPanel extends React.Component<any,any>{
     render(){
       return(
         <>
+       
         <FormControl variant="outlined"  sx={{ m: 1, minWidth: 120 }}>
           <TextField 
           id="outlined-basic" 
@@ -404,6 +405,7 @@ class MainPanel extends React.Component<any,any>{
           onChange={this.handleSearchChange} 
           />
         </FormControl>
+         <PromotionAd/>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>

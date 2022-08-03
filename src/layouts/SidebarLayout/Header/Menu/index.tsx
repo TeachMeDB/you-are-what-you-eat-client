@@ -109,74 +109,8 @@ const ListWrapper = styled(Box)(
 `
 )
 
-interface DishProps{
-  dish_id:number,
-  dish_name:string,
-  dish_price:number,
-  dish_description:string,
-  dish_picture:string
-}
-
-interface DishesProps{
-  dish:DishProps,
-  discount:number
-}
-interface PromotionProps{
-     promotion_id:number,
-     description:string,
-     dishes:Array<DishesProps>
-}
-
-const InitialPromo=():Array<PromotionProps>=>{
-  return [
-    {
-      promotion_id:101,
-      description:"情人节特惠",
-      dishes:[
-      {
-         dish:{
-            dish_id:101,
-            dish_name:"清炒土豆丝",
-            dish_price:9,
-            dish_description:"简单的做法，极致的美味",
-            dish_picture:"/static/images/status/potato.png"
-          },
-         discount:0.8
-      }
-      ]
-    },
-    {
-      promotion_id:102,
-      description:"五周年回馈",
-      dishes:[
-      {
-         dish:{
-            dish_id:102,
-            dish_name:"番茄炒蛋",
-            dish_price:5.5,
-            dish_description:"有点甜",
-            dish_picture:"/static/images/status/tomato.png"
-         },
-         discount:0.8
-      },
-      {
-        dish:{
-           dish_id:101,
-           dish_name:"清炒土豆丝",
-           dish_price:9,
-           dish_description:"简单的做法，极致的美味",
-           dish_picture:"/static/images/status/potato.png"
-         },
-        discount:0.5
-     }
-      ]
-    }
-  ];
-}
-
-
 function HeaderMenu() {
-
+  
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -248,24 +182,6 @@ function HeaderMenu() {
         </List>
       </ListWrapper>
 
-    
-      <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
-        <Container sx={{minWidth:350}} >
-        <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="female"
-        name="radio-buttons-group"
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="other" control={<Radio />} label="Other" />
-      </RadioGroup>
-    </FormControl>
-          
-    </Container>
-        </Menu>
         </ThemeProvider>
       </>
   )
