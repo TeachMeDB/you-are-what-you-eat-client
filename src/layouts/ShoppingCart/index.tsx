@@ -47,66 +47,6 @@ interface TabPanelProps {
   value: number;
 }
 
-const InitNewDish=():Array<NewDishProps>=>{
-  return [
-      {
-          dishname:"清炒土豆丝",
-          price:9,
-          picture:"/static/images/status/potato.png",
-          ordernum:1
-      },
-      {
-          dishname:"番茄炒蛋",
-          price:5.5,
-          picture:"/static/images/status/tomato.png",
-          ordernum:1
-      },
-      {
-          dishname:"虾仁粉丝煲",
-          price:25.5,
-          picture:"/static/images/status/fans.jpg",
-          ordernum:2
-      } ,
-      {
-        dishname:"炒洋葱",
-        price:48,
-        picture:"/static/images/status/onion.png",
-        ordernum:1
-    },
-    {
-        dishname:"北京烤鸭",
-        price:40,
-        picture:"/static/images/status/duck.jpg",
-        ordernum:1
-    },
-    {
-        dishname:"干锅花菜",
-        price:51,
-        picture:"/static/images/status/broc.jpg",
-        ordernum:1
-    },
-    {
-        dishname:"土豆牛肉",
-        price:50,
-        picture:"/static/images/status/beef.jpg",
-        ordernum:1
-    },
-    {
-        dishname:"新疆羊肉串",
-        price:38,
-        picture:"/static/images/status/muttonchuan.jpg",
-        ordernum:1
-    },
-    {
-        dishname:"鱼豆腐",
-        price:20.5,
-        picture:"/static/images/status/tofu.png",
-        ordernum:1
-    },
-    ]
-  }
-
-
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;

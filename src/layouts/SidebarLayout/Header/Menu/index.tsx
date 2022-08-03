@@ -13,20 +13,51 @@ import {
   Avatar,
   Paper,
   Stack,
-  IconButton
+  IconButton, 
+  createTheme,
+  FormControl,
+  FormLabel,
+  Radio,
+  RadioGroup
 
 } from '@mui/material';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useRef, useState } from 'react';
 import Link from 'src/components/Link';
-
+import { ThemeProvider } from "@mui/material/styles";
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import React from 'react';
 import { Container } from '@mui/system';
 import {Plus,Minus} from 'pages/orderdishes/index';
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#98313e",
+    },
+  },
+});
+declare module '@mui/material/styles' {
+  interface Theme {
+    palette: {
+      primary: {
+        main:string;
+      }
+    };
+  }
 
+  interface ThemeOptions {
+    palette?: {
+      primary?: {
+        main?:string;
+      }
+    };
+  }
+}
 const ListWrapper = styled(Box)(
   ({ theme }) => `
         .MuiTouchRipple-root {
@@ -79,6 +110,7 @@ const ListWrapper = styled(Box)(
 )
 
 function HeaderMenu() {
+  
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -96,7 +128,8 @@ function HeaderMenu() {
   };
 
   return (
-    
+    <>
+    <ThemeProvider theme={theme}>
       <ListWrapper
         sx={{
           display: {
@@ -105,7 +138,7 @@ function HeaderMenu() {
           }
         }}
       >
-        <List disablePadding component={Box} display="flex">
+        <List disablePadding component={Box} display="flex" color="primary">
           <ListItem
             classes={{ root: 'MuiListItem-indicators' }}
             button
@@ -138,7 +171,7 @@ function HeaderMenu() {
               primaryTypographyProps={{ noWrap: true }}
               primary={
                 <Box display="flex" alignItems="center">
-                  已点
+                  最新活动
                   <Box display="flex" alignItems="center" pl={0.3}>
                     <ExpandMoreTwoToneIcon fontSize="small" />
                   </Box>
@@ -148,6 +181,9 @@ function HeaderMenu() {
           </ListItem>
         </List>
       </ListWrapper>
+
+        </ThemeProvider>
+      </>
   )
 }
 

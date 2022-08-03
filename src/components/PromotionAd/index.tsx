@@ -1,0 +1,173 @@
+import React from 'react';
+import Carousel from 'react-material-ui-carousel'
+import { Paper, Button, styled, createTheme,ThemeProvider, Box, Grid, Typography } from '@mui/material'
+
+import IconButton from '@mui/material/IconButton';
+import SvgIcon from '@mui/material/SvgIcon';
+
+import InfoIcon from '@mui/icons-material/Info';
+
+
+
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#F8F8FF",
+      },
+    },
+  });
+  declare module '@mui/material/styles' {
+    interface Theme {
+      palette: {
+        primary: {
+          main:string;
+        }
+      };
+    }
+  
+    interface ThemeOptions {
+      palette?: {
+        primary?: {
+          main?:string;
+        }
+      };
+    }
+  }
+  
+interface DishProps{
+    dish_id:number,
+    dish_name:string,
+    dish_price:number,
+    dish_description:string,
+    dish_picture:string
+  }
+  
+  interface DishesProps{
+    dish:DishProps,
+    discount:number
+  }
+  interface PromotionProps{
+       promotion_id:number,
+       description:string,
+       dishes:Array<DishesProps>
+  }
+  
+  const InitialPromo=():Array<PromotionProps>=>{
+    return [
+      {
+        promotion_id:101,
+        description:"情人节特惠",
+        dishes:[
+        {
+           dish:{
+              dish_id:101,
+              dish_name:"清炒土豆丝",
+              dish_price:9,
+              dish_description:"简单的做法，极致的美味",
+              dish_picture:"/static/images/status/potato.png"
+            },
+           discount:0.8
+        }
+        ]
+      },
+      {
+        promotion_id:102,
+        description:"新品西餐抢先尝",
+        dishes:[
+        {
+           dish:{
+              dish_id:102,
+              dish_name:"番茄炒蛋",
+              dish_price:5.5,
+              dish_description:"有点甜",
+              dish_picture:"/static/images/status/tomato.png"
+           },
+           discount:0.8
+        },
+        {
+          dish:{
+             dish_id:101,
+             dish_name:"清炒土豆丝",
+             dish_price:9,
+             dish_description:"简单的做法，极致的美味",
+             dish_picture:"/static/images/status/potato.png"
+           },
+          discount:0.5
+       }
+        ]
+      },
+      {
+        promotion_id:103,
+        description:"疯狂星期四",
+        dishes:[
+        {
+           dish:{
+              dish_id:102,
+              dish_name:"番茄炒蛋",
+              dish_price:5.5,
+              dish_description:"有点甜",
+              dish_picture:"/static/images/status/tomato.png"
+           },
+           discount:0.8
+        },
+        {
+          dish:{
+             dish_id:104,
+             dish_name:"北京烤鸭",
+             dish_price:100,
+             dish_description:"绝对正宗",
+             dish_picture:"/static/images/status/duck.jpg"
+           },
+          discount:0.9
+       }
+        ]
+      }
+    ];
+  }
+  
+
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    backgroundRepeat:'no-repeat',
+    backgroundSize:"cover"
+  }));
+
+
+  function Backgrd(props){
+    const str="/static/images/status/promo_"+props.id+".png";
+    return(
+    <Item sx={{
+                        minHeight:450,
+                        backgroundImage:`url(${str})`,
+                    }}  >
+                <ThemeProvider theme={theme}>
+                <Grid container spacing={0}>
+                    <Grid item xs={10}></Grid>
+                    <Grid item xs={2}>
+                <Typography lineHeight={24}>&nbsp;</Typography>
+                {/* <InfoIcon/> */}
+                <Button className="promoInfo" color='primary' size="large">
+                    点击查看活动详情
+                    </Button>
+
+                    </Grid>
+                </Grid>
+                </ThemeProvider>
+                </Item>
+    );
+    }
+
+export default function PromotionAd(){
+
+    const promotions=InitialPromo();
+    return (
+        <Carousel>{
+                promotions.map((promo, index) =>
+               <Backgrd id={promo.promotion_id}/>)
+        }
+        </Carousel>
+    );
+}
+
+
