@@ -190,7 +190,7 @@ interface DishProps{
                 <Typography lineHeight={24}>&nbsp;</Typography>
                 {/* <InfoIcon/> */}
                 <Button className="promoInfo" color='secondary' size="large">
-                    点击查看活动详情
+                    点击参与优惠活动
                     </Button>
 
                     </Grid>

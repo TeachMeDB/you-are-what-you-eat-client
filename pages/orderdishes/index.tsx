@@ -403,7 +403,7 @@ class MainPanel extends React.Component<any,any>{
     render(){
       return(
         <>
-         <PromotionAd/>
+         
          <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
           <TextField 
           id="outlined-basic" 
@@ -411,7 +411,9 @@ class MainPanel extends React.Component<any,any>{
           variant="outlined"
           onChange={this.handleSearchChange} 
           />
+          <Typography lineHeight={1}>&nbsp;</Typography>
         </FormControl>
+        <PromotionAd/>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
