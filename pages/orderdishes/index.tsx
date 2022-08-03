@@ -296,7 +296,7 @@ class MainPanel extends React.Component<any,any>{
       console.log(index);
       let dishes = this.state.dishes;
       dishes[index].ordernum--;
-      console.log(this.state.dishes);
+      // console.log(this.state.dishes);
       this.setState({
         dishes:dishes
       });
@@ -316,7 +316,7 @@ class MainPanel extends React.Component<any,any>{
         }
       }
 
-      console.log(event.target.value);
+      // console.log(event.target.value);
       const dishes=this.state.dishes;
       dishes[index].dishsalt=event.target.value;
       this.setState({
@@ -332,7 +332,7 @@ class MainPanel extends React.Component<any,any>{
         }
       }
 
-      console.log(event.target.value);
+      // console.log(event.target.value);
       const dishes=this.state.dishes;
       dishes[index].dishspicy=event.target.value;
       this.setState({
@@ -349,7 +349,7 @@ class MainPanel extends React.Component<any,any>{
         }
       }
 
-      console.log(event.target.value);
+      // console.log(event.target.value);
       const dishes=this.state.dishes;
       dishes[index].dishsweet=event.target.value;
       this.setState({
@@ -363,7 +363,7 @@ class MainPanel extends React.Component<any,any>{
       if (e.target.value !== null) {
         value = e.target.value;
       }
-      console.log(value);
+      // console.log(value);
 
       let dishes = this.state.dishes;
 
@@ -373,11 +373,11 @@ class MainPanel extends React.Component<any,any>{
           dishes[i].searched=false;
         }
       }
-      console.log(dishes);
+      // console.log(dishes);
       this.setState({
         dishes: dishes
       })
-      console.log(this.state.dishes);
+      // console.log(this.state.dishes);
       // let dishes1 = this.state.dishes;
 
       // dishes1 = dishes1.filter((dish) => {
@@ -403,7 +403,8 @@ class MainPanel extends React.Component<any,any>{
     render(){
       return(
         <>
-        <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, minWidth: 120 }}>
+         <PromotionAd/>
+         <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
           <TextField 
           id="outlined-basic" 
           label="搜索菜品名称" 
@@ -411,7 +412,6 @@ class MainPanel extends React.Component<any,any>{
           onChange={this.handleSearchChange} 
           />
         </FormControl>
-         <PromotionAd/>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
