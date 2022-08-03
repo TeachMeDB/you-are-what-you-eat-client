@@ -27,7 +27,11 @@ import { AddShoppingCart } from '@mui/icons-material';
 import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
 import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
-
+import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
+import {HeaderSearch} from '../../src/layouts/SidebarLayout/Header/Buttons/Search/index'
+import SearchFab from '../../src/layouts/Search/index';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
 
 interface DishProps{
     dishid:number;
@@ -272,6 +276,7 @@ class MainPanel extends React.Component<any,any>{
       this.setState({
         dishes:dishes
       });
+      // console.log(nowDishTag);
       // this.setState(function(state){
       //     this.state.dishes[index].ordernum++;
       //     return{dishes:state.dishes};
@@ -396,7 +401,7 @@ class MainPanel extends React.Component<any,any>{
     render(){
       return(
         <>
-        <FormControl variant="outlined"  sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, minWidth: 120 }}>
           <TextField 
           id="outlined-basic" 
           label="搜索菜品名称" 
@@ -445,6 +450,37 @@ class MainPanel extends React.Component<any,any>{
         <ShoppingCartFab dishes={this.state.dishes}
                          hdPlus={this.handleClickPlus}
                          hdMinus={this.handleClickMinus}/>
+        {/* <SearchFab handleSearchChange={this.handleSearchChange}/> */}
+        {/* <FormControl 
+          variant="outlined"
+          style={{
+            width:"12%",
+            position: 'fixed',
+            bottom: 30,
+            left: -10,
+            zIndex:'7',
+            // color:"red"
+            backgroundColor:"#eff1f5",
+            padding:"10px 2px",
+            borderRadius:"5px",
+          }}
+          sx={{ m: 1, minWidth: 100 }}
+        >
+          
+          <TextField 
+          id="outlined-basic" 
+          label="搜索菜品名称" 
+          variant="outlined"
+          onChange={this.handleSearchChange} 
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon/>
+              </InputAdornment>
+            ),
+          }}
+          />
+        </FormControl> */}
         </>
       )
 

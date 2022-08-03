@@ -163,12 +163,23 @@ const SubMenuWrapper = styled(Box)(
 `
 );
 
+let nowDishTag = "全新套餐";
+
+export {
+  nowDishTag
+}
+
+
 
 function SidebarMenu() {
   const { closeSidebar } = useContext(SidebarContext);
   const router = useRouter();
   const currentRoute = router.pathname;
-
+  let handleDishTag = (dishTag) =>{
+    closeSidebar();
+    nowDishTag = dishTag;
+    console.log(nowDishTag);
+  }
   return (
     <>
       <MenuWrapper>
@@ -185,7 +196,7 @@ function SidebarMenu() {
                     }}
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
+                    onClick={()=>handleDishTag("精品锅底")}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
                     精品锅底
@@ -219,7 +230,7 @@ function SidebarMenu() {
                     fullWidth
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
+                    onClick={()=>handleDishTag("全新套餐")}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
                     全新套餐
