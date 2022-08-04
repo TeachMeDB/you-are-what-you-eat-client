@@ -34,6 +34,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import PromotionAd from '../../src/components/PromotionAd/index';
 
+import { dishesApi } from '@/queries/dishes';
+import { DishHavethetag } from '@/models/dishes_info';
+
 
 interface DishProps{
     dishid:number;
@@ -571,7 +574,8 @@ class MainPanel extends React.Component<any,any>{
     }
 }
 
-function Dishpanel(){
+function Dishpanel({dishes1}:{dishes1:DishHavethetag[]}){
+  console.log(dishes1);
   return (
     <MainPanel/>
   );
@@ -581,3 +585,11 @@ function Dishpanel(){
  Dishpanel.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
 export default Dishpanel;
+
+export async function getServerSideProps() {
+
+  const dishes1= await dishesApi.getCategoryDishes(nowDishTag,4);
+
+
+  return { props: { dishes1 } }
+}
