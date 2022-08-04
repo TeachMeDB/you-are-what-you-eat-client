@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { useRefMounted } from "@/hooks/useRefMounted";
 import { orderApi } from '@/queries/order';
+import { DishInfo, OrderInfo } from "@/models/order_list";
 
 
 
@@ -99,83 +100,90 @@ const theme = createTheme({
     }
   
 function Status(props){
-    if(props.status=="制作中")
-        return (<Stack direction="row">
+// 需要根据status调整color
+        return (
+        <Stack direction="row">
         <AcUnitIcon color="primary" fontSize="small"/>
         <Typography color="#9C9CAC" >
-            &nbsp;制作中</Typography>
-        </Stack>);
-    else if(props.status=="已上菜")
-        return (<Stack direction="row">
-         <AcUnitIcon color="secondary" fontSize="small"/>
-         <Typography color="#9C9CAC" >
-            &nbsp;已上菜</Typography>
-        </Stack>);
+            &nbsp;{props.status}</Typography>
+        </Stack>
+        );
 }
 
 
 export default function OrderList(){
 
-const dishes=InitOrderDish();
+const initOrder:OrderInfo={dish_info:[]};
+
+const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
+
 const getAllData=useCallback(async()=>{
   try{
     let order=await orderApi.getOrderList('EHKwcQm2Jbl');
-     console.log(order);
+
+    if(isMountedRef()){
+        setDishes(order);
+    }
   }catch(err){
     console.error(err);
   }
-},[isMountedRef])
+},[isMountedRef]);
 
 
 useEffect(()=>{
   getAllData();
 },[getAllData]);
 
-if (dishes==[])
-return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
+if (dishes==initOrder){
+return( 
+<Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
    暂无
 </Typography>);
+}
 
-else 
 return (
-    <ThemeProvider theme={theme}>{
-        dishes.map((dish,index)=>
-       <List>  
-          <ListItem>
-          <Grid container spacing={0}>
-          <Grid item xs={2.5}> 
-          <img src= {dish.picture} width={60} height={60}
-               style={{borderRadius:10}} />
-            </Grid>
-           <Grid item xs={6}>
-            <Typography variant="body1" color="#123456"  lineHeight={2}>
-            {dish.dishname}
-            </Typography>
-            <Typography variant="body1" color="red"  >
-        ￥{dish.price*dish.ordernum}
-       </Typography>
-            </Grid>
-
-
-            <Grid item xs={3}>
-           <Typography color="#9C9CAC" lineHeight={2.1}>
-            &nbsp;&nbsp;&nbsp;&nbsp;份数：{dish.ordernum}</Typography>
-           <Status status={dish.status}/>
-            </Grid>
-            </Grid>
-          </ListItem>
-        {/* <Divider /> */}
-        </List>
-      )}
-      <Button 
-          style={{
-            width:"100%",
-            backgroundColor:"#98313e",
-            color:"white",
-            borderRadius:"0"
-          }}>
-       结账</Button>
-    </ThemeProvider>
+  <>
+  <ThemeProvider theme={theme}>{
+            dishes.dish_info.map((item,index)=>
+           <List>  
+              <ListItem>
+              <Grid container spacing={0}>
+              <Grid item xs={2.5}> 
+              <img src= {item.dish_picture} width={60} height={60}
+                   style={{borderRadius:10}} />
+                </Grid>
+               <Grid item xs={6}>
+                <Typography variant="body1" color="#123456"  lineHeight={2}>
+                {item.dish_name}
+                </Typography>
+                <Typography variant="body1" color="red"  >
+            ￥{item.dish_price*item.dish_num}
+           </Typography>
+                </Grid>
+    
+    
+                <Grid item xs={3}>
+               <Typography color="#9C9CAC" lineHeight={2.1}>
+                &nbsp;&nbsp;&nbsp;&nbsp;份数：{item.dish_num}</Typography>
+               <Status status={item.dish_status}/>
+                </Grid>
+                </Grid>
+              </ListItem>
+            {/* <Divider /> */}
+            </List>
+          )}
+           <Button 
+              style={{
+                width:"100%",
+                backgroundColor:"#98313e",
+                color:"white",
+                borderRadius:"0"
+              }}>
+           结账</Button>
+        </ThemeProvider>
+       
+          </>
 );
+
 }
