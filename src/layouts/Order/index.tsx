@@ -3,11 +3,15 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Stack } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Minus, Plus } from "pages/orderdishes";
 import { ThemeProvider } from "@mui/material/styles";
 import { useTheme } from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
+import { useRefMounted } from "@/hooks/useRefMounted";
+import { orderApi } from '@/queries/order';
+
+
 
 const theme = createTheme({
     palette: {
@@ -113,6 +117,20 @@ function Status(props){
 export default function OrderList(){
 
 const dishes=InitOrderDish();
+const isMountedRef = useRefMounted();
+const getAllData=useCallback(async()=>{
+  try{
+    let order=await orderApi.getOrderList('EHKwcQm2Jbl');
+     console.log(order);
+  }catch(err){
+    console.error(err);
+  }
+},[isMountedRef])
+
+
+useEffect(()=>{
+  getAllData();
+},[getAllData]);
 
 if (dishes==[])
 return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
