@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Carousel from 'react-material-ui-carousel'
 import { Paper, Button, styled, createTheme,ThemeProvider, Box, Grid, Typography } from '@mui/material'
 
@@ -13,6 +13,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import PromotionInfo from '../PromotionInfo';
+import { useRefMounted } from '@/hooks/useRefMounted';
+import { OrderInfo } from '@/models/order_list';
+import { orderApi } from '@/queries/order';
+import { Promotions } from '@/models/promtions';
+import { promoApi } from '@/queries/promo';
 
 const theme = createTheme({
     palette: {
@@ -230,10 +235,35 @@ interface DishProps{
 
 export default function PromotionAd(){
 
-    const promotions=InitialPromo();
+
+const initPromo=InitialPromo();
+
+const [promotions,setPromo]=useState<Promotions[]>([]);
+
+const isMountedRef = useRefMounted();
+
+const getAllData=useCallback(async()=>{
+  try{
+    let newPromos= await promoApi.getPromos();
+
+    if(isMountedRef()){
+       setPromo(newPromos);
+       console.log(promotions);
+    }
+  }catch(err){
+    console.error(err);
+  }
+},[isMountedRef]);
+
+
+useEffect(()=>{
+  getAllData();
+},[getAllData]);
+
+
     return (
         <Carousel>{
-                promotions.map((promo, index) =>
+                initPromo.map((promo, index) =>
                <Backgrd id={promo.promotion_id} dishes={promo.dishes}/>)
         }
         </Carousel>
