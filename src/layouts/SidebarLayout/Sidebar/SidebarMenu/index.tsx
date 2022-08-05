@@ -163,7 +163,7 @@ const SubMenuWrapper = styled(Box)(
 `
 );
 
-let nowDishTag = "全新套餐";
+let nowDishTag = "素菜";
 
 export {
   nowDishTag
@@ -187,11 +187,11 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/" passHref>
+                <NextLink href="/orderdishes/素菜" passHref>
                   <Button
                     // className={currentRoute === '="/' ? 'active' : ''}
                     style={{
-                      backgroundColor: currentRoute === '="/' ? '#98313e' : '',
+                      backgroundColor: nowDishTag === '精品锅底' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     disableRipple
@@ -210,7 +210,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              新品体验
+              新品推荐
             </ListSubheader>
           }
           style={{paddingLeft:'0',paddingRight:'0'}}
@@ -218,13 +218,13 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/orderdishes" passHref>
+                <NextLink href="/orderdishes/全新套餐" passHref>
                   <Button
                     // className={
                     //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/orderdishes' ? '#98313e' : '',
+                      backgroundColor: nowDishTag === '全新套餐' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     fullWidth

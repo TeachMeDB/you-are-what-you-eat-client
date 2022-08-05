@@ -605,30 +605,30 @@ function Dishpanel({dishesTag}:{dishesTag}){
   
   const isMountedRef = useRefMounted();
 
-  console.log('dishesTag: ', dishesTag);
+  console.log('dishesTag: ', dishesTag.dishesTag);
   
-  const [dishesInfo, setDishesInfo] = useState<DishesInfo | null>(null);
+  const [dishesInfo, setDishesInfo] = useState<DishHavethetag[] | null>(null);
 
-  // const getDishesInfo = useCallback(async () => {
-  //   try {
-  //     const response = await dishesApi.getDishesInfo(orderId.orderId as string);
+  const getDishesInfo = useCallback(async () => {
+    try {
+      console.log("调用api了",dishesTag.dishesTag);
+      const response = await dishesApi.getCategoryDishes(dishesTag.dishesTag,4);
 
-  //     if (isMountedRef()) {
-  //       setOrderDetail(response);
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }, [isMountedRef]);
+      if (isMountedRef()) {
+        setDishesInfo(response);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isMountedRef]);
 
-  // useEffect(() => {
-  //   getOrderDetail();
-  // }, [getOrderDetail]);
-
-  // if (!orderDetail) {
-  //   return null;
-  // }
-
+  useEffect(() => {
+    getDishesInfo();
+  }, [getDishesInfo]);
+  console.log(dishesInfo);
+  if (!dishesInfo) {
+    return null;
+  }
   return (
     <MainPanel />
   );
