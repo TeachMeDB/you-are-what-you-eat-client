@@ -1,5 +1,5 @@
 export interface CommitOrderUpload {
-    dishes_info: DishesInfo[];
+    dishes_info: DishesInfo;
 }
 
 export interface DishesInfo {

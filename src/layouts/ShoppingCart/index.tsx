@@ -8,6 +8,8 @@ import { Minus, Plus } from "pages/orderdishes";
 import { ThemeProvider } from "@mui/material/styles";
 import { useTheme } from '@mui/material/styles';
 import OrderList from "../Order";
+import { orderApi } from "@/queries/order";
+import { CommitOrderUpload, DishesInfo } from "@/models/commit_order";
 
 const theme = createTheme({
   palette: {
@@ -172,7 +174,32 @@ class NewList extends React.Component<any,any>{
             backgroundColor:"#98313e",
             color:"white",
             borderRadius:"0"
-          }}>
+          }}
+
+          onClick={()=>{
+           let testData:DishesInfo=
+                {
+                dish_id:101,
+                dish_num:2
+               };
+
+
+             let upload={
+              dishes_info:testData
+             } as CommitOrderUpload;
+
+            const conduct=async()=>{
+               return orderApi.postOrderList(upload);
+            }
+              
+             conduct().then((value)=>{
+              alert("创建订单:"+value);
+              window.location.reload();
+             }).catch((value)=>{
+              alert("下单失败:"+value);
+             });
+
+          } }>
        下单</Button>
     </>
     );
