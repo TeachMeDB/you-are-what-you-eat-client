@@ -121,9 +121,19 @@ const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
 
+const orderId=['EHKwcQm2Jbl','PCf3Kvyr8xd'];
+
 const getAllData=useCallback(async()=>{
   try{
-    let order=await orderApi.getOrderList('EHKwcQm2Jbl');
+    let order=await orderApi.getOrderList(orderId[0]);
+    if(orderId.length>1){
+      for(let i=1;i<orderId.length;i++){
+        let newOrder=await orderApi.getOrderList(orderId[i]);
+        order.dish_info=order.dish_info.concat(newOrder.dish_info);
+      }
+    }
+
+     console.log(order);
     let orderPrice=await orderPriceApi.getOrderPrice('EHKwcQm2Jbl');
     if(isMountedRef()){
         setDishes(order);

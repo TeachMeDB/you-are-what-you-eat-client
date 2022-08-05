@@ -2,15 +2,15 @@ import {
     OrderInfo,
     DishInfo
     
-} from '@/models/order_list'
+} from '@/models/order_list';
+
+import {CommitOrderUpload} from '@/models/commit_order';
+import {RetOrderId} from '@/models/ret_of_commit';
 
 import {GetApi,PostApi} from "@/utils/requests"
 
 
 class OrderApi {
-    getPromos() {
-      throw new Error('Method not implemented.');
-    }
 
     public async getOrderList(order_id:string){
         return (await (GetApi("OrderDish/GetOrderDishInfo",{
@@ -18,6 +18,13 @@ class OrderApi {
         }))).data as OrderInfo;
     }
 
+    public async postOrderList(orderList:CommitOrderUpload){
+        let post=await PostApi("OrderDish/PostOrder",orderList);
+        return (
+        post.statusText as string,
+        post.data as RetOrderId
+        );
+    }
 
 }
 
