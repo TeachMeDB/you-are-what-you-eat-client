@@ -176,25 +176,35 @@ function NewList (props){
           }}
 
           onClick={()=>{
-           let testData:DishesInfo=
-                {
-                dish_id:101,
-                dish_num:2
-               };
+           let testData:DishesInfo[]=[];
 
+             for(let i=0;i<props.dishes.length;i++){
+               if(props.dishes[i].ordernum>0){
+                     let addOne:DishesInfo[]=[{
+                      dish_id:props.dishes[i].dishid,
+                      dish_num:props.dishes[i].ordernum
+                     }];
+                     testData=testData.concat(addOne);
+               }
+             }  
 
              let upload={
               dishes_info:testData
              } as CommitOrderUpload;
 
             const conduct=async()=>{
+              console.log(upload);
                return orderApi.postOrderList(upload);
             }
               
              conduct().then((value)=>{
               alert("创建订单:"+value);
+              //添加订单
               props.addOrder(value);
-              window.location.reload();
+              //清空购物车
+              props.handleClear();
+              //这里不需要刷新界面
+              // window.location.reload();
              }).catch((value)=>{
               alert("下单失败:"+value);
              });
@@ -260,7 +270,7 @@ function ShoppingCartFab(props){
                 handleClickPlus={props.hdPlus}
                 handleClickMinus={props.hdMinus}
                 addOrder={addOrder}
-                
+                handleClear={props.hdClear}
                 />
       
        </TabPanel>

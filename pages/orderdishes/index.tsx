@@ -287,7 +287,23 @@ class MainPanel extends React.Component<any,any>{
     this.state={dishes:InitialDish(props.dishes)};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
+   this.handleClear=this.handleClear.bind(this);
    }
+
+  handleClear(){
+    
+    console.log(this.state.dishes);
+
+    for(let i = 0;i<this.state.dishes.length;i++){
+      this.state.dishes[i].ordernum=0;
+    }
+
+     this.setState({
+      dishes:this.state.dishes
+     });
+  }
+
+
     handleClickPlus(dishid:number){
       let index=0;
       for(let i = 0;i<this.state.dishes.length;i++){
@@ -481,7 +497,8 @@ class MainPanel extends React.Component<any,any>{
         </ImageList>
         <ShoppingCartFab dishes={this.state.dishes}
                          hdPlus={this.handleClickPlus}
-                         hdMinus={this.handleClickMinus}/>
+                         hdMinus={this.handleClickMinus}
+                         hdClear={this.handleClear}/>
         {/* <SearchFab handleSearchChange={this.handleSearchChange}/> */}
         {/* <FormControl 
           variant="outlined"
