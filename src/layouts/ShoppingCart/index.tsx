@@ -98,14 +98,13 @@ function a11yProps(index: number) {
 
 
 
-class NewList extends React.Component<any,any>{
+function NewList (props){
     
-
-   render(){
-    console.log(this.props.dishes.length);
+  // orderIds:DishesInfo
+    console.log(props.dishes.length);
     let empt=true;
-    for(let i=0;i<this.props.dishes.length;i++)
-        if(this.props.dishes[i].ordernum>0){empt=false;break;}
+    for(let i=0;i<props.dishes.length;i++)
+        if(props.dishes[i].ordernum>0){empt=false;break;}
   
     if(empt)
     return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
@@ -114,7 +113,7 @@ class NewList extends React.Component<any,any>{
     else
     return(
         <>{
-        this.props.dishes.map((dish,index)=>
+        props.dishes.map((dish,index)=>
        dish.ordernum>0&&(<List>  
           <ListItem>
           <Grid container spacing={0}>
@@ -139,7 +138,7 @@ class NewList extends React.Component<any,any>{
             &nbsp;
             </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.props.handleClickMinus(dish.dishid);}}>
+       props.handleClickMinus(dish.dishid);}}>
           <Minus ordernum={dish.ordernum}/>
           </IconButton> 
          </Grid>
@@ -156,7 +155,7 @@ class NewList extends React.Component<any,any>{
             &nbsp;
             </Typography>
         <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-       this.props.handleClickPlus(dish.dishid);
+       props.handleClickPlus(dish.dishid);
        }}>
           <Plus ordernum={dish.ordernum}/>
         </IconButton>
@@ -194,6 +193,7 @@ class NewList extends React.Component<any,any>{
               
              conduct().then((value)=>{
               alert("创建订单:"+value);
+              props.addOrder(value);
               window.location.reload();
              }).catch((value)=>{
               alert("下单失败:"+value);
@@ -203,13 +203,22 @@ class NewList extends React.Component<any,any>{
        下单</Button>
     </>
     );
-  }
+  
 }
 
 function ShoppingCartFab(props){
   // const theme=useTheme();
+
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
+  
+  const [orderIds,setOrders]=useState<string[]>([]);
+  console.log(orderIds);
+  const addOrder=(newOrderId:string)=>{
+    let newOne:string[]=[newOrderId];
+    let newStrs=orderIds.concat(newOne);
+    setOrders(newStrs);
+  }
 
   const handleOpen = (): void => {
     setOpen(true);
@@ -223,6 +232,8 @@ function ShoppingCartFab(props){
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+
 
   return(
     <React.Fragment>
@@ -247,7 +258,10 @@ function ShoppingCartFab(props){
       <TabPanel value={value} index={0}>
        <NewList dishes={props.dishes}
                 handleClickPlus={props.hdPlus}
-                handleClickMinus={props.hdMinus}/>
+                handleClickMinus={props.hdMinus}
+                addOrder={addOrder}
+                
+                />
       
        </TabPanel>
       <TabPanel value={value} index={1} >
