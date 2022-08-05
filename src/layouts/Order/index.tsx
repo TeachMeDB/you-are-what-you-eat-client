@@ -11,7 +11,8 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { useRefMounted } from "@/hooks/useRefMounted";
 import { orderApi } from '@/queries/order';
 import { DishInfo, OrderInfo } from "@/models/order_list";
-
+import { OrderTotPrice } from '@/models/orderTotPrice'
+import { orderPriceApi } from "@/queries/orderPrice";
 
 
 const theme = createTheme({
@@ -114,16 +115,20 @@ function Status(props){
 export default function OrderList(){
 
 const initOrder:OrderInfo={dish_info:[]};
+const initPrice:OrderTotPrice={orderTotalPrice:0};
 
+const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
 
 const getAllData=useCallback(async()=>{
   try{
     let order=await orderApi.getOrderList('EHKwcQm2Jbl');
-
+    let orderPrice=await orderPriceApi.getOrderPrice('EHKwcQm2Jbl');
     if(isMountedRef()){
         setDishes(order);
+        console.log(orderPrice);
+        setPrice(orderPrice);
     }
   }catch(err){
     console.error(err);
@@ -137,11 +142,13 @@ useEffect(()=>{
 
 if (dishes==initOrder){
 return( 
+  <Box sx={{minHeight:135}}>
 <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
    暂无
-</Typography>);
+</Typography>
+</Box>);
 }
-
+else
 return (
   <>
   <ThemeProvider theme={theme}>{
@@ -173,6 +180,7 @@ return (
             {/* <Divider /> */}
             </List>
           )}
+
            <Button 
               style={{
                 width:"100%",
@@ -180,6 +188,7 @@ return (
                 color:"white",
                 borderRadius:"0"
               }}>
+            ￥{price.orderTotalPrice}&nbsp;
            结账</Button>
         </ThemeProvider>
        
