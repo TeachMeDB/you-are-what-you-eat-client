@@ -52,191 +52,213 @@ interface DishProps{
     searched:boolean;
 }
 
-const InitialDish=():Array<DishProps>=>{
-return [
-    {
-        dishid:1,
-        dishname:"清炒土豆丝",
-        price:9,
-        picture:"/static/images/status/potato.png",
-        ordernum:1,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:2,
-        dishname:"番茄炒蛋",
-        price:5.5,
-        picture:"/static/images/status/tomato.png",
-        ordernum:1,
-        rate:4.6,
-        description:"有点甜",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:3,
-        dishname:"炒洋葱",
-        price:10,
-        picture:"/static/images/status/onion.png",
-        ordernum:0,
-        rate:4.3,
-        description:"让人眼前一亮",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:4,
-        dishname:"北京烤鸭",
-        price:106,
-        picture:"/static/images/status/duck.jpg",
-        ordernum:1,
-        rate:4.9,
-        description:"正宗烤鸭，现烤现卖",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:5,
-        dishname:"干锅花菜",
-        price:51,
-        picture:"/static/images/status/broc.jpg",
-        ordernum:1,
-        rate:4.0,
-        description:"烈火中盛开的...花菜",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:6,
-        dishname:"土豆牛肉",
-        price:40,
-        picture:"/static/images/status/beef.jpg",
-        ordernum:1,
-        rate:3.9,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:7,
-        dishname:"新疆羊肉串",
-        price:30,
-        picture:"/static/images/status/muttonchuan.jpg",
-        ordernum:1,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:8,
-        dishname:"鱼豆腐",
-        price:20,
-        picture:"/static/images/status/tofu.png",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:9,
-        dishname:"虾仁粉丝煲",
-        price:60,
-        picture:"/static/images/status/fans.jpg",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:10,
-        dishname:"歪比巴卜",
-        price:20,
-        picture:"/static/images/status/tomato.png",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:11,
-        dishname:"歪比巴卜",
-        price:97,
-        picture:"/static/images/status/potato.png",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:12,
-        dishname:"歪比巴卜",
-        price:13238936,
-        picture:"/static/images/status/onion.png",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:13,
-        dishname:"歪比巴卜",
-        price:13238936,
-        picture:"/static/images/status/broc.jpg",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    },
-    {
-        dishid:14,
-        dishname:"歪比巴卜",
-        price:13238936,
-        picture:"/static/images/status/tofu.png",
-        ordernum:0,
-        rate:4.7,
-        description:"简单的做法，极致的美味",
-        dishsalt:"正常盐",
-        dishspicy:"不辣",
-        dishsweet:"少糖",
-        searched:true,
-    }
-]
+const InitialDish=(dishes):Array<DishProps>=>{
+  // console.log("+++++++++++++");
+  // console.log(dishes);
+  let dishesAll = [];
+  for(let i = 0;i < dishes.dish_havethetag.length; i++) {
+    let dish = [];
+    dish["dishid"] = dishes.dish_havethetag[i].dish_id;
+    dish["dishname"] = dishes.dish_havethetag[i].dish_name;
+    dish["picture"] = dishes.dish_havethetag[i].dish_picture;
+    dish["price"] = dishes.dish_havethetag[i].dish_price;
+    dish["rate"] = dishes.dish_havethetag[i].dish_rate;
+    dish["description"] = dishes.dish_havethetag[i].dish_description;
+
+    dish["ordernum"] = 1;
+    dish["dishsalt"] = "正常盐";
+    dish["dishspicy"] = "不辣";
+    dish["dishsweet"] = "少糖";
+    dish["searched"] = true;
+
+    dishesAll.push(dish);
+  }
+  // console.log(dishesAll);
+  return dishesAll;
+  // return [
+  //     {
+  //         dishid:1,
+  //         dishname:"清炒土豆丝",
+  //         price:9,
+  //         picture:"/static/images/status/potato.png",
+  //         ordernum:1,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:2,
+  //         dishname:"番茄炒蛋",
+  //         price:5.5,
+  //         picture:"/static/images/status/tomato.png",
+  //         ordernum:1,
+  //         rate:4.6,
+  //         description:"有点甜",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:3,
+  //         dishname:"炒洋葱",
+  //         price:10,
+  //         picture:"/static/images/status/onion.png",
+  //         ordernum:0,
+  //         rate:4.3,
+  //         description:"让人眼前一亮",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:4,
+  //         dishname:"北京烤鸭",
+  //         price:106,
+  //         picture:"/static/images/status/duck.jpg",
+  //         ordernum:1,
+  //         rate:4.9,
+  //         description:"正宗烤鸭，现烤现卖",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:5,
+  //         dishname:"干锅花菜",
+  //         price:51,
+  //         picture:"/static/images/status/broc.jpg",
+  //         ordernum:1,
+  //         rate:4.0,
+  //         description:"烈火中盛开的...花菜",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:6,
+  //         dishname:"土豆牛肉",
+  //         price:40,
+  //         picture:"/static/images/status/beef.jpg",
+  //         ordernum:1,
+  //         rate:3.9,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:7,
+  //         dishname:"新疆羊肉串",
+  //         price:30,
+  //         picture:"/static/images/status/muttonchuan.jpg",
+  //         ordernum:1,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:8,
+  //         dishname:"鱼豆腐",
+  //         price:20,
+  //         picture:"/static/images/status/tofu.png",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:9,
+  //         dishname:"虾仁粉丝煲",
+  //         price:60,
+  //         picture:"/static/images/status/fans.jpg",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:10,
+  //         dishname:"歪比巴卜",
+  //         price:20,
+  //         picture:"/static/images/status/tomato.png",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:11,
+  //         dishname:"歪比巴卜",
+  //         price:97,
+  //         picture:"/static/images/status/potato.png",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:12,
+  //         dishname:"歪比巴卜",
+  //         price:13238936,
+  //         picture:"/static/images/status/onion.png",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:13,
+  //         dishname:"歪比巴卜",
+  //         price:13238936,
+  //         picture:"/static/images/status/broc.jpg",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     },
+  //     {
+  //         dishid:14,
+  //         dishname:"歪比巴卜",
+  //         price:13238936,
+  //         picture:"/static/images/status/tofu.png",
+  //         ordernum:0,
+  //         rate:4.7,
+  //         description:"简单的做法，极致的美味",
+  //         dishsalt:"正常盐",
+  //         dishspicy:"不辣",
+  //         dishsweet:"少糖",
+  //         searched:true,
+  //     }
+  // ]
 }
 
 export const Plus=(props)=>{
@@ -260,7 +282,9 @@ class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
-    this.state={dishes:InitialDish()};
+    // console.log("----------");
+    // console.log(props.dishes);
+    this.state={dishes:InitialDish(props.dishes)};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
    }
@@ -296,7 +320,7 @@ class MainPanel extends React.Component<any,any>{
           break;
         }
       }
-      console.log(index);
+      // console.log(index);
       let dishes = this.state.dishes;
       dishes[index].ordernum--;
       // console.log(this.state.dishes);
@@ -361,6 +385,7 @@ class MainPanel extends React.Component<any,any>{
     }
 
     handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
+      // console.log(this.props.dishes);
       let value = null;
   
       if (e.target.value !== null) {
@@ -574,10 +599,10 @@ class MainPanel extends React.Component<any,any>{
     }
 }
 
-function Dishpanel({dishes1}:{dishes1:DishHavethetag[]}){
-  console.log(dishes1);
+function Dishpanel({dishes}:{dishes:DishHavethetag[]}){
+  // console.log(dishes);
   return (
-    <MainPanel/>
+    <MainPanel dishes={dishes}/>
   );
 }
 
@@ -588,8 +613,8 @@ export default Dishpanel;
 
 export async function getServerSideProps() {
 
-  const dishes1= await dishesApi.getCategoryDishes(nowDishTag,4);
+  const dishes= await dishesApi.getCategoryDishes(nowDishTag,4);
 
 
-  return { props: { dishes1 } }
+  return { props: { dishes } }
 }
