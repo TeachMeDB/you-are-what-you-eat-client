@@ -163,23 +163,24 @@ const SubMenuWrapper = styled(Box)(
 `
 );
 
-let nowDishTag = "素菜";
+// let nowDishTag = "素菜";
 
-export {
-  nowDishTag
-}
+// export {
+//   nowDishTag
+// }
 
 
 
-function SidebarMenu() {
+function SidebarMenu(props) {
   const { closeSidebar } = useContext(SidebarContext);
   const router = useRouter();
   const currentRoute = router.pathname;
-  let handleDishTag = (dishTag) =>{
-    closeSidebar();
-    nowDishTag = dishTag;
-    console.log(nowDishTag);
-  }
+  // let handleDishTag = (dishTag) =>{
+  //   closeSidebar();
+  //   nowDishTag = dishTag;
+  //   console.log(nowDishTag);
+  // }
+  console.log("3",props.nowDishTag);
   return (
     <>
       <MenuWrapper>
@@ -187,21 +188,21 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/orderdishes/素菜" passHref>
+                {/* <NextLink href="/orderdishes/" passHref> */}
                   <Button
                     // className={currentRoute === '="/' ? 'active' : ''}
                     style={{
-                      backgroundColor: nowDishTag === '精品锅底' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '精品锅底' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     disableRipple
                     component="a"
-                    onClick={()=>handleDishTag("精品锅底")}
+                    onClick={()=>props.handleDishTag("精品锅底")}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
                     精品锅底
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>
@@ -218,24 +219,24 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/orderdishes/全新套餐" passHref>
+                {/* <NextLink href="/orderdishes/" passHref> */}
                   <Button
                     // className={
                     //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: nowDishTag === '全新套餐' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '全新套餐' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     fullWidth
                     disableRipple
                     component="a"
-                    onClick={()=>handleDishTag("全新套餐")}
+                    onClick={()=>props.handleDishTag("全新套餐")}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
                     全新套餐
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
               {/* <ListItem component="div">
                 <NextLink href="/applications/messenger" passHref>

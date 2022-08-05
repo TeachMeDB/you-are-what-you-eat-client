@@ -28,7 +28,7 @@ import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
 import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
 
-import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
+// import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -39,6 +39,8 @@ import { DishHavethetag, DishesInfo } from '@/models/dishes_info';
 
 import { useRefMounted } from 'src/hooks/useRefMounted';
 import { useState, useCallback, useEffect } from 'react';
+import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
+
 
 interface DishProps{
     dishid:number;
@@ -48,10 +50,12 @@ interface DishProps{
     ordernum:number;
     rate:number;
     description:string;
+    dishtag:string;
     dishsalt:string;
     dishspicy:string;
     dishsweet:string;
     searched:boolean;
+    selected:boolean;
 }
 
 const InitialDish=(dishes):Array<DishProps>=>{
@@ -90,6 +94,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"素菜",
+          selected:true,
       },
       {
           dishid:2,
@@ -103,6 +109,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐",
+          selected:true,
       },
       {
           dishid:3,
@@ -116,6 +124,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"精品锅底",
+          selected:true,
       },
       {
           dishid:4,
@@ -129,6 +139,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐",
+          selected:true,
       },
       {
           dishid:5,
@@ -142,6 +154,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:6,
@@ -155,6 +168,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:7,
@@ -168,6 +182,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:8,
@@ -181,6 +196,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:9,
@@ -194,6 +210,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:10,
@@ -207,6 +224,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:11,
@@ -220,6 +238,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:12,
@@ -233,6 +252,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"精品锅底"
       },
       {
           dishid:13,
@@ -246,6 +266,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       },
       {
           dishid:14,
@@ -259,6 +280,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
+          dishtag:"全新套餐"
       }
   ]
 }
@@ -286,7 +308,7 @@ class MainPanel extends React.Component<any,any>{
     super(props);
     // console.log("----------");
     // console.log(props.dishes);
-    this.state={dishes:InitialDish(props.dishes)};
+    this.state={dishes:InitialDish(props.dishes),nowDishTag:"新品上市"};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
    }
@@ -307,7 +329,7 @@ class MainPanel extends React.Component<any,any>{
       this.setState({
         dishes:dishes
       });
-      console.log(nowDishTag);
+      // console.log(nowDishTag);
       // this.setState(function(state){
       //     this.state.dishes[index].ordernum++;
       //     return{dishes:state.dishes};
@@ -430,9 +452,29 @@ class MainPanel extends React.Component<any,any>{
       // });
     };
 
+    handleDishTag = (dishTag) => {
+      let dishes = this.state.dishes;
+      let nowDishTag = dishTag;
+      for(let i = 0;i<dishes.length;i++){
+        dishes[i].selected=true;
+        if(dishes[i].dishtag!=dishTag){
+          dishes[i].selected=false;
+        }
+      }
+      console.log(dishes);
+      this.setState({
+        dishes: dishes,
+        nowDishTag: nowDishTag
+      })
+    }
+
     render(){
       return(
         <>
+          <Sidebar 
+            handleDishTag = {this.handleDishTag}
+            nowDishTag = {this.state.nowDishTag}
+          />
          <PromotionAd/>
          <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
           <TextField 
@@ -448,7 +490,7 @@ class MainPanel extends React.Component<any,any>{
             <ListSubheader component="div">December</ListSubheader>
           </ImageListItem> */}
           {this.state.dishes.map((item) => (
-            item.searched &&
+            item.searched && item.selected &&
             <ImageListItem key={item.dishid}>
               <img
                 src={item.picture}

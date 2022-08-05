@@ -9,8 +9,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import DishInfo from '../../src/components/DishInfo/index'
-import DishInfoDialog from '../../src/components/DishInfoDialog/index'
+import DishInfo from '../../../src/components/DishInfo/index'
+import DishInfoDialog from '../../../src/components/DishInfoDialog/index'
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -24,15 +24,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { AddShoppingCart } from '@mui/icons-material';
-import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
+import ShoppingCartFab from '../../../src/layouts/ShoppingCart/index';
 import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
 
-import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
+import {nowDishTag} from '../../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import PromotionAd from '../../src/components/PromotionAd/index';
+import PromotionAd from '../../../src/components/PromotionAd/index';
 
 import { dishesApi } from '@/queries/dishes';
 import { DishHavethetag, DishesInfo } from '@/models/dishes_info';

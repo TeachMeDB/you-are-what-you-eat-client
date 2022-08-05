@@ -30,11 +30,10 @@ const SidebarWrapper = styled(Box)(
 `
 );
 
-function Sidebar() {
+function Sidebar(props) {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
   const closeSidebar = () => toggleSidebar();
   const theme = useTheme();
-
   return (
     <>
 
@@ -73,7 +72,10 @@ function Sidebar() {
               background: theme.colors.alpha.trueWhite[10]
             }}
           />
-          <SidebarMenu />
+          <SidebarMenu 
+            handleDishTag = {props.handleDishTag}
+            nowDishTag = {props.nowDishTag}  
+          />
         </Scrollbar>
         <Divider
           sx={{
@@ -138,7 +140,10 @@ function Sidebar() {
                 background: theme.colors.alpha.trueWhite[10]
               }}
             />
-            <SidebarMenu />
+            <SidebarMenu 
+              handleDishTag = {props.handleDishTag}
+              nowDishTag = {props.nowDishTag}  
+            />
           </Scrollbar>
         </SidebarWrapper>
       </Drawer>

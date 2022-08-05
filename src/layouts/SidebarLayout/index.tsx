@@ -42,7 +42,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({ children }) => {
         }}
       >
         {/* <Header /> */}
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Box
           sx={{
             position: 'relative',
