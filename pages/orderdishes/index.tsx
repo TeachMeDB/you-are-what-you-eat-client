@@ -41,6 +41,10 @@ import { useRefMounted } from 'src/hooks/useRefMounted';
 import { useState, useCallback, useEffect } from 'react';
 import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
 
+interface DishComment {
+  content:string;
+  time:string;
+}
 
 interface DishProps{
     dishid:number;
@@ -52,6 +56,7 @@ interface DishProps{
     description:string;
     dishtag:string[];
     dishdiscount:number[];
+    dishcomment:DishComment[];
     dishsalt:string;
     dishspicy:string;
     dishsweet:string;
@@ -77,6 +82,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
     dish["description"] = dishes.dish_all[i].dish_description;
     dish["dishtag"] = dishes.dish_all[i].dish_tag;
     dish["dishdiscount"] = dishes.dish_all[i].dish_discount;
+    dish["dishcomment"] = [{content:"还挺好吃",time:"2022-08-06"},{content:"一般般",time:"2022-08-05"}];
 
     dish["ordernum"] = 1;
     dish["dishsalt"] = "正常盐";

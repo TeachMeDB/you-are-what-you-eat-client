@@ -12,6 +12,13 @@ import {Stack, ButtonBase, SvgIcon, SxProps } from '@mui/material';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
+
 
 
 export const Minus=(props)=>{
@@ -181,8 +188,19 @@ class DishInfo extends Component {
                     </Grid>
                                        
                 </Box>
-                <button onClick={this.test}></button>
-                
+                <List sx={{ width: '100%', maxWidth: 360, }}>
+                    {this.props.dish.dishcomment.map((item) => (
+                        <ListItem key={item.content}>
+                            <ListItemAvatar>
+                            <Avatar>
+                                <ImageIcon />
+                            </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={item.content} secondary={item.time} />
+                        </ListItem>
+                    ))}
+                </List>
+                {/* <button onClick={this.test}></button> */}
             </React.Fragment>
         );
     }

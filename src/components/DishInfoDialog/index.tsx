@@ -8,6 +8,7 @@ import { Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import InfoIcon from '@mui/icons-material/Info';
 
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -62,7 +63,7 @@ export default function DishInfoDialog(props) {
         maxWidth={maxWidth}
         open={open}
         onClose={handleClose}
-        scroll="body"
+        // scroll="body"
       >
         <DialogContent style={{padding: '0'}}>
           <DishInfo 
@@ -74,6 +75,7 @@ export default function DishInfoDialog(props) {
             handleDishSweetChange={props.hdSweet}
           />
         </DialogContent>
+        
         <DialogActions style={{padding:'0'}}>
           <Button 
             style={{
