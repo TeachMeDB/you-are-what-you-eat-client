@@ -191,15 +191,69 @@ function SidebarMenu(props) {
                   <Button
                     // className={currentRoute === '="/' ? 'active' : ''}
                     style={{
-                      backgroundColor: props.nowDishTag === '精品锅底' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '全部菜品' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     disableRipple
                     component="a"
-                    onClick={()=>props.handleDishTag("精品锅底")}
+                    onClick={()=>props.handleDishTag("全部菜品")}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    精品锅底
+                    全部菜品
+                  </Button>
+                {/* </NextLink> */}
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              精品锅底
+            </ListSubheader>
+          }
+          style={{paddingLeft:'0',paddingRight:'0'}}
+        >
+          <SubMenuWrapper>
+            <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
+              <ListItem component="div">
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                  <Button
+                    // className={
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
+                    // }
+                    style={{
+                      backgroundColor: props.nowDishTag === '单锅' ? '#98313e' : '',
+                      borderRadius:'0',
+                    }}
+                    fullWidth
+                    disableRipple
+                    component="a"
+                    onClick={()=>props.handleDishTag("单锅")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    单锅
+                  </Button>
+                {/* </NextLink> */}
+              </ListItem>
+              <ListItem component="div">
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
+                    // className={
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
+                    // }
+                    style={{
+                      backgroundColor: props.nowDishTag === '拼锅' ? '#98313e' : '',
+                      borderRadius:'0',
+                    }}
+                    fullWidth
+                    disableRipple
+                    component="a"
+                    onClick={()=>props.handleDishTag("拼锅")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    拼锅
                   </Button>
                 {/* </NextLink> */}
               </ListItem>
