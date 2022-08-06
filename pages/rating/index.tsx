@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, Button, Container, Paper, CardActionArea } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, Button, Container, Paper, CardActionArea, createTheme, ThemeProvider } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -16,6 +16,40 @@ import TextField from '@mui/material/TextField';
 import NextLink from 'next/link';
 import { useContext } from 'react';
 import { SidebarContext } from '@/contexts/SidebarContext';
+import { DishRatingUpload, ServiceRatingUpload } from '@/models/rating';
+import { ratingApi } from '@/queries/rating';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main:"#ffeb3b",
+    },
+    secondary:{
+      main:"#33eb91",
+    }
+  },
+});
+declare module '@mui/material/styles' {
+  interface Theme {
+    palette: {
+      primary: {
+        main:string;
+      }
+    };
+  }
+
+  interface ThemeOptions {
+    palette?: {
+      primary?: {
+        main?:string;
+      }
+    };
+  }
+}
+
+
+
+
 
 interface FinalDishProps{
     dishname:string;
@@ -128,6 +162,7 @@ function Ratepanel() {
    const [hover, setHover] = React.useState(-1);
    let [index,setIdx]=React.useState<number|null>(0);
         return(
+        
         <Paper
         sx={{height:'100%',textAlign:'center' }}>
             <Container>
@@ -193,9 +228,48 @@ function Ratepanel() {
         </Grid>
         
         </Grid>
+        <Button size="large"
+                onClick={()=>{
+                   let testData1={
+                      content:"很好吃，下次还会点",
+                      dish_id: 101,
+                      rate:5,
+                      username:"default01"
+                   } as DishRatingUpload;
+
+                  const conduct1=async()=>{
+                    console.log(testData1);
+                    return ratingApi.postDishRating(testData1);
+                  }
+
+                  conduct1().then((value)=>{
+                    alert("提交菜品评价："+value);
+                  }).catch((value)=>{
+                    alert("提交菜品评价失败："+value);
+                  })
+
+
+                  let testData2={
+                    content:"服务很热情，给个好评",
+                    rate:5,
+                    username:"徐满心"
+                 } as ServiceRatingUpload;
+
+                const conduct2=async()=>{
+                  console.log(testData2);
+                  return ratingApi.postServiceRating(testData2);
+                }
+
+                conduct2().then((value)=>{
+                  alert("提交服务评价："+value);
+                }).catch((value)=>{
+                  alert("提交服务评价失败："+value);
+                })
+                  
+                }}
+        >提交评价</Button>
             </Container>
             </Paper>
-         
         );
 }
 

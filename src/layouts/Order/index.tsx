@@ -112,7 +112,7 @@ function Status(props){
 }
 
 
-export default function OrderList(){
+export default function OrderList(props){
 
 const initOrder:OrderInfo={dish_info:[]};
 const initPrice:OrderTotPrice={orderTotalPrice:0};
@@ -121,21 +121,31 @@ const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
 
-const orderId=['EHKwcQm2Jbl','PCf3Kvyr8xd'];
+
+const orderId:string[]=props.orderIds;
+
 
 const getAllData=useCallback(async()=>{
   try{
+
     let order=await orderApi.getOrderList(orderId[0]);
+    let orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
+
     if(orderId.length>1){
       for(let i=1;i<orderId.length;i++){
+
         let newOrder=await orderApi.getOrderList(orderId[i]);
+        let newPrice=await orderPriceApi.getOrderPrice(orderId[i]);
+
         order.dish_info=order.dish_info.concat(newOrder.dish_info);
+
+        orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
       }
     }
 
-     console.log(order);
-    let orderPrice=await orderPriceApi.getOrderPrice('EHKwcQm2Jbl');
+   
     if(isMountedRef()){
+        console.log(order);
         setDishes(order);
         console.log(orderPrice);
         setPrice(orderPrice);
@@ -152,18 +162,19 @@ useEffect(()=>{
 
 if (dishes==initOrder){
 return( 
-  <Box sx={{minHeight:135}}>
+  <Box sx={{minHeight:720}}>
 <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
    暂无
 </Typography>
 </Box>);
 }
-else
+
 return (
   <>
-  <ThemeProvider theme={theme}>{
+  <ThemeProvider theme={theme}>
+    <Box sx={{minHeight:683}}>{
             dishes.dish_info.map((item,index)=>
-           <List>  
+           <List >  
               <ListItem>
               <Grid container spacing={0}>
               <Grid item xs={2.5}> 
@@ -189,7 +200,7 @@ return (
               </ListItem>
             {/* <Divider /> */}
             </List>
-          )}
+          )}</Box>
 
            <Button 
               style={{

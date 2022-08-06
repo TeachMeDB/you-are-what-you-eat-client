@@ -107,12 +107,17 @@ function NewList (props){
         if(props.dishes[i].ordernum>0){empt=false;break;}
   
     if(empt)
-    return( <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
-    暂无</Typography>);
+    return( 
+      <Box sx={{minHeight:700}}>
+        <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
+    暂无</Typography>
+    </Box>
+    );
 
     else
     return(
-        <>{
+        <>
+        <Box sx={{minHeight:683}}>{
         props.dishes.map((dish,index)=>
        dish.ordernum>0&&(<List>  
           <ListItem>
@@ -166,7 +171,7 @@ function NewList (props){
           </ListItem>
         {/* <Divider /> */}
         </List>)
-      )}
+      )}</Box>
        <Button 
           style={{
             width:"100%",
@@ -224,6 +229,7 @@ function ShoppingCartFab(props){
   
   const [orderIds,setOrders]=useState<string[]>([]);
   console.log(orderIds);
+
   const addOrder=(newOrderId:string)=>{
     let newOne:string[]=[newOrderId];
     let newStrs=orderIds.concat(newOne);
@@ -275,7 +281,7 @@ function ShoppingCartFab(props){
       
        </TabPanel>
       <TabPanel value={value} index={1} >
-     <OrderList/>
+     <OrderList orderIds={orderIds}/>
       </TabPanel>
       </Menu></ThemeProvider>
       </React.Fragment>
