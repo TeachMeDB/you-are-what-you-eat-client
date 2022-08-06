@@ -245,9 +245,10 @@ const isMountedRef = useRefMounted();
 const getAllData=useCallback(async()=>{
   try{
     let newPromos= await promoApi.getPromos();
-
+    console.log("让我们看看有哪些活动！");
     if(isMountedRef()){
        setPromo(newPromos);
+      
        console.log(promotions);
     }
   }catch(err){
@@ -263,7 +264,7 @@ useEffect(()=>{
 
     return (
         <Carousel>{
-                initPromo.map((promo, index) =>
+                promotions.map((promo, index) =>
                <Backgrd id={promo.promotion_id} dishes={promo.dishes}/>)
         }
         </Carousel>
