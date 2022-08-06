@@ -1,4 +1,6 @@
 import { SidebarContext } from '@/contexts/SidebarContext';
+import { ReleaseTable } from '@/models/release_table';
+import { tableApi } from '@/queries/tableStatus';
 import {Container, Paper,Typography,Button } from '@mui/material';
 import NextLink from 'next/link';
 import { useContext } from 'react';
@@ -21,7 +23,24 @@ export default function Cleantable(){
             <p>&nbsp;</p>
             <NextLink href="/orderdishes" passHref>
             <Button variant="outlined" size="large"
-             onClick={closeSidebar}
+             onClick={()=>{
+                // closeSidebar();
+                let upload={
+                    table_id:0
+                } as ReleaseTable;
+
+                const conduct=async()=>{
+                    return tableApi.postReleaseTable(upload);
+                }
+
+                conduct().then((value)=>{
+                    alert("清理完成，桌面释放："+value);
+                }).catch((value)=>{
+                    alert("释放桌面失败："+value);
+                });
+            
+            
+            }}
             
             >点击完成</Button>
             </NextLink>
