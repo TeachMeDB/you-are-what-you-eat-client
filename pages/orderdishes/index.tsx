@@ -324,9 +324,9 @@ class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
-    console.log("----------");
-    console.log(props.dishes);
-    this.state={dishes:InitialDish(props.dishes),nowDishTag:"新品上市"};
+    // console.log("----------");
+    // console.log(props.dishes);
+    this.state={dishes:InitialDish(props.dishes),nowDishTag:"全部菜品"};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
    this.handleClear=this.handleClear.bind(this);
@@ -489,10 +489,17 @@ class MainPanel extends React.Component<any,any>{
     handleDishTag = (dishTag) => {
       let dishes = this.state.dishes;
       let nowDishTag = dishTag;
-      for(let i = 0;i<dishes.length;i++){
-        dishes[i].selected=true;
-        if(!dishes[i].dishtag.includes(dishTag)){
-          dishes[i].selected=false;
+      // 对全部菜品选项进行特判
+      if(dishTag == '全部菜品') {
+        for(let i = 0;i<dishes.length;i++){
+          dishes[i].selected=true;
+        }
+      } else {
+        for(let i = 0;i<dishes.length;i++){
+          dishes[i].selected=true;
+          if(!dishes[i].dishtag.includes(dishTag)){
+            dishes[i].selected=false;
+          }
         }
       }
       console.log(dishes);
