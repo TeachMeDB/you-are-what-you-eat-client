@@ -40,6 +40,8 @@ const theme = createTheme({
 
 export default function PromoInfo(props){
     const str="/static/images/status/promo_"+props.id+".png";
+    console.log("看看活动菜品图片");
+    console.log(props.dishes);
     return(
         <ThemeProvider theme={theme}>
         <img src= {str} width="100%" height="100%"/>
@@ -61,12 +63,12 @@ export default function PromoInfo(props){
             </Typography>
 
             <Grid container >
-                <Grid item xs={4}>
+                <Grid item xs={6}>
             <Typography variant="body1"  color="gray" sx={{textDecorationLine:'line-through'}}>
        原价: ￥{dish.dish.dish_price} 
        </Typography></Grid>
 
-       <Grid item xs={8}>
+       <Grid item xs={6}>
        <Typography variant="body1"  color="red">
        &nbsp;&nbsp;&nbsp;现价: ￥{dish.dish.dish_price*dish.discount} 
        </Typography>
