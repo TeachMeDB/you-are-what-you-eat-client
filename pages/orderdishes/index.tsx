@@ -35,7 +35,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import PromotionAd from '../../src/components/PromotionAd/index';
 
 import { dishesApi } from '@/queries/dishes';
-import { DishHavethetag, DishesInfo } from '@/models/dishes_info';
+import { DishHavethetag, DishesInfo, DishAll, DishesAll } from '@/models/dishes_info';
 
 import { useRefMounted } from 'src/hooks/useRefMounted';
 import { useState, useCallback, useEffect } from 'react';
@@ -50,7 +50,8 @@ interface DishProps{
     ordernum:number;
     rate:number;
     description:string;
-    dishtag:string;
+    dishtag:string[];
+    dishdiscount:number[];
     dishsalt:string;
     dishspicy:string;
     dishsweet:string;
@@ -61,26 +62,33 @@ interface DishProps{
 const InitialDish=(dishes):Array<DishProps>=>{
   console.log("+++++++++++++");
   console.log(dishes);
-  // let dishesAll = [];
-  // for(let i = 0;i < dishes.dish_havethetag.length; i++) {
-  //   let dish = [];
-  //   dish["dishid"] = dishes.dish_havethetag[i].dish_id;
-  //   dish["dishname"] = dishes.dish_havethetag[i].dish_name;
-  //   dish["picture"] = dishes.dish_havethetag[i].dish_picture;
-  //   dish["price"] = dishes.dish_havethetag[i].dish_price;
-  //   dish["rate"] = dishes.dish_havethetag[i].dish_rate;
-  //   dish["description"] = dishes.dish_havethetag[i].dish_description;
+  if(!dishes){
+    return null;
+  }
 
-  //   dish["ordernum"] = 1;
-  //   dish["dishsalt"] = "正常盐";
-  //   dish["dishspicy"] = "不辣";
-  //   dish["dishsweet"] = "少糖";
-  //   dish["searched"] = true;
+  let dishesAll = [];
+  for(let i = 0;i < dishes.dish_all.length; i++) {
+    let dish = [];
+    dish["dishid"] = dishes.dish_all[i].dish_id;
+    dish["dishname"] = dishes.dish_all[i].dish_name;
+    dish["picture"] = dishes.dish_all[i].dish_picture;
+    dish["price"] = dishes.dish_all[i].dish_price;
+    dish["rate"] = dishes.dish_all[i].dish_rate;
+    dish["description"] = dishes.dish_all[i].dish_description;
+    dish["dishtag"] = dishes.dish_all[i].dish_tag;
+    dish["dishdiscount"] = dishes.dish_all[i].dish_discount;
 
-  //   dishesAll.push(dish);
-  // }
-  // console.log(dishesAll);
-  // return dishesAll;
+    dish["ordernum"] = 1;
+    dish["dishsalt"] = "正常盐";
+    dish["dishspicy"] = "不辣";
+    dish["dishsweet"] = "少糖";
+    dish["searched"] = true;
+    dish["selected"] = true;
+
+    dishesAll.push(dish);
+  }
+  console.log(dishesAll);
+  return dishesAll;
   return [
       {
           dishid:1,
@@ -94,7 +102,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"素菜",
+          dishtag:["素菜","精品锅底"],
           selected:true,
       },
       {
@@ -109,7 +117,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐",
+          dishtag:["全新套餐"],
           selected:true,
       },
       {
@@ -124,7 +132,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"精品锅底",
+          dishtag:["精品锅底"],
           selected:true,
       },
       {
@@ -139,7 +147,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐",
+          dishtag:["全新套餐"],
           selected:true,
       },
       {
@@ -154,7 +162,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:6,
@@ -168,7 +177,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:7,
@@ -182,7 +192,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:8,
@@ -196,7 +207,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:9,
@@ -210,7 +222,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:10,
@@ -224,7 +237,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:11,
@@ -238,7 +252,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:12,
@@ -252,7 +267,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"精品锅底"
+          dishtag:["精品锅底"],
+          selected:true
       },
       {
           dishid:13,
@@ -266,7 +282,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       },
       {
           dishid:14,
@@ -280,7 +297,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:"全新套餐"
+          dishtag:["全新套餐"],
+          selected:true
       }
   ]
 }
@@ -306,8 +324,8 @@ class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
-    // console.log("----------");
-    // console.log(props.dishes);
+    console.log("----------");
+    console.log(props.dishes);
     this.state={dishes:InitialDish(props.dishes),nowDishTag:"新品上市"};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
@@ -457,7 +475,7 @@ class MainPanel extends React.Component<any,any>{
       let nowDishTag = dishTag;
       for(let i = 0;i<dishes.length;i++){
         dishes[i].selected=true;
-        if(dishes[i].dishtag!=dishTag){
+        if(!dishes[i].dishtag.includes(dishTag)){
           dishes[i].selected=false;
         }
       }
@@ -643,13 +661,13 @@ class MainPanel extends React.Component<any,any>{
     }
 }
 
-function Dishpanel({dishesTag}:{dishesTag}){
+function Dishpanel({dishes}:{dishes:DishAll[]}){
   
-  const isMountedRef = useRefMounted();
+  // const isMountedRef = useRefMounted();
 
-  console.log('dishesTag: ', dishesTag);
+  // console.log('dishesTag: ', dishesTag);
   
-  const [dishesInfo, setDishesInfo] = useState<DishesInfo | null>(null);
+  // const [dishesInfo, setDishesInfo] = useState<DishesInfo | null>(null);
 
   // const getDishesInfo = useCallback(async () => {
   //   try {
@@ -671,8 +689,9 @@ function Dishpanel({dishesTag}:{dishesTag}){
   //   return null;
   // }
 
+  console.log("新api",dishes)
   return (
-    <MainPanel />
+    <MainPanel dishes={dishes}/>
   );
 }
 
@@ -690,8 +709,14 @@ export default Dishpanel;
 //   return { props: { dishes } }
 // }
 
-export async function getServerSideProps(context) {
-  const dishesTag = context.query;
+// export async function getServerSideProps(context) {
+//   const dishesTag = context.query;
 
-  return { props: { dishesTag } }
+//   return { props: { dishesTag } }
+// }
+
+export async function getServerSideProps() {
+  const dishes= await dishesApi.getAllDishes();
+
+  return { props: { dishes } }
 }

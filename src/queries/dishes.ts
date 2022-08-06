@@ -1,6 +1,8 @@
 import {
     DishesInfo,
-    DishHavethetag
+    DishHavethetag,
+    DishAll,
+    DishesAll
     
 } from '@/models/dishes_info'
 
@@ -15,7 +17,10 @@ class DishesApi {
             promotion_id:promotion_id
         }))).data as DishHavethetag[];
     }
-
+    public async getAllDishes(){
+        return (await (GetApi("OrderDish/GetAllDishes",{
+        }))).data as DishAll[];
+    }
 
 }
 
