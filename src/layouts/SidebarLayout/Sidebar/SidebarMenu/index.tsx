@@ -163,23 +163,23 @@ const SubMenuWrapper = styled(Box)(
 `
 );
 
-let nowDishTag = "全新套餐";
+// let nowDishTag = "素菜";
 
-export {
-  nowDishTag
-}
+// export {
+//   nowDishTag
+// }
 
 
 
-function SidebarMenu() {
+function SidebarMenu(props) {
   const { closeSidebar } = useContext(SidebarContext);
   const router = useRouter();
   const currentRoute = router.pathname;
-  let handleDishTag = (dishTag) =>{
-    closeSidebar();
-    nowDishTag = dishTag;
-    console.log(nowDishTag);
-  }
+  // let handleDishTag = (dishTag) =>{
+  //   closeSidebar();
+  //   nowDishTag = dishTag;
+  //   console.log(nowDishTag);
+  // }
   return (
     <>
       <MenuWrapper>
@@ -187,21 +187,21 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/" passHref>
+                {/* <NextLink href="/orderdishes/" passHref> */}
                   <Button
                     // className={currentRoute === '="/' ? 'active' : ''}
                     style={{
-                      backgroundColor: currentRoute === '="/' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '精品锅底' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     disableRipple
                     component="a"
-                    onClick={()=>handleDishTag("精品锅底")}
+                    onClick={()=>props.handleDishTag("精品锅底")}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
                     精品锅底
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>
@@ -210,7 +210,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              新品体验
+              新品推荐
             </ListSubheader>
           }
           style={{paddingLeft:'0',paddingRight:'0'}}
@@ -218,74 +218,44 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/orderdishes" passHref>
+                {/* <NextLink href="/orderdishes/" passHref> */}
                   <Button
                     // className={
                     //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/orderdishes' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '全新套餐' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
                     fullWidth
                     disableRipple
                     component="a"
-                    onClick={()=>handleDishTag("全新套餐")}
+                    onClick={()=>props.handleDishTag("全新套餐")}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
                     全新套餐
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
-              {/* <ListItem component="div">
-                <NextLink href="/applications/messenger" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/applications/messenger' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<MmsTwoToneIcon />}
-                  >
-                    Messenger
-                  </Button>
-                </NextLink>
-              </ListItem> */}
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              畅销菜品
-            </ListSubheader>
-          }
-          style={{paddingLeft:'0',paddingRight:'0'}}
-        >
-          <SubMenuWrapper>
-            <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/management/transactions" passHref>
-                  <Button
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
                     // className={
-                    //   currentRoute === '/management/transactions'
-                    //     ? 'active'
-                    //     : ''
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/management/transactions' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '季节新品' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
+                    fullWidth
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
-                    startIcon={<TableChartTwoToneIcon />}
+                    onClick={()=>props.handleDishTag("季节新品")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    销量十佳
+                    季节新品
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>
@@ -294,7 +264,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              美味主食
+              荤菜专区
             </ListSubheader>
           }
           style={{paddingLeft:'0',paddingRight:'0'}}
@@ -302,44 +272,138 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/management/profile" passHref>
+                {/* <NextLink href="/orderdishes/" passHref> */}
                   <Button
                     // className={
-                    //   currentRoute === '/management/profile' ? 'active' : ''
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/management/profile' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '牛羊肉类' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
+                    fullWidth
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
-                    startIcon={<AccountCircleTwoToneIcon />}
+                    onClick={()=>props.handleDishTag("牛羊肉类")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    荤菜
+                    牛羊肉类
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/management/profile/settings" passHref>
-                  <Button
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
                     // className={
-                    //   currentRoute === '/management/profile/settings'
-                    //     ? 'active'
-                    //     : ''
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/management/profile/settings' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '水产鱼类' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
+                    fullWidth
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
-                    startIcon={<DisplaySettingsTwoToneIcon />}
+                    onClick={()=>props.handleDishTag("水产鱼类")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    素菜
+                    水产鱼类
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
+              </ListItem>
+              <ListItem component="div">
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
+                    // className={
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
+                    // }
+                    style={{
+                      backgroundColor: props.nowDishTag === '丸滑虾类' ? '#98313e' : '',
+                      borderRadius:'0',
+                    }}
+                    fullWidth
+                    disableRipple
+                    component="a"
+                    onClick={()=>props.handleDishTag("丸滑虾类")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    丸滑虾类
+                  </Button>
+                {/* </NextLink> */}
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              素菜专区
+            </ListSubheader>
+          }
+          style={{paddingLeft:'0',paddingRight:'0'}}
+        >
+          <SubMenuWrapper>
+            <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
+            <ListItem component="div">
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
+                    // className={
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
+                    // }
+                    style={{
+                      backgroundColor: props.nowDishTag === '美味主食' ? '#98313e' : '',
+                      borderRadius:'0',
+                    }}
+                    fullWidth
+                    disableRipple
+                    component="a"
+                    onClick={()=>props.handleDishTag("美味主食")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    美味主食
+                  </Button>
+                {/* </NextLink> */}
+              </ListItem>
+              <ListItem component="div">
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                  <Button
+                    // className={
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
+                    // }
+                    style={{
+                      backgroundColor: props.nowDishTag === '豆面制品' ? '#98313e' : '',
+                      borderRadius:'0',
+                    }}
+                    fullWidth
+                    disableRipple
+                    component="a"
+                    onClick={()=>props.handleDishTag("豆面制品")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    豆面制品
+                  </Button>
+                {/* </NextLink> */}
+              </ListItem>
+              <ListItem component="div">
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
+                    // className={
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
+                    // }
+                    style={{
+                      backgroundColor: props.nowDishTag === '根茎菌菇' ? '#98313e' : '',
+                      borderRadius:'0',
+                    }}
+                    fullWidth
+                    disableRipple
+                    component="a"
+                    onClick={()=>props.handleDishTag("根茎菌菇")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    根茎菌菇
+                  </Button>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>
@@ -356,44 +420,45 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div" style={{paddingLeft:'0',paddingRight:'0'}}>
               <ListItem component="div">
-                <NextLink href="/components/buttons" passHref>
+                {/* <NextLink href="/orderdishes/" passHref> */}
                   <Button
                     // className={
-                    //   currentRoute === '/components/buttons' ? 'active' : ''
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/components/buttons' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '酒水' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
+                    fullWidth
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
-                    startIcon={<BallotTwoToneIcon />}
+                    onClick={()=>props.handleDishTag("酒水")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
                   >
                     酒水
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/components/modals" passHref>
-                  <Button
+                {/* <NextLink href="/orderdishes/" passHref> */}
+                <Button
                     // className={
-                    //   currentRoute === '/components/modals' ? 'active' : ''
+                    //   currentRoute === '/orderdishes' ? 'active' : ''
                     // }
                     style={{
-                      backgroundColor: currentRoute === '/components/modals' ? '#98313e' : '',
+                      backgroundColor: props.nowDishTag === '甜点小食' ? '#98313e' : '',
                       borderRadius:'0',
                     }}
+                    fullWidth
                     disableRipple
                     component="a"
-                    onClick={closeSidebar}
-                    startIcon={<BeachAccessTwoToneIcon />}
+                    onClick={()=>props.handleDishTag("甜点小食")}
+                    startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    甜点
+                    甜点小食
                   </Button>
-                </NextLink>
+                {/* </NextLink> */}
               </ListItem>
-             
             </List>
           </SubMenuWrapper>
         </List>

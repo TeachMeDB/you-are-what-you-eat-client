@@ -9,8 +9,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import DishInfo from '../../src/components/DishInfo/index'
-import DishInfoDialog from '../../src/components/DishInfoDialog/index'
+import DishInfo from '../../../src/components/DishInfo/index'
+import DishInfoDialog from '../../../src/components/DishInfoDialog/index'
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -24,23 +24,21 @@ import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { AddShoppingCart } from '@mui/icons-material';
-import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
+import ShoppingCartFab from '../../../src/layouts/ShoppingCart/index';
 import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
 
-// import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
+import {nowDishTag} from '../../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import PromotionAd from '../../src/components/PromotionAd/index';
+import PromotionAd from '../../../src/components/PromotionAd/index';
 
 import { dishesApi } from '@/queries/dishes';
-import { DishHavethetag, DishesInfo, DishAll, DishesAll } from '@/models/dishes_info';
+import { DishHavethetag, DishesInfo } from '@/models/dishes_info';
 
 import { useRefMounted } from 'src/hooks/useRefMounted';
 import { useState, useCallback, useEffect } from 'react';
-import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
-
 
 interface DishProps{
     dishid:number;
@@ -50,45 +48,35 @@ interface DishProps{
     ordernum:number;
     rate:number;
     description:string;
-    dishtag:string[];
-    dishdiscount:number[];
     dishsalt:string;
     dishspicy:string;
     dishsweet:string;
     searched:boolean;
-    selected:boolean;
 }
 
 const InitialDish=(dishes):Array<DishProps>=>{
   console.log("+++++++++++++");
   console.log(dishes);
-  if(!dishes){
-    return null;
-  }
+  // let dishesAll = [];
+  // for(let i = 0;i < dishes.dish_havethetag.length; i++) {
+  //   let dish = [];
+  //   dish["dishid"] = dishes.dish_havethetag[i].dish_id;
+  //   dish["dishname"] = dishes.dish_havethetag[i].dish_name;
+  //   dish["picture"] = dishes.dish_havethetag[i].dish_picture;
+  //   dish["price"] = dishes.dish_havethetag[i].dish_price;
+  //   dish["rate"] = dishes.dish_havethetag[i].dish_rate;
+  //   dish["description"] = dishes.dish_havethetag[i].dish_description;
 
-  let dishesAll = [];
-  for(let i = 0;i < dishes.dish_all.length; i++) {
-    let dish = [];
-    dish["dishid"] = dishes.dish_all[i].dish_id;
-    dish["dishname"] = dishes.dish_all[i].dish_name;
-    dish["picture"] = dishes.dish_all[i].dish_picture;
-    dish["price"] = dishes.dish_all[i].dish_price;
-    dish["rate"] = dishes.dish_all[i].dish_rate;
-    dish["description"] = dishes.dish_all[i].dish_description;
-    dish["dishtag"] = dishes.dish_all[i].dish_tag;
-    dish["dishdiscount"] = dishes.dish_all[i].dish_discount;
+  //   dish["ordernum"] = 1;
+  //   dish["dishsalt"] = "正常盐";
+  //   dish["dishspicy"] = "不辣";
+  //   dish["dishsweet"] = "少糖";
+  //   dish["searched"] = true;
 
-    dish["ordernum"] = 1;
-    dish["dishsalt"] = "正常盐";
-    dish["dishspicy"] = "不辣";
-    dish["dishsweet"] = "少糖";
-    dish["searched"] = true;
-    dish["selected"] = true;
-
-    dishesAll.push(dish);
-  }
-  console.log(dishesAll);
-  return dishesAll;
+  //   dishesAll.push(dish);
+  // }
+  // console.log(dishesAll);
+  // return dishesAll;
   return [
       {
           dishid:1,
@@ -102,8 +90,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["素菜","精品锅底"],
-          selected:true,
       },
       {
           dishid:2,
@@ -117,8 +103,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true,
       },
       {
           dishid:3,
@@ -132,8 +116,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["精品锅底"],
-          selected:true,
       },
       {
           dishid:4,
@@ -147,8 +129,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true,
       },
       {
           dishid:5,
@@ -162,8 +142,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:6,
@@ -177,8 +155,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:7,
@@ -192,8 +168,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:8,
@@ -207,8 +181,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:9,
@@ -222,8 +194,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:10,
@@ -237,8 +207,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:11,
@@ -252,8 +220,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:12,
@@ -267,8 +233,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["精品锅底"],
-          selected:true
       },
       {
           dishid:13,
@@ -282,8 +246,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       },
       {
           dishid:14,
@@ -297,8 +259,6 @@ const InitialDish=(dishes):Array<DishProps>=>{
           dishspicy:"不辣",
           dishsweet:"少糖",
           searched:true,
-          dishtag:["全新套餐"],
-          selected:true
       }
   ]
 }
@@ -324,28 +284,12 @@ class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
-    console.log("----------");
-    console.log(props.dishes);
-    this.state={dishes:InitialDish(props.dishes),nowDishTag:"新品上市"};
+    // console.log("----------");
+    // console.log(props.dishes);
+    this.state={dishes:InitialDish(props.dishes)};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
-   this.handleClear=this.handleClear.bind(this);
    }
-
-  handleClear(){
-    
-    console.log(this.state.dishes);
-
-    for(let i = 0;i<this.state.dishes.length;i++){
-      this.state.dishes[i].ordernum=0;
-    }
-
-     this.setState({
-      dishes:this.state.dishes
-     });
-  }
-
-
     handleClickPlus(dishid:number){
       let index=0;
       for(let i = 0;i<this.state.dishes.length;i++){
@@ -363,7 +307,7 @@ class MainPanel extends React.Component<any,any>{
       this.setState({
         dishes:dishes
       });
-      // console.log(nowDishTag);
+      console.log(nowDishTag);
       // this.setState(function(state){
       //     this.state.dishes[index].ordernum++;
       //     return{dishes:state.dishes};
@@ -486,29 +430,9 @@ class MainPanel extends React.Component<any,any>{
       // });
     };
 
-    handleDishTag = (dishTag) => {
-      let dishes = this.state.dishes;
-      let nowDishTag = dishTag;
-      for(let i = 0;i<dishes.length;i++){
-        dishes[i].selected=true;
-        if(!dishes[i].dishtag.includes(dishTag)){
-          dishes[i].selected=false;
-        }
-      }
-      console.log(dishes);
-      this.setState({
-        dishes: dishes,
-        nowDishTag: nowDishTag
-      })
-    }
-
     render(){
       return(
         <>
-          <Sidebar 
-            handleDishTag = {this.handleDishTag}
-            nowDishTag = {this.state.nowDishTag}
-          />
          <PromotionAd/>
          <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
           <TextField 
@@ -524,7 +448,7 @@ class MainPanel extends React.Component<any,any>{
             <ListSubheader component="div">December</ListSubheader>
           </ImageListItem> */}
           {this.state.dishes.map((item) => (
-            item.searched && item.selected &&
+            item.searched &&
             <ImageListItem key={item.dishid}>
               <img
                 src={item.picture}
@@ -559,8 +483,7 @@ class MainPanel extends React.Component<any,any>{
         </ImageList>
         <ShoppingCartFab dishes={this.state.dishes}
                          hdPlus={this.handleClickPlus}
-                         hdMinus={this.handleClickMinus}
-                         hdClear={this.handleClear}/>
+                         hdMinus={this.handleClickMinus}/>
         {/* <SearchFab handleSearchChange={this.handleSearchChange}/> */}
         {/* <FormControl 
           variant="outlined"
@@ -678,37 +601,36 @@ class MainPanel extends React.Component<any,any>{
     }
 }
 
-function Dishpanel({dishes}:{dishes:DishAll[]}){
+function Dishpanel({dishesTag}:{dishesTag}){
   
-  // const isMountedRef = useRefMounted();
+  const isMountedRef = useRefMounted();
 
-  // console.log('dishesTag: ', dishesTag);
+  console.log('dishesTag: ', dishesTag.dishesTag);
   
-  // const [dishesInfo, setDishesInfo] = useState<DishesInfo | null>(null);
+  const [dishesInfo, setDishesInfo] = useState<DishHavethetag[] | null>(null);
 
-  // const getDishesInfo = useCallback(async () => {
-  //   try {
-  //     const response = await dishesApi.getDishesInfo(orderId.orderId as string);
+  const getDishesInfo = useCallback(async () => {
+    try {
+      console.log("调用api了",dishesTag.dishesTag);
+      const response = await dishesApi.getCategoryDishes(dishesTag.dishesTag,4);
 
-  //     if (isMountedRef()) {
-  //       setOrderDetail(response);
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }, [isMountedRef]);
+      if (isMountedRef()) {
+        setDishesInfo(response);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isMountedRef]);
 
-  // useEffect(() => {
-  //   getOrderDetail();
-  // }, [getOrderDetail]);
-
-  // if (!orderDetail) {
-  //   return null;
-  // }
-
-  console.log("新api",dishes)
+  useEffect(() => {
+    getDishesInfo();
+  }, [getDishesInfo]);
+  console.log(dishesInfo);
+  if (!dishesInfo) {
+    return null;
+  }
   return (
-    <MainPanel dishes={dishes}/>
+    <MainPanel />
   );
 }
 
@@ -726,14 +648,8 @@ export default Dishpanel;
 //   return { props: { dishes } }
 // }
 
-// export async function getServerSideProps(context) {
-//   const dishesTag = context.query;
+export async function getServerSideProps(context) {
+  const dishesTag = context.query;
 
-//   return { props: { dishesTag } }
-// }
-
-export async function getServerSideProps() {
-  const dishes= await dishesApi.getAllDishes();
-
-  return { props: { dishes } }
+  return { props: { dishesTag } }
 }
