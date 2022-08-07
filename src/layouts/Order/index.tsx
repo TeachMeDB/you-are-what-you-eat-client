@@ -11,8 +11,10 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { useRefMounted } from "@/hooks/useRefMounted";
 import { orderApi } from '@/queries/order';
 import { DishInfo, OrderIds, OrderInfo } from "@/models/order_list";
-import { OrderTotPrice } from '@/models/orderTotPrice'
+import { OrderStatus, OrderTotPrice } from '@/models/orderTotPrice'
 import { orderPriceApi } from "@/queries/orderPrice";
+import RatingDialog from "@/components/rating";
+import { light } from "@mui/material/styles/createPalette";
 
 
 const theme = createTheme({
@@ -112,6 +114,7 @@ function Status(props){
 }
 
 
+
 export default function OrderList(props){
 
 const initOrder:OrderInfo={dish_info:[]};
@@ -121,18 +124,25 @@ const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
 
-
 const orderId:string[]=props.orderIds;
 
-
-
+//如果没有任何订单，返回“暂无”
+if(orderId.length===0){
+  console.log(orderId);
+  return( 
+    <Box sx={{minHeight:720}}>
+  <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
+     暂无
+  </Typography>
+  </Box>);
+}
 
 const getAllData=useCallback(async()=>{
   try{
-
-    let orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
+  
+     let orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
 //测试订单状态api
-    let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
+     let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
     
     console.log(orderStatus);
 
@@ -221,16 +231,10 @@ return (
             </List>
           )}</Box>
 
-           <Button 
-              style={{
-                width:"100%",
-                backgroundColor:"#98313e",
-                color:"white",
-                borderRadius:"0"
-              }}>
-            ￥{price.orderTotalPrice}&nbsp;
-           结账</Button>
-        </ThemeProvider>
+          </ThemeProvider>
+
+          <RatingDialog dishes={dishes}
+             orderTotalPrice={price.orderTotalPrice}/>
        
           </>
 );

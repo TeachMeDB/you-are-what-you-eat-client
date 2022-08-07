@@ -4,7 +4,9 @@ import { tableApi } from '@/queries/tableStatus';
 import {Container, Paper,Typography,Button } from '@mui/material';
 import NextLink from 'next/link';
 import { useContext } from 'react';
+
 export default function Cleantable(){
+
     const { closeSidebar } = useContext(SidebarContext);
     return (
         <Paper
