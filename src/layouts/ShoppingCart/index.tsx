@@ -19,6 +19,7 @@ import { dishesApi } from "@/queries/dishes";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import CheckDialog from "@/components/CheckCommit";
+import { PromoPrice } from "@/models/promtions";
 
 
 
@@ -109,41 +110,56 @@ function a11yProps(index: number) {
 
 function TypoPrice(props){
   console.log(props.discount);
-  if(props.discount===1)
+  if(!(props.discount<1))
    return(
            <Typography variant="body1" color="red"  >
         ￥{props.price*props.num}
        </Typography> 
    );
-   
+   else{
    return(
     <Grid container >
-    <Grid item xs={4}>
+    <Grid item xs={2.5}>
 <Typography variant="body1"  color="gray" sx={{textDecorationLine:'line-through'}}>
  ￥{props.price*props.num} 
 </Typography></Grid>
 
-<Grid item xs={8}>
+<Grid item xs={9.5}>
 <Typography variant="body1"  color="red">
-&nbsp;&nbsp;&nbsp;折后: ￥{props.price*props.num*props.discount} 
+&nbsp;&nbsp;&nbsp;￥{props.price*props.num*props.discount} 
 </Typography>
 </Grid>
 </Grid>
 ); 
 }
+}
 
 
 
 function NewList (props){
- 
-  
+
   // orderIds:DishesInfo
+  const [openSuccess, setOpenSuccess] = React.useState<boolean>(false);
+
+const handleOpenSuccess = () => {
+  console.log("打开success");
+  setOpenSuccess(true);
+};
+
+const handleCloseSuccess = () => {
+
+  console.log("关闭success");
+  setOpenSuccess(false);
+};
+
+
     const isMountedRef = useRefMounted();
 
-    const [totalPrice,setTotalPrice]=useState<number>(0);
-
+    
     console.log(props.dishes.length);
     let empt=true;
+
+    const [price,setPrice]=React.useState<number>(0);
 
     for(let i=0;i<props.dishes.length;i++){
         if(props.dishes[i].ordernum>0){
@@ -154,59 +170,49 @@ function NewList (props){
 
 
     let dishes=props.dishes;
-    let totPrice=0;
     console.log(dishes);
-    const getAllData=useCallback(async()=>{
-  try{
+   
+    let priceInfo:PromoPrice;
 
-    for(let i=0;i<dishes.length;i++){
+    let totPrice=0;
+
+   const getAllData=useCallback(async()=>{
+
+     try{
+      for(let i=0;i<dishes.length;i++){
       // console.log("ohhhhhhhhhhhhhhhhhhhhh");
       
          if(dishes[i].ordernum>0){
-             let priceInfo=await promoApi.getPromoPrice(props.promoId,dishes[i].dishid) ;
-             console.log(priceInfo);
-            //  discount[0]表示真实折扣
-             dishes[i].dishdiscount[0]=priceInfo.discount;
-             totPrice+=priceInfo.discount*priceInfo.price;
-         }
+          
+            
+                priceInfo=await promoApi.getPromoPrice(props.promoId,dishes[i].dishid) ;
+                console.log(priceInfo);
+                 if(priceInfo.discount<1){
+                   dishes[i].dishdiscount[0]=priceInfo.discount;
+                 }
+        }
+      totPrice+=dishes[i].price*dishes[i].dishdiscount[0]*dishes[i].ordernum;
+      console.log(totPrice);
+      if(price!=totPrice) setPrice(totPrice);
+  }
       
-    }
-
-    if(isMountedRef()){
-          console.log(totPrice);
-          setTotalPrice(totPrice);
-     }
-
-  }catch(err){
-    console.error(err);
-  }
+    
+} catch(err){
+  console.error(err);
+}
 },[isMountedRef]);
-
-
 useEffect(()=>{
-  getAllData();
+getAllData();
 },[getAllData]);
-
-const [openSuccess, setOpenSuccess] = React.useState(false);
-
-
-
-const handleOpenSuccess = () => {
-  console.log("打开success");
-  setOpenSuccess(true);
-};
-
-const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: string) => {
-  if (reason === 'clickaway') {
-    return;
-  }
-
-  setOpenSuccess(false);
-};
-
-
-
-
+    
+totPrice=0;
+for(let i=0;i<dishes.length;i++){
+     if(dishes[i].ordernum>0){
+       totPrice+=dishes[i].price*dishes[i].dishdiscount[0]*dishes[i].ordernum;
+     }
+}
+if(price!=totPrice) setPrice(totPrice);
+    //  setTotalPrice(totPrice);
 
     if(empt)
     return( 
@@ -226,7 +232,6 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
     else
     return(
         <>
-       
         <Box sx={{minHeight:683}}>{
           // api接好以后，下面的props可以去掉
         props.dishes.map((dish,index)=>
@@ -285,13 +290,14 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
         </List>)
       )}</Box>
     
-         <CheckDialog openSuccess={openSuccess}
+       {  dishes.length&&<CheckDialog  openSuccess={openSuccess}
                        hdOpS={handleOpenSuccess}
                        hdClS={handleCloseSuccess}
                        addOrder={props.addOrder}
                        handleClear={props.handleClear}
                        dishes={props.dishes}
-                       />
+                       totPrice={price}
+                       />}
     </>
     );
   
