@@ -30,7 +30,9 @@ export default function Cleantable(){
                 } as ReleaseTable;
 
                 const conduct=async()=>{
-                    return tableApi.postReleaseTable(upload);
+                    let ret=tableApi.postReleaseTable(upload);
+                    console.log("ret="+ret);
+                    return ret;
                 }
 
                 conduct().then((value)=>{

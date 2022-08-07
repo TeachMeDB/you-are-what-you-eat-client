@@ -10,7 +10,7 @@ import {GetApi,PostApi} from "@/utils/requests"
 class TableApi {
 
     public async postReleaseTable(tableStatus:ReleaseTable){
-        return (await PostApi("updateTableOccupation",tableStatus)).statusText as string;
+        return (await PostApi("OrderDish/PostUpdateTable",tableStatus)).statusText as string;
     }
 
 }

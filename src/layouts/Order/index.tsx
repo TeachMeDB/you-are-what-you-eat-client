@@ -131,6 +131,10 @@ const getAllData=useCallback(async()=>{
   try{
 
     let orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
+//测试订单状态api
+    let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
+    
+    console.log(orderStatus);
 
     if(orderId.length>1){
       for(let i=1;i<orderId.length;i++){
