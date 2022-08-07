@@ -78,7 +78,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
     dish["dishtag"] = dishes.dish_all[i].dish_tag;
     dish["dishdiscount"] = [1];
 
-    dish["ordernum"] = 1;
+    dish["ordernum"] = 0;
     dish["dishsalt"] = "正常盐";
     dish["dishspicy"] = "不辣";
     dish["dishsweet"] = "少糖";
