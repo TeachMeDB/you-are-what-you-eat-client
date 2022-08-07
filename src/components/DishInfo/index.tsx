@@ -67,6 +67,8 @@ class DishInfo extends Component {
         return (
             <React.Fragment>
                 <Box style={{backgroundColor:"#f3f5f9"}}>
+                <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="270px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
                 <Card sx={{ minWidth: 75 , ml: 1, mr:1}}>
                 <img 
                     src= {this.props.dish.picture}
@@ -199,16 +201,16 @@ class DishInfo extends Component {
                     <CardContent>
                         <List sx={{ width: '100%' }}>
                             {this.props.dish.dishcomment.map((item) => (
-                                <Box key={item.content}>
+                                <Box key={item.comment_time}>
                                     <ListItem style={{padding:"8px 8px 0px 0px"}}>
                                         <ListItemAvatar>
                                         <Avatar>
                                             <PersonIcon />
                                         </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary={item.time} secondary={<Rating name="read-only" value={item.stars} readOnly />}/>
+                                        <ListItemText primary={item.comment_time} secondary={<Rating name="read-only" value={item.comment_star} readOnly />}/>
                                     </ListItem>
-                                    <div style={{fontSize:"16px",margin:"0px 0px 10px 5px"}}>{item.content}</div>
+                                    <div style={{fontSize:"16px",margin:"0px 0px 10px 5px"}}>{item.comment_content}</div>
                                 </Box>
                             ))}
                         </List>

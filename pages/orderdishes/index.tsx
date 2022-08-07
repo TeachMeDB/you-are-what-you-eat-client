@@ -42,9 +42,9 @@ import { useState, useCallback, useEffect } from 'react';
 import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
 
 interface DishComment {
-  content:string;
-  time:string;
-  stars:number;
+  comment_content:string;
+  comment_star:number;
+  comment_time:string;
 }
 
 interface DishProps{
@@ -82,8 +82,8 @@ const InitialDish=(dishes):Array<DishProps>=>{
     dish["rate"] = dishes.dish_all[i].dish_rate;
     dish["description"] = dishes.dish_all[i].dish_description;
     dish["dishtag"] = dishes.dish_all[i].dish_tag;
-
-    dish["dishcomment"] = [{content:"还挺好吃",time:"2022-08-06",stars:5},{content:"一般般",time:"2022-08-05",stars:4}];
+    dish["dishcomment"] = dishes.dish_all[i].dish_comment;
+    // dish["dishcomment"] = [{content:"还挺好吃",time:"2022-08-06",stars:5},{content:"一般般",time:"2022-08-05",stars:4}];
 
     dish["dishdiscount"] = [1];
 
