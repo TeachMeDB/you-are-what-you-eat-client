@@ -18,7 +18,7 @@ class PromoApi {
     }
 
     public async getPromoPrice(promo_id:number,dish_id:number){
-        return (await (GetApi("OrderDish/GetDiscount",{
+        return (await (GetApi("OrderDish/GetRealPrice",{
             promotion_id:promo_id,
             dish_id:dish_id
         }))).data as PromoPrice;

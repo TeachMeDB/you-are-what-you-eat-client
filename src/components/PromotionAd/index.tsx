@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, styled, createTheme,ThemeProvider, Box, Grid, Typography } from '@mui/material'
+import { Paper, Button, styled, createTheme,ThemeProvider, Box, Grid, Typography, Alert, Snackbar } from '@mui/material'
 
 import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -169,6 +169,20 @@ interface DishProps{
 
   function Backgrd(props){
 
+    const [openSuccess, setOpenSuccess] = React.useState<boolean>(false);
+
+    const handleOpenSuccess = () => {
+      console.log("打开success");
+      setOpenSuccess(true);
+    };
+    
+    const handleCloseSuccess = () => {
+    
+      console.log("关闭success");
+      setOpenSuccess(false);
+    };
+
+
     const [open, setOpen] = React.useState(false);
     const [fullWidth] = React.useState(true);
   
@@ -183,6 +197,13 @@ interface DishProps{
     const str="/static/images/status/promo_"+props.id+".png";
     return(
         <React.Fragment>
+        <Snackbar open={openSuccess} anchorOrigin={{ vertical:'top', horizontal:'center' }} 
+      autoHideDuration={6000} onClose={handleCloseSuccess}>
+      <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+        已选择活动{props.id}
+      </Alert>
+    </Snackbar>
+
        <ThemeProvider theme={theme}>
     <Item sx={{
                         minHeight:450,
@@ -226,7 +247,7 @@ interface DishProps{
               props.handlePromo(props.id);
               console.log("选中活动id:"+props.id);
               handleClose();
-            
+              handleOpenSuccess();
             }}
            >参与活动</Button>
          </DialogActions>

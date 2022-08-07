@@ -38,7 +38,7 @@ export default function CheckDialog(props) {
           onClick={handleOpenAlert}
          >
         
-       下单</Button>
+      ￥{props.totPrice} 下单</Button>
       <Dialog
         open={openAlert}
         onClose={handleCloseAlert}
