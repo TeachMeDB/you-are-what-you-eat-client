@@ -1,5 +1,6 @@
 import {
-    OrderTotPrice
+    OrderTotPrice,
+    OrderStatus
     
 } from '@/models/orderTotPrice'
 
@@ -12,6 +13,12 @@ class OrderPriceApi {
         return (await (GetApi("OrderDish/GetOrderPrice",{
             order_id:order_id,
         }))).data as OrderTotPrice;
+    }
+
+    public async getOrderStatus(order_id:string){
+        return (await (GetApi("OrderDish/GetOrderStatus",{
+            order_id:order_id,
+        }))).data as OrderStatus;
     }
 }
 

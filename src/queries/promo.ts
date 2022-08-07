@@ -1,7 +1,8 @@
 import {
     Promotions,
     DishElement,
-    DishDish
+    DishDish,
+    PromoPrice
     
 } from '@/models/promtions'
 
@@ -15,6 +16,14 @@ class PromoApi {
      
         }))).data as Promotions[];
     }
+
+    public async getPromoPrice(promo_id:number,dish_id:number){
+        return (await (GetApi("OrderDish/GetDiscount",{
+            promotion_id:promo_id,
+            dish_id:dish_id
+        }))).data as PromoPrice;
+    }
+
 }
 
 export const promoApi = new PromoApi();

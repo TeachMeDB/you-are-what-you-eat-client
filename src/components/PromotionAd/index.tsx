@@ -222,7 +222,12 @@ interface DishProps{
                color:'white',
                borderRadius:'0',
              }}
-             onClick={handleClose}
+             onClick={()=>{
+              props.handlePromo(props.id);
+              console.log("选中活动id:"+props.id);
+              handleClose();
+            
+            }}
            >参与活动</Button>
          </DialogActions>
        </Dialog>
@@ -233,8 +238,9 @@ interface DishProps{
     );
     }
 
-export default function PromotionAd(){
+export default function PromotionAd(props){
 
+console.log(props.handlePromo);
 
 const initPromo=InitialPromo();
 
@@ -265,7 +271,10 @@ useEffect(()=>{
     return (
         <Carousel>{
                 promotions.map((promo, index) =>
-               <Backgrd id={promo.promotion_id} dishes={promo.dishes}/>)
+               <Backgrd id={promo.promotion_id} 
+                        dishes={promo.dishes}
+                        handlePromo={props.handlePromo}
+                        />)
         }
         </Carousel>
     );

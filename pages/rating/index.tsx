@@ -234,7 +234,7 @@ function Ratepanel() {
                       content:"很好吃，下次还会点",
                       dish_id: 101,
                       rate:5,
-                      username:"default01"
+                      username:"徐满心"
                    } as DishRatingUpload;
 
                   const conduct1=async()=>{

@@ -3,13 +3,17 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Minus, Plus } from "pages/orderdishes";
 import { ThemeProvider } from "@mui/material/styles";
 import { useTheme } from '@mui/material/styles';
 import OrderList from "../Order";
 import { orderApi } from "@/queries/order";
 import { CommitOrderUpload, DishesInfo } from "@/models/commit_order";
+import { orderPriceApi } from "@/queries/orderPrice";
+import { useRefMounted } from "@/hooks/useRefMounted";
+import { promoApi } from "@/queries/promo";
+import { dishesApi } from "@/queries/dishes";
 
 const theme = createTheme({
   palette: {
@@ -101,11 +105,57 @@ function a11yProps(index: number) {
 function NewList (props){
     
   // orderIds:DishesInfo
+    const isMountedRef = useRefMounted();
+
+    const [totalPrice,setTotalPrice]=useState<number>(0);
+
     console.log(props.dishes.length);
     let empt=true;
-    for(let i=0;i<props.dishes.length;i++)
-        if(props.dishes[i].ordernum>0){empt=false;break;}
-  
+
+    for(let i=0;i<props.dishes.length;i++){
+        if(props.dishes[i].ordernum>0){
+          empt=false;
+          break;
+        }
+    }
+
+
+    let dishes=props.dishes;
+    let totPrice=0;
+    console.log(dishes);
+    const getAllData=useCallback(async()=>{
+  try{
+
+    for(let i=0;i<dishes.length;i++){
+      console.log("ohhhhhhhhhhhhhhhhhhhhh");
+      
+         if(dishes[i].ordernum>0){
+             let priceInfo=await promoApi.getPromoPrice(props.promoId,dishes[i].dishid) ;
+             console.log(priceInfo);
+            //  discount[0]表示真实折扣
+             dishes[i].discount[0]=priceInfo.discount;
+             totPrice+=priceInfo.discount*priceInfo.price;
+         }
+      
+    }
+
+    if(isMountedRef()){
+          console.log(totPrice);
+          setTotalPrice(totPrice);
+     }
+
+  }catch(err){
+    console.error(err);
+  }
+},[isMountedRef]);
+
+
+useEffect(()=>{
+  getAllData();
+},[getAllData]);
+
+
+
     if(empt)
     return( 
       <Box sx={{minHeight:700}}>
@@ -118,6 +168,7 @@ function NewList (props){
     return(
         <>
         <Box sx={{minHeight:683}}>{
+          // api接好以后，下面的props可以去掉
         props.dishes.map((dish,index)=>
        dish.ordernum>0&&(<List>  
           <ListItem>
@@ -223,6 +274,8 @@ function NewList (props){
 
 function ShoppingCartFab(props){
   // const theme=useTheme();
+ 
+  console.log(props.promoId);//-1
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -277,6 +330,7 @@ function ShoppingCartFab(props){
                 handleClickMinus={props.hdMinus}
                 addOrder={addOrder}
                 handleClear={props.hdClear}
+                promoId={props.promoId}
                 />
       
        </TabPanel>
