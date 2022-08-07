@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import {Stack, ButtonBase, SvgIcon, SxProps } from '@mui/material';
+import {Stack, ButtonBase, SvgIcon, SxProps, Divider, Rating, CardContent } from '@mui/material';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
-
+import PersonIcon from '@mui/icons-material/Person';
 
 
 export const Minus=(props)=>{
@@ -66,141 +66,156 @@ class DishInfo extends Component {
     render() { 
         return (
             <React.Fragment>
+                <Box style={{backgroundColor:"#f3f5f9"}}>
+                <Card sx={{ minWidth: 75 , ml: 1, mr:1}}>
                 <img 
                     src= {this.props.dish.picture}
                     alt="" 
                     style={this.getImgStyles()}
                 />
-                <div style={{padding: '0 27px'}}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={9}>
-                            <h2>{this.props.dish.dishname}</h2>
+                </Card>
+                <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
+                    <div style={{padding: '0 27px'}}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={9}>
+                                <h2>{this.props.dish.dishname}</h2>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.props.dish.rate}</h2>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={1}>
-                            <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
+                        <Divider />
+                        <div>
+                            <p style={{fontSize:"18px"}}>{this.props.dish.description}</p>
+                        </div>
+                        <Grid container spacing={2}>
+                            <Grid item xs={7}>
+                                <div>
+                                    <p style={this.getPriceStyles()}>¥ {this.props.dish.price} / 份</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <CardActions sx={{ mt: 1.2}}>
+
+                                    <Stack direction="row" >
+                                    <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+                                    this.props.handleClickMinus(this.props.dish.dishid);}}>
+                                    <Minus ordernum={this.props.dish.ordernum}/>
+                                    </IconButton> 
+
+                                    <Typography variant="body1" color="#123456"  lineHeight={3}>
+                                    {this.props.dish.ordernum>0?this.props.dish.ordernum:"  "}
+                                    </Typography>
+                                    <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+                                    this.props.handleClickPlus(this.props.dish.dishid);
+                                    }}>
+                                    <Plus ordernum={this.props.dish.ordernum}/>
+                                    </IconButton>
+                                    </Stack>
+
+                                </CardActions>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2}>
-                            <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.props.dish.rate}</h2>
-                        </Grid>
-                    </Grid>
-                    <div>
-                        <p>{this.props.dish.description}</p>
+                        
                     </div>
-                    <Grid container spacing={2}>
-                        <Grid item xs={7}>
-                            <div>
-                                <p style={this.getPriceStyles()}>¥ {this.props.dish.price} / 份</p>
-                            </div>
+                    <Box
+                        noValidate
+                        component="form"
+                        sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        m: 'auto',
+                        width: 'fit-content',
+                        }}
+                    >
+                        <Grid container spacing={2} style={{marginBottom: '27px'}}>
+                            <Grid item xs={4}>
+                                <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                                    <InputLabel htmlFor="dish-salt">咸度</InputLabel>
+                                    <Select
+                                        // autoFocus
+                                        value={this.props.dish.dishsalt}
+                                        onChange={this.handleDishSaltChange}
+                                        label="dishSalt"
+                                        inputProps={{
+                                        name: 'dish-salt',
+                                        id: 'dish-salt',
+                                        }}
+                                    >
+                                        <MenuItem value="正常盐">正常盐</MenuItem>
+                                        <MenuItem value="少盐">少盐</MenuItem>
+                                        <MenuItem value="多盐">多盐</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                                    <InputLabel htmlFor="dish-spicy">辣度</InputLabel>
+                                    <Select
+                                        // autoFocus
+                                        value={this.props.dish.dishspicy}
+                                        onChange={this.handleDishSpicyChange}
+                                        label="dishSpicy"
+                                        inputProps={{
+                                        name: 'dish-spicy',
+                                        id: 'dish-spicy',
+                                        }}
+                                    >
+                                        <MenuItem value="不辣">不辣</MenuItem>
+                                        <MenuItem value="微辣">微辣</MenuItem>
+                                        <MenuItem value="中辣">中辣</MenuItem>
+                                        <MenuItem value="重辣">重辣</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                                    <InputLabel htmlFor="dish-sweet">甜度</InputLabel>
+                                    <Select
+                                        // autoFocus
+                                        value={this.props.dish.dishsweet}
+                                        onChange={this.handleDishSweetChange}
+                                        label="dishSweet"
+                                        inputProps={{
+                                        name: 'dish-sweet',
+                                        id: 'dish-sweet',
+                                        }}
+                                    >
+                                        <MenuItem value="正常糖">正常糖</MenuItem>
+                                        <MenuItem value="少糖">少糖</MenuItem>
+                                        <MenuItem value="多糖">多糖</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={5}>
-                            <CardActions sx={{ mt: 1.2}}>
-
-                                <Stack direction="row" >
-                                <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-                                this.props.handleClickMinus(this.props.dish.dishid);}}>
-                                <Minus ordernum={this.props.dish.ordernum}/>
-                                </IconButton> 
-
-                                <Typography variant="body1" color="#123456"  lineHeight={3}>
-                                {this.props.dish.ordernum>0?this.props.dish.ordernum:"  "}
-                                </Typography>
-                                <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-                                this.props.handleClickPlus(this.props.dish.dishid);
-                                }}>
-                                <Plus ordernum={this.props.dish.ordernum}/>
-                                </IconButton>
-                                </Stack>
-
-                            </CardActions>
-                        </Grid>
-                    </Grid>
-                    
-                </div>
-                <Box
-                    noValidate
-                    component="form"
-                    sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    m: 'auto',
-                    width: 'fit-content',
-                    }}
-                >
-                    <Grid container spacing={2} style={{marginBottom: '27px'}}>
-                        <Grid item xs={4}>
-                            <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                                <InputLabel htmlFor="dish-salt">咸度</InputLabel>
-                                <Select
-                                    // autoFocus
-                                    value={this.props.dish.dishsalt}
-                                    onChange={this.handleDishSaltChange}
-                                    label="dishSalt"
-                                    inputProps={{
-                                    name: 'dish-salt',
-                                    id: 'dish-salt',
-                                    }}
-                                >
-                                    <MenuItem value="正常盐">正常盐</MenuItem>
-                                    <MenuItem value="少盐">少盐</MenuItem>
-                                    <MenuItem value="多盐">多盐</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                                <InputLabel htmlFor="dish-spicy">辣度</InputLabel>
-                                <Select
-                                    // autoFocus
-                                    value={this.props.dish.dishspicy}
-                                    onChange={this.handleDishSpicyChange}
-                                    label="dishSpicy"
-                                    inputProps={{
-                                    name: 'dish-spicy',
-                                    id: 'dish-spicy',
-                                    }}
-                                >
-                                    <MenuItem value="不辣">不辣</MenuItem>
-                                    <MenuItem value="微辣">微辣</MenuItem>
-                                    <MenuItem value="中辣">中辣</MenuItem>
-                                    <MenuItem value="重辣">重辣</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                                <InputLabel htmlFor="dish-sweet">甜度</InputLabel>
-                                <Select
-                                    // autoFocus
-                                    value={this.props.dish.dishsweet}
-                                    onChange={this.handleDishSweetChange}
-                                    label="dishSweet"
-                                    inputProps={{
-                                    name: 'dish-sweet',
-                                    id: 'dish-sweet',
-                                    }}
-                                >
-                                    <MenuItem value="正常糖">正常糖</MenuItem>
-                                    <MenuItem value="少糖">少糖</MenuItem>
-                                    <MenuItem value="多糖">多糖</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                                       
-                </Box>
-                <List sx={{ width: '100%', maxWidth: 360, }}>
-                    {this.props.dish.dishcomment.map((item) => (
-                        <ListItem key={item.content}>
-                            <ListItemAvatar>
-                            <Avatar>
-                                <ImageIcon />
-                            </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={item.content} secondary={item.time} />
-                        </ListItem>
-                    ))}
-                </List>
+                                        
+                    </Box>
+                </Card>
+                <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
+                    <p style={{fontSize:"20px",margin:"20px 0 0 16px",fontWeight:"700"}}>顾客评价</p>
+                    <CardContent>
+                        <List sx={{ width: '100%' }}>
+                            {this.props.dish.dishcomment.map((item) => (
+                                <Box key={item.content}>
+                                    <ListItem style={{padding:"8px 8px 0px 0px"}}>
+                                        <ListItemAvatar>
+                                        <Avatar>
+                                            <PersonIcon />
+                                        </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary={item.time} secondary={<Rating name="read-only" value={item.stars} readOnly />}/>
+                                    </ListItem>
+                                    <div style={{fontSize:"16px",margin:"0px 0px 10px 5px"}}>{item.content}</div>
+                                </Box>
+                            ))}
+                        </List>
+                    </CardContent>
+                </Card>
                 {/* <button onClick={this.test}></button> */}
+                </Box>
             </React.Fragment>
         );
     }
@@ -208,8 +223,6 @@ class DishInfo extends Component {
     getImgStyles() {
         let styles = {
             width: "100%",
-            height: "100%",
-
         }
         return styles;
     }
