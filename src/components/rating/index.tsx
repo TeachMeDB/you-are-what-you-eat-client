@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, Button, Container, Paper, CardActionArea, createTheme, ThemeProvider, Dialog } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, Button, Container, Paper, CardActionArea, createTheme, ThemeProvider, Dialog, Alert, Snackbar } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -131,6 +131,20 @@ function DishCard(props){
 
 function RatingDialog(props) {
   
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+
+
+
+const handleOpenSuccess = () => {
+  console.log("打开success");
+  setOpenSuccess(true);
+};
+
+const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  setOpenSuccess(false);
+};
+
+
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('xs');
@@ -177,12 +191,19 @@ function RatingDialog(props) {
               >
             ￥{props.orderTotalPrice}&nbsp;
            结账</Button>
+
           <Dialog 
             // fullWidth={true}
             fullScreen={true}
             open={open}
             scroll="body"
             >
+      <Snackbar open={openSuccess} anchorOrigin={{ vertical:'top', horizontal:'center' }} 
+      autoHideDuration={6000} onClose={handleCloseSuccess}>
+      <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+        提交成功！
+      </Alert>
+    </Snackbar>
         <Paper
         sx={{height:'100%',textAlign:'center' }}>
             <Container>
@@ -283,7 +304,11 @@ function RatingDialog(props) {
                      }
 
                       conduct1().then((value)=>{
-                        alert("提交菜品评价："+value);
+                        // alert("提交菜品评价："+value);
+                        handleOpenSuccess();
+                        index++;
+                        if(index<=maxIndex) setIdx(index);
+                        else {index=maxIndex+1;setIdx(maxIndex+1);setDishend(1);}
                       }).catch((value)=>{
                         alert("提交菜品评价失败："+value);
                       })
@@ -296,7 +321,8 @@ function RatingDialog(props) {
                     }
 
                     conduct2().then((value)=>{
-                      alert("提交服务评价："+value);
+                      // alert("提交服务评价："+value);
+                      handleOpenSuccess();
                     }).catch((value)=>{
                       alert("提交服务评价失败："+value);
                     })

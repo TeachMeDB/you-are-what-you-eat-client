@@ -1,0 +1,111 @@
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { CommitOrderUpload, DishesInfo } from "@/models/commit_order";
+import { orderApi } from "@/queries/order";
+
+export default function CheckDialog(props) {
+ const [openAlert,setOpenAlert]=React.useState(false);
+ 
+ const handleOpenAlert = () => {
+    console.log("打开alert");
+    setOpenAlert(true);
+  };
+  
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
+
+  console.log("确认下单弹窗");
+  console.log(props.open);
+
+  return (
+    <React.Fragment>
+           <Button 
+          style={{
+            width:"100%",
+            backgroundColor:"#98313e",
+            color:"white",
+            borderRadius:"0"
+          }}
+          onClick={handleOpenAlert}
+         >
+        
+       下单</Button>
+      <Dialog
+        open={openAlert}
+        onClose={handleCloseAlert}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          确认要下单吗？
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            *&nbsp;确认后若需取消订单请找服务员
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus
+                  onClick={()=>{
+    handleCloseAlert();
+  let testData:DishesInfo[]=[];
+
+    for(let i=0;i<props.dishes.length;i++){
+      if(props.dishes[i].ordernum>0){
+            let addOne:DishesInfo[]=[{
+             dish_id:props.dishes[i].dishid,
+             dish_num:props.dishes[i].ordernum
+            }];
+            testData=testData.concat(addOne);
+      }
+    }  
+
+    let upload={
+     dishes_info:testData
+    } as CommitOrderUpload;
+
+   const conduct=async()=>{
+     console.log(upload);
+      return orderApi.postOrderList(upload);
+   }
+     
+    conduct().then((value)=>{
+     
+     //下单成功提示
+     // alert("创建订单:"+value);
+     props.hdOpS();
+     //添加订单
+     props.addOrder(value);
+     //清空购物车
+     props.handleClear();
+
+     // RetAlert(value);
+     //这里不需要刷新界面
+     // window.location.reload();
+    }).catch((value)=>{
+      alert("下单失败:"+value);
+    });
+
+ } }
+          
+          >
+            确认
+            </Button>
+
+          <Button onClick={handleCloseAlert} >
+            取消
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </React.Fragment>
+  );
+}

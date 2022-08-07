@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import DishInfo from '../../src/components/DishInfo/index'
 import DishInfoDialog from '../../src/components/DishInfoDialog/index'
 
+import Alert from '@mui/material/Alert';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
