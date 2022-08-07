@@ -278,24 +278,25 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
                     content:"还不错~~~~",
                     rate:5,
                     dish_id:101,
-                    username:"徐满心"
+                    username:"default01"
                    };
 
                    testData1.content=content;
                    testData1.rate=value;
-                   testData1.dish_id=101;
-                   testData1.username="徐满心";
+                   testData1.dish_id=props.dishes.dish_info[index].dish_id;
+
+                   testData1.username="default01";
 
 
                   let testData2:ServiceRatingUpload={
                     content:"服务很热情，给个好评",
                     rate:5,
-                    username:"徐满心"
+                    username:"default01"
                  } ;
 
                  testData2.content=content;
                  testData2.rate=value;
-                 testData2.username="徐满心";
+                 testData2.username="default01";
 
                   if(index<=maxIndex){
                       const conduct1=async()=>{

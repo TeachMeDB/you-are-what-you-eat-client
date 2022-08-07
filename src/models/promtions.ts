@@ -1,6 +1,7 @@
 export interface Promotions {
     map(arg0: (promo: any, index: any) => JSX.Element): import("react").ReactNode;
     description: string;
+    picture: string;
     dishes:      DishElement[];
     /**
      * 活动id

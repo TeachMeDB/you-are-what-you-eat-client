@@ -194,7 +194,7 @@ interface DishProps{
     const handleClose = () => {
       setOpen(false);
     };
-    const str="/static/images/status/promo_"+props.id+".png";
+    // const str="/static/images/status/promo_"+props.id+".png";
     return(
         <React.Fragment>
         <Snackbar open={openSuccess} anchorOrigin={{ vertical:'top', horizontal:'center' }} 
@@ -207,7 +207,7 @@ interface DishProps{
        <ThemeProvider theme={theme}>
     <Item sx={{
                         minHeight:450,
-                        backgroundImage:`url(${str})`,
+                        backgroundImage:`url(${props.pic})`,
                     }}  onClick={handleClickOpen}>
 
                 <Grid container spacing={0}>
@@ -295,6 +295,7 @@ useEffect(()=>{
                <Backgrd id={promo.promotion_id} 
                         dishes={promo.dishes}
                         handlePromo={props.handlePromo}
+                        pic={promo.picture}
                         />)
         }
         </Carousel>

@@ -3,6 +3,7 @@ export interface OrderInfo {
 }
 
 export interface DishInfo {
+    dish_id:   number;
     dish_name: string;
     /**
      * 同dish_id同状态的菜品数量
