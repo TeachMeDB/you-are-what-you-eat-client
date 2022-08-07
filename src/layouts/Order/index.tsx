@@ -120,7 +120,7 @@ export default function OrderList(props){
 const initOrder:OrderInfo={dish_info:[]};
 const initPrice:OrderTotPrice={orderTotalPrice:0};
 
-const [price,setPrice]=useState<OrderTotPrice>(initPrice);
+// const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
 
@@ -137,10 +137,12 @@ if(orderId.length===0){
   </Box>);
 }
 
+let orderPrice:OrderTotPrice=initPrice;
+
 const getAllData=useCallback(async()=>{
   try{
   
-     let orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
+     orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
 //测试订单状态api
      let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
     
@@ -155,6 +157,9 @@ const getAllData=useCallback(async()=>{
       }
     }
 
+    console.log("debug");
+    console.log(orderPrice);
+    console.log(orderId);
 
     let upload={
       order_id:orderId
@@ -172,13 +177,14 @@ const getAllData=useCallback(async()=>{
          alert("读取订单失败："+value);
      });
 
-     
-    if(isMountedRef()){
-        // console.log(order);
-        // setDishes(order);
-        console.log(orderPrice);
-        setPrice(orderPrice);
-    }
+      console.log(orderPrice);
+
+        // setPrice(orderPrice);
+    // if(isMountedRef()){
+    //     // console.log(order);
+    //     // setDishes(order);
+       
+    // }
   }catch(err){
     console.error(err);
   }
@@ -234,7 +240,7 @@ return (
           </ThemeProvider>
 
           <RatingDialog dishes={dishes}
-             orderTotalPrice={price.orderTotalPrice}/>
+             orderTotalPrice={orderPrice.orderTotalPrice}/>
        
           </>
 );
