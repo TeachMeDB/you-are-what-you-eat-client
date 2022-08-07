@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { useRefMounted } from "@/hooks/useRefMounted";
 import { orderApi } from '@/queries/order';
-import { DishInfo, OrderInfo } from "@/models/order_list";
+import { DishInfo, OrderIds, OrderInfo } from "@/models/order_list";
 import { OrderTotPrice } from '@/models/orderTotPrice'
 import { orderPriceApi } from "@/queries/orderPrice";
 
@@ -125,28 +125,43 @@ const isMountedRef = useRefMounted();
 const orderId:string[]=props.orderIds;
 
 
+
+
 const getAllData=useCallback(async()=>{
   try{
 
-    let order=await orderApi.getOrderList(orderId[0]);
     let orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
 
     if(orderId.length>1){
       for(let i=1;i<orderId.length;i++){
 
-        let newOrder=await orderApi.getOrderList(orderId[i]);
         let newPrice=await orderPriceApi.getOrderPrice(orderId[i]);
-
-        order.dish_info=order.dish_info.concat(newOrder.dish_info);
 
         orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
       }
     }
 
-   
+
+    let upload={
+      order_id:orderId
+     }as OrderIds;
+    
+     const conduct=async()=>{
+         console.log(upload);
+         return orderApi.getOrderList(upload);
+     }
+    
+     conduct().then((value)=>{
+      // alert("读取所有订单"+value);
+      setDishes(value);
+     }).catch((value)=>{
+         alert("读取订单失败："+value);
+     });
+
+     
     if(isMountedRef()){
-        console.log(order);
-        setDishes(order);
+        // console.log(order);
+        // setDishes(order);
         console.log(orderPrice);
         setPrice(orderPrice);
     }

@@ -1,6 +1,7 @@
 import {
     OrderInfo,
-    DishInfo
+    DishInfo,
+    OrderIds
     
 } from '@/models/order_list';
 
@@ -12,10 +13,12 @@ import {GetApi,PostApi} from "@/utils/requests"
 
 class OrderApi {
 
-    public async getOrderList(order_id:string){
-        return (await (GetApi("OrderDish/GetOrderDishInfo",{
-            order_id:order_id
-        }))).data as OrderInfo;
+    public async getOrderList(order_id:OrderIds){
+        let post=await PostApi("OrderDish/GetOrderDishInfo",order_id);
+        return (
+            post.statusText as string,
+            post.data as OrderInfo
+        );
     }
 
     public async postOrderList(orderList:CommitOrderUpload){

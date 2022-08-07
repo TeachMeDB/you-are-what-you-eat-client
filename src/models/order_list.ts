@@ -19,3 +19,7 @@ export interface DishInfo {
     dish_status: string;
     table_id:    number;
 }
+
+export interface OrderIds {
+    order_id: string[];
+}
