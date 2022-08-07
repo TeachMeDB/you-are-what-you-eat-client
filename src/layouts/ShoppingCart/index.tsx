@@ -1,6 +1,6 @@
 import { AddShoppingCart } from "@mui/icons-material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme } from "@mui/material";
+import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Alert } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -14,6 +14,13 @@ import { orderPriceApi } from "@/queries/orderPrice";
 import { useRefMounted } from "@/hooks/useRefMounted";
 import { promoApi } from "@/queries/promo";
 import { dishesApi } from "@/queries/dishes";
+
+
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import CheckDialog from "@/components/CheckCommit";
+
+
 
 const theme = createTheme({
   palette: {
@@ -125,8 +132,11 @@ function TypoPrice(props){
 ); 
 }
 
+
+
 function NewList (props){
-    
+ 
+  
   // orderIds:DishesInfo
     const isMountedRef = useRefMounted();
 
@@ -150,7 +160,7 @@ function NewList (props){
   try{
 
     for(let i=0;i<dishes.length;i++){
-      console.log("ohhhhhhhhhhhhhhhhhhhhh");
+      // console.log("ohhhhhhhhhhhhhhhhhhhhh");
       
          if(dishes[i].ordernum>0){
              let priceInfo=await promoApi.getPromoPrice(props.promoId,dishes[i].dishid) ;
@@ -177,19 +187,46 @@ useEffect(()=>{
   getAllData();
 },[getAllData]);
 
+const [openSuccess, setOpenSuccess] = React.useState(false);
+
+
+
+const handleOpenSuccess = () => {
+  console.log("打开suc");
+  setOpenSuccess(true);
+};
+
+const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpenSuccess(false);
+};
+
+
+
 
 
     if(empt)
     return( 
+      <>
+      <Snackbar open={openSuccess} anchorOrigin={{ vertical:'top', horizontal:'center' }} 
+      autoHideDuration={6000} onClose={handleCloseSuccess}>
+      <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+        下单成功！
+      </Alert>
+    </Snackbar>
       <Box sx={{minHeight:700}}>
         <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
     暂无</Typography>
-    </Box>
+    </Box></>
     );
 
     else
     return(
         <>
+       
         <Box sx={{minHeight:683}}>{
           // api接好以后，下面的props可以去掉
         props.dishes.map((dish,index)=>
@@ -247,52 +284,14 @@ useEffect(()=>{
         {/* <Divider /> */}
         </List>)
       )}</Box>
-       <Button 
-          style={{
-            width:"100%",
-            backgroundColor:"#98313e",
-            color:"white",
-            borderRadius:"0"
-          }}
-
-          onClick={()=>{
-           let testData:DishesInfo[]=[];
-
-             for(let i=0;i<props.dishes.length;i++){
-               if(props.dishes[i].ordernum>0){
-                     let addOne:DishesInfo[]=[{
-                      dish_id:props.dishes[i].dishid,
-                      dish_num:props.dishes[i].ordernum
-                     }];
-                     testData=testData.concat(addOne);
-               }
-             }  
-
-             let upload={
-              dishes_info:testData
-             } as CommitOrderUpload;
-
-            const conduct=async()=>{
-              console.log(upload);
-               return orderApi.postOrderList(upload);
-            }
-              
-             conduct().then((value)=>{
-              
-              //下单成功提示
-              alert("创建订单:"+value);
-              //添加订单
-              props.addOrder(value);
-              //清空购物车
-              props.handleClear();
-              //这里不需要刷新界面
-              // window.location.reload();
-             }).catch((value)=>{
-              alert("下单失败:"+value);
-             });
-
-          } }>
-       下单</Button>
+    
+         <CheckDialog openSuccess={openSuccess}
+                       hdOpS={handleOpenSuccess}
+                       hdClS={handleCloseSuccess}
+                       addOrder={props.addOrder}
+                       handleClear={props.handleClear}
+                       dishes={props.dishes}
+                       />
     </>
     );
   
@@ -371,3 +370,5 @@ function ShoppingCartFab(props){
 
 
 export default ShoppingCartFab;
+
+
