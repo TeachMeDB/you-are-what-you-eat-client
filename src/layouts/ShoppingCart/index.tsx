@@ -100,7 +100,30 @@ function a11yProps(index: number) {
   };
 }
 
+function TypoPrice(props){
+  console.log(props.discount);
+  if(props.discount===1)
+   return(
+           <Typography variant="body1" color="red"  >
+        ￥{props.price*props.num}
+       </Typography> 
+   );
+   
+   return(
+    <Grid container >
+    <Grid item xs={4}>
+<Typography variant="body1"  color="gray" sx={{textDecorationLine:'line-through'}}>
+ ￥{props.price*props.num} 
+</Typography></Grid>
 
+<Grid item xs={8}>
+<Typography variant="body1"  color="red">
+&nbsp;&nbsp;&nbsp;折后: ￥{props.price*props.num*props.discount} 
+</Typography>
+</Grid>
+</Grid>
+); 
+}
 
 function NewList (props){
     
@@ -133,7 +156,7 @@ function NewList (props){
              let priceInfo=await promoApi.getPromoPrice(props.promoId,dishes[i].dishid) ;
              console.log(priceInfo);
             //  discount[0]表示真实折扣
-             dishes[i].discount[0]=priceInfo.discount;
+             dishes[i].dishdiscount[0]=priceInfo.discount;
              totPrice+=priceInfo.discount*priceInfo.price;
          }
       
@@ -181,9 +204,10 @@ useEffect(()=>{
             <Typography variant="body1" color="#123456"  lineHeight={2}>
             {dish.dishname}
             </Typography>
-            <Typography variant="body1" color="red"  >
-        ￥{dish.price*dish.ordernum}
-       </Typography>
+      
+       <TypoPrice price={dish.price}
+                  num={dish.ordernum}
+                  discount={dish.dishdiscount[0]}/>
             </Grid>
 
 

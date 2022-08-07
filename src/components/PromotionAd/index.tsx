@@ -65,98 +65,98 @@ interface DishProps{
        dishes:Array<DishesProps>
   }
   
-  const InitialPromo=():Array<PromotionProps>=>{
-    return [
-      {
-        promotion_id:101,
-        description:"情人节特惠",
-        dishes:[
-        {
-           dish:{
-              dish_id:101,
-              dish_name:"清炒土豆丝",
-              dish_price:9,
-              dish_description:"简单的做法，极致的美味",
-              dish_picture:"/static/images/status/potato.png"
-            },
-           discount:0.8
-        }
-        ]
-      },
-      {
-        promotion_id:102,
-        description:"新品西餐抢先尝",
-        dishes:[
-        {
-           dish:{
-              dish_id:102,
-              dish_name:"番茄炒蛋",
-              dish_price:5.5,
-              dish_description:"有点甜",
-              dish_picture:"/static/images/status/tomato.png"
-           },
-           discount:0.8
-        },
-        {
-          dish:{
-             dish_id:101,
-             dish_name:"清炒土豆丝",
-             dish_price:9,
-             dish_description:"简单的做法，极致的美味",
-             dish_picture:"/static/images/status/potato.png"
-           },
-          discount:0.5
-       },
-       {
-         dish:{
-            dish_id:108,
-            dish_name:"鱼豆腐",
-            dish_price:20,
-            dish_description:"简单的做法，极致的美味",
-            dish_picture:"/static/images/status/tofu.png"
-          },
-         discount:0.95
-      },
-      {
-        dish:{
-           dish_id:107,
-           dish_name:"新疆羊肉串",
-           dish_price:40,
-           dish_description:"简单的做法，极致的美味",
-           dish_picture:"/static/images/status/muttonchuan.jpg"
-         },
-        discount:0.95
-     }
-        ]
-      },
-      {
-        promotion_id:103,
-        description:"疯狂星期四",
-        dishes:[
-        {
-           dish:{
-              dish_id:102,
-              dish_name:"番茄炒蛋",
-              dish_price:5.5,
-              dish_description:"有点甜",
-              dish_picture:"/static/images/status/tomato.png"
-           },
-           discount:0.8
-        },
-        {
-          dish:{
-             dish_id:104,
-             dish_name:"北京烤鸭",
-             dish_price:100,
-             dish_description:"绝对正宗",
-             dish_picture:"/static/images/status/duck.jpg"
-           },
-          discount:0.9
-       }
-        ]
-      }
-    ];
-  }
+  // const InitialPromo=():Array<PromotionProps>=>{
+  //   return [
+  //     {
+  //       promotion_id:101,
+  //       description:"情人节特惠",
+  //       dishes:[
+  //       {
+  //          dish:{
+  //             dish_id:101,
+  //             dish_name:"清炒土豆丝",
+  //             dish_price:9,
+  //             dish_description:"简单的做法，极致的美味",
+  //             dish_picture:"/static/images/status/potato.png"
+  //           },
+  //          discount:0.8
+  //       }
+  //       ]
+  //     },
+  //     {
+  //       promotion_id:102,
+  //       description:"新品西餐抢先尝",
+  //       dishes:[
+  //       {
+  //          dish:{
+  //             dish_id:102,
+  //             dish_name:"番茄炒蛋",
+  //             dish_price:5.5,
+  //             dish_description:"有点甜",
+  //             dish_picture:"/static/images/status/tomato.png"
+  //          },
+  //          discount:0.8
+  //       },
+  //       {
+  //         dish:{
+  //            dish_id:101,
+  //            dish_name:"清炒土豆丝",
+  //            dish_price:9,
+  //            dish_description:"简单的做法，极致的美味",
+  //            dish_picture:"/static/images/status/potato.png"
+  //          },
+  //         discount:0.5
+  //      },
+  //      {
+  //        dish:{
+  //           dish_id:108,
+  //           dish_name:"鱼豆腐",
+  //           dish_price:20,
+  //           dish_description:"简单的做法，极致的美味",
+  //           dish_picture:"/static/images/status/tofu.png"
+  //         },
+  //        discount:0.95
+  //     },
+  //     {
+  //       dish:{
+  //          dish_id:107,
+  //          dish_name:"新疆羊肉串",
+  //          dish_price:40,
+  //          dish_description:"简单的做法，极致的美味",
+  //          dish_picture:"/static/images/status/muttonchuan.jpg"
+  //        },
+  //       discount:0.95
+  //    }
+  //       ]
+  //     },
+  //     {
+  //       promotion_id:103,
+  //       description:"疯狂星期四",
+  //       dishes:[
+  //       {
+  //          dish:{
+  //             dish_id:102,
+  //             dish_name:"番茄炒蛋",
+  //             dish_price:5.5,
+  //             dish_description:"有点甜",
+  //             dish_picture:"/static/images/status/tomato.png"
+  //          },
+  //          discount:0.8
+  //       },
+  //       {
+  //         dish:{
+  //            dish_id:104,
+  //            dish_name:"北京烤鸭",
+  //            dish_price:100,
+  //            dish_description:"绝对正宗",
+  //            dish_picture:"/static/images/status/duck.jpg"
+  //          },
+  //         discount:0.9
+  //      }
+  //       ]
+  //     }
+  //   ];
+  // }
   
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -242,7 +242,7 @@ export default function PromotionAd(props){
 
 console.log(props.handlePromo);
 
-const initPromo=InitialPromo();
+// const initPromo=InitialPromo();
 
 const [promotions,setPromo]=useState<Promotions[]>([]);
 

@@ -76,7 +76,7 @@ const InitialDish=(dishes):Array<DishProps>=>{
     dish["rate"] = dishes.dish_all[i].dish_rate;
     dish["description"] = dishes.dish_all[i].dish_description;
     dish["dishtag"] = dishes.dish_all[i].dish_tag;
-    dish["dishdiscount"] = dishes.dish_all[i].dish_discount;
+    dish["dishdiscount"] = [1];
 
     dish["ordernum"] = 1;
     dish["dishsalt"] = "正常盐";
