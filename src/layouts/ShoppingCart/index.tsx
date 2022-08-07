@@ -254,6 +254,8 @@ useEffect(()=>{
             }
               
              conduct().then((value)=>{
+              
+              //下单成功提示
               alert("创建订单:"+value);
               //添加订单
               props.addOrder(value);

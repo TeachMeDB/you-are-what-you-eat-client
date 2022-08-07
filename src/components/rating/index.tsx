@@ -100,21 +100,21 @@ function DishCard(props){
   // if(props.dishes==[])
   //    return(<></>);
 
+  console.log(props.index,props.maxIndex);
   if(props.index <= props.maxIndex){
-    console.log(props.index);
-    console.log(props.maxIndex);
+    
   return(
     <Card sx={{ maxWidth: 345 }} >
     <CardActionArea>
       <CardMedia
         component="img"
         height={190}
-        image={props.dishes[props.index].picture}
+        image={props.dishes[props.index].dish_picture}
         alt="dishpic"
       />
       <CardContent>
         <Typography gutterBottom variant="body2" component="div">
-          {props.dishes[props.index].dishname}
+          {props.dishes[props.index].dish_name}
         </Typography>
           </CardContent>
             </CardActionArea>
@@ -134,23 +134,36 @@ function RatingDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('xs');
+  console.log("评分页面菜品");
+  console.log(props.dishes);
 
   const handleClickOpen = () => {
     setOpen(true);
-    console.log(props.dishes);
+  
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+ 
+  const [content,setContent]=React.useState<string>("还不错！");
 
+   const handleTextChange=(e:React.ChangeEvent<HTMLInputElement>):void =>{
+      if(e.target.value!==null) setContent(e.target.value);
+   }
    
-   let maxIndex=props.dishes.length-1;
+   
+   let maxIndex=props.dishes.dish_info.length-1;
+   console.log(maxIndex);
    //let index=0;
-   const [dishend,setDishend]=React.useState<number | null>(-1);
-   const [value, setValue] = React.useState<number | null>(5);
+   const [dishend,setDishend]=React.useState<number>(0);
+
+   if(maxIndex<0) setDishend(-1);
+
+   const [value, setValue] = React.useState<number>(5);
    const [hover, setHover] = React.useState(-1);
    let [index,setIdx]=React.useState<number|null>(0);
+
         return(
         <React.Fragment>
           <Button 
@@ -180,13 +193,14 @@ function RatingDialog(props) {
                 <Grid item xs={4}>
                     <Button size="large"
                      onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-                        index--;
-                        if(index>=0) setIdx(index);
-                        if(index<=maxIndex)setDishend(0);
-                        else index++;
+                        if(index>=1)  {
+                          index--;
+                          setIdx(index);
+                          if(index<=maxIndex)setDishend(0);
+                        }
                         }}><LeftArrow/></Button></Grid>
                 <Grid item xs={4}>
-              <DishCard dishes={props.dishes} index={index} maxIndex={maxIndex}/>
+              <DishCard dishes={props.dishes.dish_info} index={index} maxIndex={maxIndex}/>
              </Grid>
              <Grid item xs={4}>
                      <Button size="large"
@@ -229,6 +243,7 @@ function RatingDialog(props) {
           fullWidth={true}
           defaultValue="还不错！"
           variant="standard"
+          onChange={handleTextChange}
         /></Grid>
         <Grid item xs={4}>
             <p>&nbsp;</p>
@@ -237,45 +252,61 @@ function RatingDialog(props) {
         </Grid>
         <Button size="large"
                 onClick={()=>{
-                   let testData1={
-                      content:"很好吃，下次还会点",
-                      dish_id: 101,
-                      rate:5,
-                      username:"徐满心"
-                   } as DishRatingUpload;
+                  // 这里必须先定义一个再赋值
+                   let testData1:DishRatingUpload={
+                    content:"还不错~~~~",
+                    rate:5,
+                    dish_id:101,
+                    username:"徐满心"
+                   };
 
-                  const conduct1=async()=>{
-                    console.log(testData1);
-                    return ratingApi.postDishRating(testData1);
-                  }
-
-                  conduct1().then((value)=>{
-                    alert("提交菜品评价："+value);
-                  }).catch((value)=>{
-                    alert("提交菜品评价失败："+value);
-                  })
+                   testData1.content=content;
+                   testData1.rate=value;
+                   testData1.dish_id=101;
+                   testData1.username="徐满心";
 
 
-                  let testData2={
+                  let testData2:ServiceRatingUpload={
                     content:"服务很热情，给个好评",
                     rate:5,
                     username:"徐满心"
-                 } as ServiceRatingUpload;
+                 } ;
 
-                const conduct2=async()=>{
-                  console.log(testData2);
-                  return ratingApi.postServiceRating(testData2);
-                }
+                 testData2.content=content;
+                 testData2.rate=value;
+                 testData2.username="徐满心";
 
-                conduct2().then((value)=>{
-                  alert("提交服务评价："+value);
-                }).catch((value)=>{
-                  alert("提交服务评价失败："+value);
-                })
-                  
+                  if(index<=maxIndex){
+                      const conduct1=async()=>{
+                        console.log(testData1);
+                        return ratingApi.postDishRating(testData1);
+                     }
+
+                      conduct1().then((value)=>{
+                        alert("提交菜品评价："+value);
+                      }).catch((value)=>{
+                        alert("提交菜品评价失败："+value);
+                      })
+                  }
+
+                  else{
+                      const conduct2=async()=>{
+                      console.log(testData2);
+                      return ratingApi.postServiceRating(testData2);
+                    }
+
+                    conduct2().then((value)=>{
+                      alert("提交服务评价："+value);
+                    }).catch((value)=>{
+                      alert("提交服务评价失败："+value);
+                    })
+                  }
+
                 }}
         >提交评价</Button>
+
         <Button size="large">直接去付款</Button>
+
             </Container>
             </Paper>
             </Dialog>
