@@ -13,6 +13,8 @@ import { orderApi } from '@/queries/order';
 import { DishInfo, OrderIds, OrderInfo } from "@/models/order_list";
 import { OrderTotPrice } from '@/models/orderTotPrice'
 import { orderPriceApi } from "@/queries/orderPrice";
+import RatingDialog from "@/components/rating";
+import { light } from "@mui/material/styles/createPalette";
 
 
 const theme = createTheme({
@@ -112,6 +114,7 @@ function Status(props){
 }
 
 
+
 export default function OrderList(props){
 
 const initOrder:OrderInfo={dish_info:[]};
@@ -123,8 +126,6 @@ const isMountedRef = useRefMounted();
 
 
 const orderId:string[]=props.orderIds;
-
-
 
 
 const getAllData=useCallback(async()=>{
@@ -221,16 +222,10 @@ return (
             </List>
           )}</Box>
 
-           <Button 
-              style={{
-                width:"100%",
-                backgroundColor:"#98313e",
-                color:"white",
-                borderRadius:"0"
-              }}>
-            ￥{price.orderTotalPrice}&nbsp;
-           结账</Button>
-        </ThemeProvider>
+          </ThemeProvider>
+
+          <RatingDialog dishes={dishes}
+             orderTotalPrice={price.orderTotalPrice}/>
        
           </>
 );

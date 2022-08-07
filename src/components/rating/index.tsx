@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, Button, Container, Paper, CardActionArea, createTheme, ThemeProvider } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, Button, Container, Paper, CardActionArea, createTheme, ThemeProvider, Dialog } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -9,8 +9,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import DishInfo from '../../src/components/DishInfo/index'
-import MaxWidthDialog from '../../src/components/DishInfoDialog/index'
+import DishInfo from 'src/components/DishInfo/index'
+import MaxWidthDialog from 'src/components/DishInfoDialog/index'
 import StarIcon from '@mui/icons-material/Star';
 import TextField from '@mui/material/TextField';
 import NextLink from 'next/link';
@@ -18,38 +18,6 @@ import { useContext } from 'react';
 import { SidebarContext } from '@/contexts/SidebarContext';
 import { DishRatingUpload, ServiceRatingUpload } from '@/models/rating';
 import { ratingApi } from '@/queries/rating';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main:"#ffeb3b",
-    },
-    secondary:{
-      main:"#33eb91",
-    }
-  },
-});
-declare module '@mui/material/styles' {
-  interface Theme {
-    palette: {
-      primary: {
-        main:string;
-      }
-    };
-  }
-
-  interface ThemeOptions {
-    palette?: {
-      primary?: {
-        main?:string;
-      }
-    };
-  }
-}
-
-
-
-
 
 interface FinalDishProps{
     dishname:string;
@@ -81,27 +49,28 @@ return [
 function Promt(props){
     if(props.dishend===0)
     return(
-        <Typography variant="h1" color="text.secondary" >
+        <Typography variant="h3" color="text.secondary" >
            这道菜怎么样？
         </Typography>
     );
     else 
     return(
-        <Typography variant="h1" color="text.secondary" >
+        <Typography variant="h3" color="text.secondary" >
            本次服务体验如何？
         </Typography>
     );
 }
 const labels: { [index: string]: string } = {
-    0.5: '极差',
+    0:'极差',
+    // 0.5: '极差',
     1: '很差',
-    1.5: '差',
+    // 1.5: '差',
     2: '比较差',
-    2.5: '有点差',
+    // 2.5: '有点差',
     3: '一般',
-    3.5: '还好',
-    4: '不错',
-    4.5: '好',
+    // 3.5: '还好',
+    4: '好',
+    // 4.5: '好',
     5: '非常好',
   };
   
@@ -124,8 +93,13 @@ const RightArrow=()=>{
 </SvgIcon>
     );
 }
-const dishes=FinalDish();
+
+
 function DishCard(props){
+
+  // if(props.dishes==[])
+  //    return(<></>);
+
   if(props.index <= props.maxIndex){
     console.log(props.index);
     console.log(props.maxIndex);
@@ -135,12 +109,12 @@ function DishCard(props){
       <CardMedia
         component="img"
         height={190}
-        image={dishes[props.index].picture}
+        image={props.dishes[props.index].picture}
         alt="dishpic"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {dishes[props.index].dishname}
+        <Typography gutterBottom variant="body2" component="div">
+          {props.dishes[props.index].dishname}
         </Typography>
           </CardContent>
             </CardActionArea>
@@ -153,16 +127,49 @@ function DishCard(props){
     return <img src="/static/images/status/service.png"/>
   }
 }
-function Ratepanel() {
+
+
+function RatingDialog(props) {
   
-   let maxIndex=dishes.length-1;
+  const [open, setOpen] = React.useState(false);
+  const [fullWidth] = React.useState(true);
+  const [maxWidth] = React.useState('xs');
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    console.log(props.dishes);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+   
+   let maxIndex=props.dishes.length-1;
    //let index=0;
-   const [dishend,setDishend]=React.useState<number | null>(0);
+   const [dishend,setDishend]=React.useState<number | null>(-1);
    const [value, setValue] = React.useState<number | null>(5);
    const [hover, setHover] = React.useState(-1);
    let [index,setIdx]=React.useState<number|null>(0);
         return(
-        
+        <React.Fragment>
+          <Button 
+              style={{
+                width:"100%",
+                backgroundColor:"#98313e",
+                color:"white",
+                borderRadius:"0"
+              }}
+              onClick={handleClickOpen}
+              >
+            ￥{props.orderTotalPrice}&nbsp;
+           结账</Button>
+          <Dialog 
+            // fullWidth={true}
+            fullScreen={true}
+            open={open}
+            scroll="body"
+            >
         <Paper
         sx={{height:'100%',textAlign:'center' }}>
             <Container>
@@ -179,7 +186,7 @@ function Ratepanel() {
                         else index++;
                         }}><LeftArrow/></Button></Grid>
                 <Grid item xs={4}>
-              <DishCard index={index} maxIndex={maxIndex}/>
+              <DishCard dishes={props.dishes} index={index} maxIndex={maxIndex}/>
              </Grid>
              <Grid item xs={4}>
                      <Button size="large"
@@ -197,7 +204,7 @@ function Ratepanel() {
   name="simple-controlled"
   size="large"
   value={value}
-  precision={0.5}
+  precision={1}
   getLabelText={getLabelText}
   onChange={(event, newValue) => {
     setValue(newValue);
@@ -268,9 +275,13 @@ function Ratepanel() {
                   
                 }}
         >提交评价</Button>
+        <Button size="large">直接去付款</Button>
             </Container>
             </Paper>
+            </Dialog>
+            
+            </React.Fragment>
         );
 }
 
-export default Ratepanel;
+export default RatingDialog;
