@@ -26,3 +26,14 @@ export interface DishDish {
      */
     dish_price: number;
 }
+
+export interface PromoPrice {
+    /**
+     * 活动折扣，0-1
+     */
+    discount: number;
+    /**
+     * 原价
+     */
+    price: number;
+}

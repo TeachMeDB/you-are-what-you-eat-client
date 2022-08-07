@@ -326,11 +326,22 @@ class MainPanel extends React.Component<any,any>{
     super(props);
     console.log("----------");
     console.log(props.dishes);
-    this.state={dishes:InitialDish(props.dishes),nowDishTag:"新品上市"};
+    this.state={dishes:InitialDish(props.dishes),
+                nowDishTag:"新品上市",
+                promoId:-1};
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
    this.handleClear=this.handleClear.bind(this);
+   this.handlePromo=this.handlePromo.bind(this);
    }
+ 
+   handlePromo(newId:number){
+      this.setState({
+          promoId:newId
+      });
+   } 
+
+
 
   handleClear(){
     
@@ -509,7 +520,7 @@ class MainPanel extends React.Component<any,any>{
             handleDishTag = {this.handleDishTag}
             nowDishTag = {this.state.nowDishTag}
           />
-         <PromotionAd/>
+         <PromotionAd handlePromo={this.handlePromo}/>
          <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
           <TextField 
           id="outlined-basic" 
@@ -558,6 +569,7 @@ class MainPanel extends React.Component<any,any>{
           ))}
         </ImageList>
         <ShoppingCartFab dishes={this.state.dishes}
+                         promoId={this.state.promoId}
                          hdPlus={this.handleClickPlus}
                          hdMinus={this.handleClickMinus}
                          hdClear={this.handleClear}/>
