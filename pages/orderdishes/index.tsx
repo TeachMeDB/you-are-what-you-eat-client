@@ -23,6 +23,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import SearchIcon from '@mui/icons-material/Search';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { AddShoppingCart } from '@mui/icons-material';
 import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
@@ -30,7 +31,6 @@ import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
 
 // import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
-import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import PromotionAd from '../../src/components/PromotionAd/index';
@@ -545,7 +545,14 @@ class MainPanel extends React.Component<any,any>{
           <TextField 
           id="outlined-basic" 
           label="搜索菜品名称" 
-          variant="outlined"
+          variant="standard"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
           onChange={this.handleSearchChange} 
           />
         </FormControl>
@@ -738,7 +745,7 @@ function Dishpanel({dishes}:{dishes:DishAll[]}){
   //   return null;
   // }
 
-  console.log("新api",dishes)
+  // console.log("新api",dishes)
   return (
     <MainPanel dishes={dishes}/>
   );
