@@ -50,7 +50,7 @@ export default function CheckDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            *&nbsp;确认后无法再取消订单哦
+            *&nbsp;一旦确认无法撤回订单哦
           </DialogContentText>
         </DialogContent>
         <DialogActions>
