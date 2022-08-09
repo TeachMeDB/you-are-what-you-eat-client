@@ -274,31 +274,20 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
         <Button size="large"
                 onClick={()=>{
                   // 这里必须先定义一个再赋值
-                   let testData1:DishRatingUpload={
-                    content:"还不错~~~~",
-                    rate:5,
-                    dish_id:101,
-                    username:"default01"
-                   };
-
-                   testData1.content=content;
-                   testData1.rate=value;
-                   testData1.dish_id=props.dishes.dish_info[index].dish_id;
-
-                   testData1.username="default01";
-
-
-                  let testData2:ServiceRatingUpload={
-                    content:"服务很热情，给个好评",
-                    rate:5,
-                    username:"default01"
-                 } ;
-
-                 testData2.content=content;
-                 testData2.rate=value;
-                 testData2.username="default01";
 
                   if(index<=maxIndex){
+                    let testData1:DishRatingUpload={
+                      content:"还不错~~~~",
+                      rate:5,
+                      dish_id:101,
+                      username:"default01"
+                     };
+  
+                     testData1.content=content;
+                     testData1.rate=value;
+                     testData1.dish_id=props.dishes.dish_info[index].dish_id;
+  
+                     testData1.username="default01";
                       const conduct1=async()=>{
                         console.log(testData1);
                         return ratingApi.postDishRating(testData1);
@@ -316,6 +305,15 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
                   }
 
                   else{
+                    let testData2:ServiceRatingUpload={
+                      content:"服务很热情，给个好评",
+                      rate:5,
+                      username:"default01"
+                   } ;
+  
+                   testData2.content=content;
+                   testData2.rate=value;
+                   testData2.username="default01";
                       const conduct2=async()=>{
                       console.log(testData2);
                       return ratingApi.postServiceRating(testData2);

@@ -50,7 +50,7 @@ export default function CheckDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            *&nbsp;确认后若需取消订单请找服务员
+            *&nbsp;确认后无法再取消订单哦
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -63,7 +63,8 @@ export default function CheckDialog(props) {
       if(props.dishes[i].ordernum>0){
             let addOne:DishesInfo[]=[{
              dish_id:props.dishes[i].dishid,
-             dish_num:props.dishes[i].ordernum
+             dish_num:props.dishes[i].ordernum,
+             dish_price_to_pay:props.dishes[i].price*props.dishes[i].dishdiscount[0]
             }];
             testData=testData.concat(addOne);
       }
@@ -74,6 +75,7 @@ export default function CheckDialog(props) {
     } as CommitOrderUpload;
 
    const conduct=async()=>{
+    console.log("提交订单内容");
      console.log(upload);
       return orderApi.postOrderList(upload);
    }

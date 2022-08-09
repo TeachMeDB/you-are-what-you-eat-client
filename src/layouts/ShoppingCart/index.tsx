@@ -190,6 +190,10 @@ const handleCloseSuccess = () => {
                  if(priceInfo.discount<1){
                    dishes[i].dishdiscount[0]=priceInfo.discount;
                  }
+                 else{
+                  dishes[i].dishdiscount[0]=1;
+                 }
+
         }
       totPrice+=dishes[i].price*dishes[i].dishdiscount[0]*dishes[i].ordernum;
       console.log(totPrice);
@@ -290,15 +294,16 @@ if(price!=totPrice) setPrice(totPrice);
         </List>)
       )}</Box>
     
-       {  dishes.length&&<CheckDialog  openSuccess={openSuccess}
+      <CheckDialog  openSuccess={openSuccess}
                        hdOpS={handleOpenSuccess}
                        hdClS={handleCloseSuccess}
                        addOrder={props.addOrder}
                        handleClear={props.handleClear}
                        dishes={props.dishes}
                        totPrice={price}
-                       />}
+                       />
     </>
+    
     );
   
 }
@@ -356,6 +361,7 @@ function ShoppingCartFab(props){
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
+
        <NewList dishes={props.dishes}
                 handleClickPlus={props.hdPlus}
                 handleClickMinus={props.hdMinus}

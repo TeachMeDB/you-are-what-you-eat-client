@@ -143,7 +143,7 @@ const getAllData=useCallback(async()=>{
   try{
   
      orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
-//测试订单状态api
+//测试订单支付状态api
      let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
     
     console.log(orderStatus);
