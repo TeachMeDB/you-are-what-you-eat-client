@@ -18,6 +18,7 @@ import { useContext } from 'react';
 import { SidebarContext } from '@/contexts/SidebarContext';
 import { DishRatingUpload, ServiceRatingUpload } from '@/models/rating';
 import { ratingApi } from '@/queries/rating';
+import PayDialog from '../PayDialog';
 
 interface FinalDishProps{
     dishname:string;
@@ -330,7 +331,8 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
                 }}
         >提交评价</Button>
 
-        <Button size="large">直接去付款</Button>
+        
+        <PayDialog final_price={props.orderTotalPrice}/>
 
             </Container>
             </Paper>
