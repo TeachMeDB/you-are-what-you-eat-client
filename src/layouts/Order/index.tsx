@@ -20,10 +20,16 @@ import { light } from "@mui/material/styles/createPalette";
 const theme = createTheme({
     palette: {
       primary: {
-        main:"#ffeb3b",
+        main:"#ffeb3b",//黄色，制作中
       },
       secondary:{
         main:"#33eb91",
+      },
+      info:{
+        main:"#FF6A6A"//红，待处理
+      },
+      success:{
+        main:"#90EE90"//绿,已完成
       }
     },
   });
@@ -104,9 +110,15 @@ const theme = createTheme({
   
 function Status(props){
 // 需要根据status调整color
+
+  let color='info';//待处理 
+  console.log(props.status);
+  if(props.status==="制作中") color="primary";
+  else if(props.status==="已完成") color="success";
+
         return (
         <Stack direction="row">
-        <AcUnitIcon color="primary" fontSize="small"/>
+        <AcUnitIcon color={color} fontSize="small"/>
         <Typography color="#9C9CAC" >
             &nbsp;{props.status}</Typography>
         </Stack>
@@ -143,7 +155,7 @@ const getAllData=useCallback(async()=>{
   try{
   
      orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
-//测试订单状态api
+//测试订单支付状态api
      let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
     
     console.log(orderStatus);

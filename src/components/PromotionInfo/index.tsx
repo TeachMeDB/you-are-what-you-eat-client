@@ -39,12 +39,12 @@ const theme = createTheme({
   
 
 export default function PromoInfo(props){
-    const str="/static/images/status/promo_"+props.id+".png";
+    // const str="/static/images/status/promo_"+props.id+".png";
     console.log("看看活动菜品图片");
     console.log(props.dishes);
     return(
         <ThemeProvider theme={theme}>
-        <img src= {str} width="100%" height="100%"/>
+        <img src= {props.pic} width="100%" height="100%"/>
         {/* <Typography color="#696969" lineHeight={4}>&nbsp;&nbsp;&nbsp;活动促销菜品</Typography> */}
         <Container sx={{textAlign:"center"}}>{
         props.dishes.map((dish,index)=>

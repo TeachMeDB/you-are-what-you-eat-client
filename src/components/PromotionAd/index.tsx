@@ -231,7 +231,7 @@ interface DishProps{
        >
          <DialogContent style={{padding: '0'}}>
           {/* <h1>Hello!</h1> */}
-          <PromotionInfo id={props.id} dishes={props.dishes}/>
+          <PromotionInfo id={props.id} dishes={props.dishes} pic={props.pic}/>
 
           
          </DialogContent>
