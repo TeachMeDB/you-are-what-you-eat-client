@@ -41,7 +41,7 @@ declare module '@mui/material/styles' {
 export default function DishInfoDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
-  const [maxWidth] = React.useState('xs');
+  const [maxWidth] = React.useState('sm');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,6 +68,8 @@ export default function DishInfoDialog(props) {
         <DialogContent style={{padding: '0'}}>
           <DishInfo 
             dish={props.dish}
+            hdInfoOpen={handleClickOpen}
+            hdInfoClose={handleClose}
             handleClickPlus={props.hdPlus}
             handleClickMinus={props.hdMinus}
             handleDishSaltChange={props.hdSalt}
