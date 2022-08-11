@@ -561,23 +561,12 @@ class MainPanel extends React.Component<any,any>{
             nowDishTag = {this.state.nowDishTag}
           />
          <PromotionAd handlePromo={this.handlePromo}/>
-         <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
-          <TextField 
-          id="outlined-basic" 
-          label="搜索菜品名称" 
-          variant="standard"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-          onChange={this.handleSearchChange} 
-          />
-        </FormControl>
+
         <Grid container spacing={2} style={{marginBottom: '27px'}}>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
+              
+          </Grid>
+          <Grid item xs={6}>
               <FormControl sx={{ mt: 2, minWidth: 150 }}>
                   <InputLabel htmlFor="dishes-sort">排序方式</InputLabel>
                   <Select
@@ -595,11 +584,23 @@ class MainPanel extends React.Component<any,any>{
                       <MenuItem value="菜名排序">菜名排序</MenuItem>
                   </Select>
               </FormControl>
+              <FormControl variant="outlined" style={{width:"65%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
+                <TextField 
+                id="outlined-basic" 
+                label="搜索菜品名称" 
+                variant="standard"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={this.handleSearchChange} 
+                />
+              </FormControl>
           </Grid>
-          <Grid item xs={4}>
-              
-          </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
               
           </Grid>
         </Grid>
@@ -611,7 +612,7 @@ class MainPanel extends React.Component<any,any>{
             item.searched && item.selected &&
             <ImageListItem key={item.dishid}>
               <img
-                src={item.picture}
+                src={item ? item.picture : "/static/images/nodish_picture.png"}
                 alt={item.dishname}
                 loading="lazy"
               />
