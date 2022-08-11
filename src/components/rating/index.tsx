@@ -332,7 +332,8 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
         >提交评价</Button>
 
         
-        <PayDialog final_price={props.orderTotalPrice}/>
+        <PayDialog final_price={props.orderTotalPrice}
+                   orderIds={props.orderIds}/>
 
             </Container>
             </Paper>

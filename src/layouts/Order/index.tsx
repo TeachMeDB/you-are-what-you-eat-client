@@ -252,7 +252,8 @@ return (
           </ThemeProvider>
 
           <RatingDialog dishes={dishes}
-             orderTotalPrice={orderPrice.orderTotalPrice}/>
+             orderTotalPrice={orderPrice.orderTotalPrice}
+             orderIds={props.orderIds}/>
        
           </>
 );
