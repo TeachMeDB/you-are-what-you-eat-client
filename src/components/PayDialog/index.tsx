@@ -9,7 +9,7 @@ import QRCode from 'qrcode.react';
 import { url } from 'inspector';
 import { payApi } from '@/queries/payQRcode';
 import { orderPriceApi } from '@/queries/orderPrice';
-import { QRcode } from '@/models/pay_qrcode';
+import { PayInfo, QRcode } from '@/models/pay_qrcode';
 
 export default function PayDialog(props){
 
@@ -30,7 +30,8 @@ export default function PayDialog(props){
 
       const getAllData=React.useCallback(async()=>{
         try{
-         let ws=await payApi.getQRstring(props.final_price);
+        const info:PayInfo={final_price:props.final_price,order_ids:props.orderIds};
+         let ws=await payApi.getQRstring(info);
          console.log(ws);
          setWebsite(ws);//刷新二维码
             

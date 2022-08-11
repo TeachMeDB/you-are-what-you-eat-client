@@ -1,4 +1,5 @@
 import {
+    PayInfo,
     QRcode
 } from '@/models/pay_qrcode'
 
@@ -7,9 +8,9 @@ import {GetApi,PostApi} from "@/utils/requests"
 
 class PayApi {
 
-    public async getQRstring(final_price:number){
+    public async getQRstring(payinfo:PayInfo){
         return (await (GetApi("OrderDish/FinalPay",{
-            final_price:final_price
+            payinfo:payinfo
         }))).data as QRcode;
     }
 }
