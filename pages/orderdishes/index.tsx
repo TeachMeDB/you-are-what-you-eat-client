@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,FormControl } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,FormControl, InputLabel, Select, MenuItem, ThemeProvider, createTheme } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -23,6 +23,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import SearchIcon from '@mui/icons-material/Search';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { AddShoppingCart } from '@mui/icons-material';
 import ShoppingCartFab from '../../src/layouts/ShoppingCart/index';
@@ -30,7 +31,6 @@ import TextField from '@mui/material/TextField';
 import {ChangeEvent} from 'react';
 
 // import {nowDishTag} from '../../src/layouts/SidebarLayout/Sidebar/SidebarMenu/index'
-import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import PromotionAd from '../../src/components/PromotionAd/index';
@@ -41,6 +41,7 @@ import { DishHavethetag, DishesInfo, DishAll, DishesAll } from '@/models/dishes_
 import { useRefMounted } from 'src/hooks/useRefMounted';
 import { useState, useCallback, useEffect } from 'react';
 import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
+import Header from '@/layouts/SidebarLayout/Header/index';
 
 interface DishComment {
   comment_content:string;
@@ -340,7 +341,9 @@ class MainPanel extends React.Component<any,any>{
     
     this.state={dishes:InitialDish(props.dishes),
                 nowDishTag:"新品上市",
-                promoId:-1};
+                promoId:-1,
+                sortTag:"默认排序",          
+              };
                 
    this.handleClickPlus=this.handleClickPlus.bind(this);
    this.handleClickMinus=this.handleClickMinus.bind(this);
@@ -466,6 +469,24 @@ class MainPanel extends React.Component<any,any>{
       });
     }
 
+    handleDishesSort = (event) => {
+      let sortTag = "默认排序";
+      let dishesAll = InitialDish(this.props.dishes);
+      if(event.target.value === "默认排序") {
+
+      } else if(event.target.value === "评分排序") {
+        sortTag = "评分排序";
+        dishesAll.sort(function(a, b){return b.rate - a.rate});
+      } else if(event.target.value === "菜名排序") {
+        sortTag = "菜名排序";
+        dishesAll.sort(function(a, b){return a.dishname.localeCompare(b.dishname);})
+      }
+      this.setState({
+        dishes:dishesAll,
+        sortTag:sortTag
+      });
+    }
+
     handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
       // console.log(this.props.dishes);
       let value = null;
@@ -540,16 +561,51 @@ class MainPanel extends React.Component<any,any>{
             handleDishTag = {this.handleDishTag}
             nowDishTag = {this.state.nowDishTag}
           />
+          {/* <Header/> */}
          <PromotionAd handlePromo={this.handlePromo}/>
-         <FormControl variant="outlined" style={{width:"99%"}} sx={{ mt: 1, ml: 1, minWidth: 120 }}>
-          <TextField 
-          id="outlined-basic" 
-          label="搜索菜品名称" 
-          variant="outlined"
-          onChange={this.handleSearchChange} 
-          />
-        </FormControl>
-        
+
+        <Grid container spacing={2} style={{marginBottom: '27px'}}>
+          <Grid item xs={3}>
+              
+          </Grid>
+          <Grid item xs={6}>
+              <FormControl sx={{ mt: 2, minWidth: 150 }}>
+                  <InputLabel htmlFor="dishes-sort">排序方式</InputLabel>
+                  <Select
+                      // autoFocus
+                      value={this.state.sortTag}
+                      onChange={this.handleDishesSort}
+                      label="dishesSort"
+                      inputProps={{
+                      name: 'dishes-sort',
+                      id: 'dishes-sort',
+                      }}
+                  >
+                      <MenuItem value="默认排序">默认排序</MenuItem>
+                      <MenuItem value="评分排序">评分排序</MenuItem>
+                      <MenuItem value="菜名排序">菜名排序</MenuItem>
+                  </Select>
+              </FormControl>
+              <FormControl variant="outlined" style={{width:"65%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
+                <TextField 
+                id="outlined-basic" 
+                label="搜索菜品名称" 
+                variant="standard"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={this.handleSearchChange} 
+                />
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+              
+          </Grid>
+        </Grid>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
@@ -558,7 +614,7 @@ class MainPanel extends React.Component<any,any>{
             item.searched && item.selected &&
             <ImageListItem key={item.dishid}>
               <img
-                src={item.picture}
+                src={item ? item.picture : "/static/images/nodish_picture.png"}
                 alt={item.dishname}
                 loading="lazy"
               />
@@ -710,6 +766,17 @@ class MainPanel extends React.Component<any,any>{
     }
 }
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#98313e",
+    },
+    secondary:{
+      main:"rgba(255, 255, 255, 0.74)"
+    }
+  },
+});
+
 function Dishpanel({dishes}:{dishes:DishAll[]}){
   
   // const isMountedRef = useRefMounted();
@@ -738,9 +805,11 @@ function Dishpanel({dishes}:{dishes:DishAll[]}){
   //   return null;
   // }
 
-  console.log("新api",dishes)
+  // console.log("新api",dishes)
   return (
-    <MainPanel dishes={dishes}/>
+    <ThemeProvider theme={theme}>
+      <MainPanel dishes={dishes}/>
+    </ThemeProvider>
   );
 }
 

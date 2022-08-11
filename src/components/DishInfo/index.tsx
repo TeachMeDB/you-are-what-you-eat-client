@@ -19,6 +19,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import PersonIcon from '@mui/icons-material/Person';
+import DishInfoDialog from '../DishInfoDialog';
 
 
 export const Minus=(props)=>{
@@ -67,7 +68,6 @@ class DishInfo extends Component {
         return (
             <React.Fragment>
                 <Box style={{backgroundColor:"#f3f5f9"}}>
-                <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="270px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
 
                 <Card sx={{ minWidth: 75 , ml: 1, mr:1}}>
                 <img 
@@ -197,26 +197,42 @@ class DishInfo extends Component {
                     </Box>
                 </Card>
                 <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
-                    <p style={{fontSize:"20px",margin:"20px 0 0 16px",fontWeight:"700"}}>顾客评价</p>
-                    <CardContent>
-                        <List sx={{ width: '100%' }}>
-                            {this.props.dish.dishcomment.map((item) => (
-                                <Box key={item.comment_time}>
-                                    <ListItem style={{padding:"8px 8px 0px 0px"}}>
-                                        <ListItemAvatar>
-                                        <Avatar>
-                                            <PersonIcon />
-                                        </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary={item.comment_time} secondary={<Rating name="read-only" value={item.comment_star} readOnly />}/>
-                                    </ListItem>
-                                    <div style={{fontSize:"16px",margin:"0px 0px 10px 5px"}}>{item.comment_content}</div>
-                                </Box>
-                            ))}
-                        </List>
-                    </CardContent>
+                    <p style={{fontSize:"20px",margin:"20px",fontWeight:"700"}}>菜品视频</p>
+                    <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="270px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
                 </Card>
-                {/* <button onClick={this.test}></button> */}
+                <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
+                    <p style={{fontSize:"20px",margin:"20px 0 0 16px",fontWeight:"700"}}>顾客评价</p>
+                    {this.props.dish.dishcomment.length ?
+                        <CardContent>
+                            <List sx={{ width: '100%' }}>
+                                {this.props.dish.dishcomment.map((item) => (
+                                    <Box key={item.comment_time}>
+                                        <ListItem style={{padding:"8px 8px 0px 0px"}}>
+                                            <ListItemAvatar>
+                                            <Avatar>
+                                                <PersonIcon />
+                                            </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText primary={item.comment_time} secondary={<Rating name="read-only" value={item.comment_star} readOnly />}/>
+                                        </ListItem>
+                                        <div style={{fontSize:"16px",margin:"0px 0px 10px 5px"}}>{item.comment_content}</div>
+                                    </Box>
+                                ))}
+                            </List>
+                        </CardContent>
+                        : <p style={{fontSize:"20px", textAlign:"center", margin:"20px",fontWeight:"500"}}>暂无评价哦</p>
+                    }
+                </Card>
+                {/* <button onClick={this.test}>
+                    <DishInfoDialog 
+                      dish={this.props.dish}
+                    //   hdPlus={this.handleClickPlus}
+                    //   hdMinus={this.handleClickMinus}
+                    //   hdSalt={this.handleDishSaltChange}
+                    //   hdSpicy={this.handleDishSpicyChange}
+                    //   hdSweet={this.handleDishSweetChange}
+                    />
+                </button> */}
                 </Box>
             </React.Fragment>
         );
