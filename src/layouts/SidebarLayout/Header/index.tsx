@@ -25,6 +25,7 @@ const HeaderWrapper = styled(Box)(
         color: ${theme.header.textColor};
         padding: ${theme.spacing(0, 2)};
         right: 0;
+        top: 0;
         z-index: 6;
         background-color: ${alpha(theme.header.background, 0.95)};
         backdrop-filter: blur(3px);
@@ -62,7 +63,7 @@ function Header() {
               )}`
       }}
     >
-      <Stack
+      {/* <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         alignItems="center"
@@ -90,7 +91,7 @@ function Header() {
             </IconButton>
           </Tooltip>
         </Box>
-      </Box>
+      </Box> */}
     </HeaderWrapper>
   );
 }
