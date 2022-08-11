@@ -1,6 +1,6 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,FormControl, InputLabel, Select, MenuItem, ThemeProvider, createTheme } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -41,6 +41,7 @@ import { DishHavethetag, DishesInfo, DishAll, DishesAll } from '@/models/dishes_
 import { useRefMounted } from 'src/hooks/useRefMounted';
 import { useState, useCallback, useEffect } from 'react';
 import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
+import Header from '@/layouts/SidebarLayout/Header/index';
 
 interface DishComment {
   comment_content:string;
@@ -560,6 +561,7 @@ class MainPanel extends React.Component<any,any>{
             handleDishTag = {this.handleDishTag}
             nowDishTag = {this.state.nowDishTag}
           />
+          {/* <Header/> */}
          <PromotionAd handlePromo={this.handlePromo}/>
 
         <Grid container spacing={2} style={{marginBottom: '27px'}}>
@@ -764,6 +766,17 @@ class MainPanel extends React.Component<any,any>{
     }
 }
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#98313e",
+    },
+    secondary:{
+      main:"rgba(255, 255, 255, 0.74)"
+    }
+  },
+});
+
 function Dishpanel({dishes}:{dishes:DishAll[]}){
   
   // const isMountedRef = useRefMounted();
@@ -794,7 +807,9 @@ function Dishpanel({dishes}:{dishes:DishAll[]}){
 
   // console.log("新api",dishes)
   return (
-    <MainPanel dishes={dishes}/>
+    <ThemeProvider theme={theme}>
+      <MainPanel dishes={dishes}/>
+    </ThemeProvider>
   );
 }
 

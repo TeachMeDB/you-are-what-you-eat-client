@@ -19,6 +19,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import PersonIcon from '@mui/icons-material/Person';
+import DishInfoDialog from '../DishInfoDialog';
 
 
 export const Minus=(props)=>{
@@ -222,7 +223,16 @@ class DishInfo extends Component {
                         : <p style={{fontSize:"20px", textAlign:"center", margin:"20px",fontWeight:"500"}}>暂无评价哦</p>
                     }
                 </Card>
-                {/* <button onClick={this.test}></button> */}
+                {/* <button onClick={this.test}>
+                    <DishInfoDialog 
+                      dish={this.props.dish}
+                    //   hdPlus={this.handleClickPlus}
+                    //   hdMinus={this.handleClickMinus}
+                    //   hdSalt={this.handleDishSaltChange}
+                    //   hdSpicy={this.handleDishSpicyChange}
+                    //   hdSweet={this.handleDishSweetChange}
+                    />
+                </button> */}
                 </Box>
             </React.Fragment>
         );
