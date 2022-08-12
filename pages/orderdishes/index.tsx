@@ -344,7 +344,7 @@ class MainPanel extends React.Component<any,any>{
     console.log(props.dishes);
     
     this.state={dishes:InitialDish(props.dishes),
-                nowDishTag:"新品上市",
+                nowDishTag:"全部菜品",
                 promoId:-1,
                 sortTag:"默认排序",          
               };
@@ -476,6 +476,9 @@ class MainPanel extends React.Component<any,any>{
     handleDishesSort = (event) => {
       let sortTag = "默认排序";
       let dishesAll = InitialDish(this.props.dishes);
+      for(let i=0;i<dishesAll.length;i++) {
+        dishesAll[i].selected=this.state.dishes[i].selected;
+      }
       if(event.target.value === "默认排序") {
 
       } else if(event.target.value === "评分排序") {
