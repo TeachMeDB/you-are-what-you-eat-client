@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DishComment from './DishComment';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 const theme = createTheme({
@@ -53,7 +54,7 @@ export default function DishCommentDialog(props) {
   return (
     <React.Fragment>
        <ThemeProvider theme={theme}>
-        <Button style={{color:"black",margin:"20px 0 0 16px"}} onClick={handleClickOpen}>全部评价</Button>
+        <Button style={{color:"black",margin:"20px 0 0 16px"}} onClick={handleClickOpen}>全部评价（{props.dish.dishcomment.length}）条<ArrowForwardIosIcon sx={{ fontSize: 16 }}/></Button>
         <Dialog
             fullWidth={fullWidth}
             maxWidth={maxWidth}
