@@ -72,7 +72,7 @@ export default function CheckDialog(props) {
 
     let upload={
      dishes_info:testData,
-     table_id:1
+     table_id:2
     } as CommitOrderUpload;
 
    const conduct=async()=>{

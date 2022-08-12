@@ -10,16 +10,31 @@ import { url } from 'inspector';
 import { payApi } from '@/queries/payQRcode';
 import { orderPriceApi } from '@/queries/orderPrice';
 import { PayInfo, QRcode } from '@/models/pay_qrcode';
+import { CollectionsBookmarkRounded } from '@mui/icons-material';
 
 export default function PayDialog(props){
 
     console.log("最终付款价格："+props.final_price);
     console.log("结账订单IDs："+props.orderIds);
 
+    const [itvl,setItvl]=React.useState(10000000);
+
     const [open, setOpen] = React.useState(false);
+    if(open==true&&itvl>3000){
+      setItvl(3000);
+    }
+    console.log(open);
+    console.log(itvl);
+
+    // else itvl=3000;
     const isMountedRef = useRefMounted();
     const handleClickOpen = () => {
+        // itvl=3000;
+       
         setOpen(true);
+        setItvl(3000);
+        console.log(itvl);
+        console.log(open);
       };
     
       const handleClose = () => {
@@ -51,7 +66,7 @@ export default function PayDialog(props){
     const updateState = React.useCallback(async () => {
       try{
         console.log("一次轮询");
-
+      
       const status0=await orderPriceApi.getOrderStatus(props.orderIds[0]);
       if(status0.order_status==="已支付") ok=true;//给ok一个变true的机会
       else if(status0.order_status==="支付失败"){
@@ -96,8 +111,10 @@ export default function PayDialog(props){
       }
 
     }, []);
+
     React.useEffect(() => {
-      setInterval(updateState, 3000);//设置轮询时间间隔
+      // console.log("vewce!!!!"+itvl);
+      setInterval(updateState,3000);//设置轮询时间间隔
     }, [updateState]);
 
    

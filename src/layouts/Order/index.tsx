@@ -1,4 +1,4 @@
-import { AddShoppingCart } from "@mui/icons-material";
+import { AddShoppingCart, PriceChangeRounded } from "@mui/icons-material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Stack } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
@@ -137,9 +137,10 @@ const [dishes,setDishes]=useState<OrderInfo>(initOrder);
 const isMountedRef = useRefMounted();
 
 const orderId:string[]=props.orderIds;
+const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 
 //如果没有任何订单，返回“暂无”
-if(orderId.length===0){
+if(orderId.length===0||props.load===false){
   console.log(orderId);
   return( 
     <Box sx={{minHeight:720}}>
@@ -156,9 +157,9 @@ const getAllData=useCallback(async()=>{
   
      orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
 //测试订单支付状态api
-     let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
+    //  let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
     
-    console.log(orderStatus);
+    // console.log(orderStatus);
 
     if(orderId.length>1){
       for(let i=1;i<orderId.length;i++){
@@ -167,6 +168,11 @@ const getAllData=useCallback(async()=>{
 
         orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
       }
+      // if(price!=orderPrice){
+      //   console.log(price);
+      //   console.log(orderPrice);
+      
+      // }
     }
 
     console.log("debug");
@@ -184,19 +190,17 @@ const getAllData=useCallback(async()=>{
     
      conduct().then((value)=>{
       // alert("读取所有订单"+value);
-      setDishes(value);
+      console.log(value);
+      // dishes=value;
+      if(dishes!=value) {setDishes(value);  setPrice(orderPrice);}
      }).catch((value)=>{
          alert("读取订单失败："+value);
      });
 
-      console.log(orderPrice);
-
-        // setPrice(orderPrice);
-    // if(isMountedRef()){
-    //     // console.log(order);
-    //     // setDishes(order);
-       
-    // }
+     
+     if(isMountedRef()){
+     
+    }
   }catch(err){
     console.error(err);
   }
@@ -206,6 +210,9 @@ const getAllData=useCallback(async()=>{
 useEffect(()=>{
   getAllData();
 },[getAllData]);
+
+//  if(dishes!=orderinfo&&orderinfo!=initOrder) setDishes(orderinfo);
+
 
 if (dishes==initOrder){
 return( 
@@ -252,7 +259,7 @@ return (
           </ThemeProvider>
 
           <RatingDialog dishes={dishes}
-             orderTotalPrice={orderPrice.orderTotalPrice}
+             orderTotalPrice={price.orderTotalPrice}
              orderIds={props.orderIds}/>
        
           </>

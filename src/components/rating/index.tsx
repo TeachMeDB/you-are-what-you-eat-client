@@ -147,6 +147,7 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
 
 
   const [open, setOpen] = React.useState(false);
+  console.log(open);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('xs');
   console.log("评分页面菜品");
