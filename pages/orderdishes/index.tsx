@@ -57,6 +57,7 @@ interface DishProps{
     ordernum:number;
     rate:number;
     description:string;
+    video:string;
     dishtag:string[];
     dishdiscount:number[];
     dishcomment:DishComment[];
@@ -85,6 +86,9 @@ const InitialDish=(dishes):Array<DishProps>=>{
     dish["description"] = dishes.dish_all[i].dish_description;
     dish["dishtag"] = dishes.dish_all[i].dish_tag;
     dish["dishcomment"] = dishes.dish_all[i].dish_comment;
+    // 将评论按时间倒序排序
+    dish["dishcomment"].sort(function(a,b){return Date.parse(b.comment_time) - Date.parse(a.comment_time);});
+    dish["video"] = "//player.bilibili.com/player.html?bvid="+dishes.dish_all[i].dish_video+"&page=1&high_quality=1&danmaku=0";
     // dish["dishcomment"] = [{content:"还挺好吃",time:"2022-08-06",stars:5},{content:"一般般",time:"2022-08-05",stars:4}];
 
     dish["dishdiscount"] = [1];
@@ -565,10 +569,24 @@ class MainPanel extends React.Component<any,any>{
          <PromotionAd handlePromo={this.handlePromo}/>
 
         <Grid container spacing={2} style={{marginBottom: '27px'}}>
-          <Grid item xs={3}>
-              
+          <Grid item xs={10}>
+            <FormControl variant="outlined" style={{width:"25%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
+              <TextField 
+              id="outlined-basic" 
+              label="搜索菜品名称" 
+              variant="standard"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={this.handleSearchChange} 
+              />
+            </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
               <FormControl sx={{ mt: 2, minWidth: 150 }}>
                   <InputLabel htmlFor="dishes-sort">排序方式</InputLabel>
                   <Select
@@ -586,25 +604,11 @@ class MainPanel extends React.Component<any,any>{
                       <MenuItem value="菜名排序">菜名排序</MenuItem>
                   </Select>
               </FormControl>
-              <FormControl variant="outlined" style={{width:"65%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
-                <TextField 
-                id="outlined-basic" 
-                label="搜索菜品名称" 
-                variant="standard"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={this.handleSearchChange} 
-                />
-              </FormControl>
-          </Grid>
-          <Grid item xs={3}>
               
           </Grid>
+          {/* <Grid item xs={3}>
+              
+          </Grid> */}
         </Grid>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>

@@ -20,6 +20,7 @@ import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import PersonIcon from '@mui/icons-material/Person';
 import DishInfoDialog from '../DishInfoDialog';
+import DishCommentDialog from '../DishCommentDialog';
 
 
 export const Minus=(props)=>{
@@ -40,16 +41,19 @@ export const Plus=(props)=>{
     
 }
 
+const InitialDish=(dish) => {
+    let shortComment = [];
+    let len = Math.min(dish.dishcomment.length,5);
+    for(let i=0;i<len;i++) {
+        shortComment[i] = dish.dishcomment[i];
+    }
+    return shortComment;
+}
+
 class DishInfo extends Component {
-    // state = { 
-    //     image:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F17f9f8c3ed5c7c96d63956d9fd0bbdcb53b7a33824b93-UBXEZI_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661006558&t=37414eaa22292a44caa613e33e809168",
-    //     dishName:"美味同济嘉定包菜",
-    //     dishDescription:"同济4月新来的包菜，味道鲜美，先到先得，这不比牛腩好吃？",
-    //     dishPrice:3.5,
-    //     dishSize:"大份",
-    //     dishSpicy:"不辣",
-    //     dishScore:this.props.dish.rate,
-    // } 
+    state = { 
+        shortComment:InitialDish(this.props.dish),
+    } 
     handleDishSaltChange = (event) => {
         this.props.handleDishSaltChange(event,this.props.dish.dishid);
     }
@@ -198,14 +202,26 @@ class DishInfo extends Component {
                 </Card>
                 <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
                     <p style={{fontSize:"20px",margin:"20px",fontWeight:"700"}}>菜品视频</p>
-                    <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="270px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+                    {/* <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="400px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe> */}
+                    <iframe src={this.props.dish.video} allowfullscreen="allowfullscreen" width="100%" height="400px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
                 </Card>
                 <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
-                    <p style={{fontSize:"20px",margin:"20px 0 0 16px",fontWeight:"700"}}>顾客评价</p>
+                    <Grid container spacing={2}>
+                        <Grid item xs={8}>
+                        <p style={{fontSize:"20px",margin:"20px 0 0 16px",fontWeight:"700"}}>顾客评价</p>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <DishCommentDialog 
+                                dish={this.props.dish}
+                                hdInfoOpen={this.props.hdInfoOpen}
+                                hdInfoClose={this.props.hdInfoClose}
+                            />
+                        </Grid>
+                    </Grid>                   
                     {this.props.dish.dishcomment.length ?
                         <CardContent>
                             <List sx={{ width: '100%' }}>
-                                {this.props.dish.dishcomment.map((item) => (
+                                {this.state.shortComment.map((item) => (
                                     <Box key={item.comment_time}>
                                         <ListItem style={{padding:"8px 8px 0px 0px"}}>
                                             <ListItemAvatar>
@@ -223,6 +239,7 @@ class DishInfo extends Component {
                         : <p style={{fontSize:"20px", textAlign:"center", margin:"20px",fontWeight:"500"}}>暂无评价哦</p>
                     }
                 </Card>
+                
                 {/* <button onClick={this.test}>
                     <DishInfoDialog 
                       dish={this.props.dish}
