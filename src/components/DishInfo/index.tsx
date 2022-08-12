@@ -199,7 +199,8 @@ class DishInfo extends Component {
                 </Card>
                 <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
                     <p style={{fontSize:"20px",margin:"20px",fontWeight:"700"}}>菜品视频</p>
-                    <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="400px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+                    {/* <iframe src="//player.bilibili.com/player.html?bvid=BV1bL4y1N7iX&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="400px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe> */}
+                    <iframe src={this.props.dish.video} allowfullscreen="allowfullscreen" width="100%" height="400px" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
                 </Card>
                 <Card sx={{ minWidth: 75 , m: 1}} variant="outlined">
                     <Grid container spacing={2}>
