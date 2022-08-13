@@ -43,6 +43,8 @@ import { useState, useCallback, useEffect } from 'react';
 import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
 import Header from '@/layouts/SidebarLayout/Header/index';
 
+import { useRouter } from 'next/router'
+
 interface DishComment {
   comment_content:string;
   comment_star:number;
@@ -813,9 +815,14 @@ function Dishpanel({dishes}:{dishes:DishAll[]}){
   // }
 
   // console.log("新api",dishes)
+
+  const router = useRouter();
+  const user = router.query.user;
+  // console.log(user);
+
   return (
     <ThemeProvider theme={theme}>
-      <MainPanel dishes={dishes}/>
+      <MainPanel dishes={dishes} user={user}/>
     </ThemeProvider>
   );
 }

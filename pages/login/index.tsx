@@ -124,7 +124,7 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
-            <img src="/static/images/logo.png" alt="logo" style={{width:"60%"}}/>
+            <img src="/static/images/logo.png" alt="logo" style={{width:"75%"}}/>
             <Avatar sx={{ m: 1, bgcolor: 'primary.main'}}>
               <LockOutlinedIcon />
             </Avatar>
@@ -134,7 +134,7 @@ export default function SignInSide() {
           </Box>
           <Box
             sx={{
-              my: 8,
+              mb: 4,
               mx: 4,
               flexDirection: 'column',
               alignItems: 'center',
