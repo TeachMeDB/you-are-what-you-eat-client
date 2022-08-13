@@ -1,4 +1,4 @@
-import { CryptoVip, CryptoAllVip , CryptoCreateVip } from '@/models/crypto_vip';
+import { CryptoVip, CryptoAllVip , CryptoCreateVip, VipInfo } from '@/models/crypto_vip';
 
 import { GetApi, PostApi } from '@/utils/requests';
 
@@ -117,6 +117,12 @@ class QueryVipApi {
     const r = await PostApi('XXXXXX', vip);
     return r.statusText;
   };
+
+  public async getOneVIPInfo(user_name:string){
+    return (await (GetApi("/VIP/GetOneVIPInfo",{
+      user_name:user_name
+    }))).data as VipInfo;
+  }
 }
 
 export const queryVipApi = new QueryVipApi();

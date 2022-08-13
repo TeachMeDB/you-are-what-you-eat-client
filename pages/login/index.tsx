@@ -14,6 +14,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Router from "next/router"
 import SignUpVip from './register';
+import { queryVipApi } from '@/queries/query_vip';
+import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
 
 const theme = createTheme({
     palette: {
@@ -46,18 +49,55 @@ export default function SignInSide() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    // console.log({
+    //   email: data.get('email'),
+    // });
+    if (! data.get('email').toString()) {
+        return;
+    }
+    const conduct=async()=>{
+        // console.log("测试徐满心登录",data.get('email'));
+        return queryVipApi.getOneVIPInfo(data.get('email').toString());
+    } 
+    conduct().then((value)=>{
+        if(value) {
+            // console.log(value)
+            Router.push({pathname: '/orderdishes', query: {user:value.user_name}})
+        } else {
+            // alert("您输入的会员号无效，请检查后输入！")
+            handleOpenSuccess();
+        }
+    }).catch((value)=>{
+        alert("登录api寄了"+value);
     });
-    // Router.push({pathname: '/', query: {}})
   };
 
   const goToOrderDishes = () => {
     Router.push({pathname: '/orderdishes', query: {}})
   }
 
+  const [openSuccess, setOpenSuccess] = React.useState<boolean>(false);
+
+    const handleOpenSuccess = () => {
+        setOpenSuccess(true);
+    };
+
+    const handleCloseSuccess = () => {
+        setOpenSuccess(false);
+    };
+
   return (
     <ThemeProvider theme={theme}>
+      <Snackbar 
+        open={openSuccess} 
+        anchorOrigin={{ vertical:'top', horizontal:'center' }} 
+        autoHideDuration={6000} 
+        onClose={handleCloseSuccess}
+      >
+        <Alert onClose={handleCloseSuccess} severity="error" sx={{ width: '100%' }}>
+            您输入的会员号无效，请检查后输入！
+        </Alert>
+      </Snackbar>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -84,7 +124,7 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
-            <img src="/static/images/logo.png" alt="logo" style={{width:"100%"}}/>
+            <img src="/static/images/logo.png" alt="logo" style={{width:"60%"}}/>
             <Avatar sx={{ m: 1, bgcolor: 'primary.main'}}>
               <LockOutlinedIcon />
             </Avatar>
