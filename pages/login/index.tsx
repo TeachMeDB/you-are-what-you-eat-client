@@ -12,6 +12,20 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Router from "next/router"
+import SignUpVip from './register';
+
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#98313e",
+      },
+      secondary:{
+        main:"rgba(255, 255, 255, 0.74)"
+      }
+    },
+});
+
 
 function Copyright(props: any) {
   return (
@@ -26,7 +40,7 @@ function Copyright(props: any) {
   );
 }
 
-const theme = createTheme();
+// const theme = createTheme();
 
 export default function SignInSide() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,9 +48,13 @@ export default function SignInSide() {
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
     });
+    // Router.push({pathname: '/', query: {}})
   };
+
+  const goToOrderDishes = () => {
+    Router.push({pathname: '/orderdishes', query: {}})
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,66 +77,73 @@ export default function SignInSide() {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
-              my: 8,
+              mt: 8,
               mx: 4,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <img src="/static/images/logo.png" alt="logo" style={{width:"100%"}}/>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main'}}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              会员登录
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+          </Box>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Grid container spacing={2}>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={10}>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="请输入您的会员号"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 0 }}
+                            >
+                            会员登录
+                        </Button>
+                    </Box>
                 </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={10}>
+                    <SignUpVip/>
                 </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={10}>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        onClick={goToOrderDishes}
+                        >
+                        暂不登录？直接点餐
+                    </Button>
+                </Grid>
+                <Grid item xs={1}></Grid>
+            </Grid>
+            
+            <Copyright sx={{ mt: 5 }} />
           </Box>
         </Grid>
       </Grid>
