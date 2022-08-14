@@ -44,6 +44,7 @@ import Sidebar from '@/layouts/SidebarLayout/Sidebar/index';
 import Header from '@/layouts/SidebarLayout/Header/index';
 
 import { useRouter } from 'next/router'
+import TableInfoDialog from '@/components/TableInfoDialog';
 
 interface DishComment {
   comment_content:string;
@@ -348,7 +349,8 @@ class MainPanel extends React.Component<any,any>{
     this.state={dishes:InitialDish(props.dishes),
                 nowDishTag:"全部菜品",
                 promoId:-1,
-                sortTag:"默认排序",          
+                sortTag:"默认排序",
+                tableId:1,          
               };
                 
    this.handleClickPlus=this.handleClickPlus.bind(this);
@@ -480,6 +482,7 @@ class MainPanel extends React.Component<any,any>{
       let dishesAll = InitialDish(this.props.dishes);
       for(let i=0;i<dishesAll.length;i++) {
         dishesAll[i].selected=this.state.dishes[i].selected;
+        dishesAll[i].searched=this.state.dishes[i].searched;
       }
       if(event.target.value === "默认排序") {
 
@@ -506,6 +509,10 @@ class MainPanel extends React.Component<any,any>{
       // console.log(value);
 
       let dishes = this.state.dishes;
+
+      if(!dishes){
+        return;
+      }
 
       for(let i = 0;i<dishes.length;i++){
         dishes[i].searched=true;
@@ -539,6 +546,18 @@ class MainPanel extends React.Component<any,any>{
       //     return{dishesShow: dishes1};
       // });
     };
+
+    handleTableChange = (e: ChangeEvent<HTMLInputElement>): void => {
+      let value = null;
+  
+      if (e.target.value !== null) {
+        value = e.target.value;
+      }
+      // console.log("桌子号",value);
+      this.setState({
+        tableId:value
+      })
+    }
 
     handleDishTag = (dishTag) => {
       let dishes = this.state.dishes;
@@ -574,8 +593,8 @@ class MainPanel extends React.Component<any,any>{
          <PromotionAd handlePromo={this.handlePromo}/>
 
         <Grid container spacing={2} style={{marginBottom: '27px'}}>
-          <Grid item xs={10}>
-            <FormControl variant="outlined" style={{width:"25%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
+          <Grid item xs={2}>
+            <FormControl variant="outlined" style={{width:"100%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
               <TextField 
               id="outlined-basic" 
               label="搜索菜品名称" 
@@ -591,6 +610,11 @@ class MainPanel extends React.Component<any,any>{
               />
             </FormControl>
           </Grid>
+          <Grid item xs={3}></Grid>
+          <Grid item xs={2}>
+              <TableInfoDialog style={{}}handleTableChange={this.handleTableChange} tableId={this.state.tableId}/>
+          </Grid>
+          <Grid item xs={3}></Grid>
           <Grid item xs={2}>
               <FormControl sx={{ mt: 2, minWidth: 150 }}>
                   <InputLabel htmlFor="dishes-sort">排序方式</InputLabel>
