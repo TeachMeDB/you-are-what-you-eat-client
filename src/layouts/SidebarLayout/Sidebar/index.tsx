@@ -40,7 +40,8 @@ function Sidebar(props) {
       <SidebarWrapper
         sx={{
           display: {
-            xs: 'none',
+            // xs: 'none',
+            xs: 'inline-block',
             lg: 'inline-block'
           },
           position: 'fixed',

@@ -17,6 +17,7 @@ import SignUpVip from './register';
 import { queryVipApi } from '@/queries/query_vip';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
+import Carousel from 'react-material-ui-carousel';
 
 const theme = createTheme({
     palette: {
@@ -85,6 +86,7 @@ export default function SignInSide() {
     const handleCloseSuccess = () => {
         setOpenSuccess(false);
     };
+    const pictures = ["/static/images/logo.png","/static/images/hello/kfcThursday.png"]
 
   return (
     <ThemeProvider theme={theme}>
@@ -113,7 +115,15 @@ export default function SignInSide() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        />
+        >
+          {/* <Carousel>
+            {
+                    pictures.map((item, index) =>
+                      <img key={item} src={item} alt="" style={{height:"100vh"}}/>
+                            )
+            }
+          </Carousel> */}
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
