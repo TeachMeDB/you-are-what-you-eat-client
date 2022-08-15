@@ -147,7 +147,7 @@ const handleOpenSuccess = () => {
 };
 
 const handleCloseSuccess = () => {
-  props.setLoad(true);
+  // props.setLoad(true);
   console.log("关闭success");
   setOpenSuccess(false);
 };
@@ -311,7 +311,7 @@ if(price!=totPrice) setPrice(totPrice);
 
 function ShoppingCartFab(props){
   // const theme=useTheme();
-  const [load, setLoad] = useState<boolean>(false);
+  // const [load, setLoad] = useState<boolean>(false);
   
   console.log(props.promoId);//-1
 
@@ -370,13 +370,11 @@ function ShoppingCartFab(props){
                 addOrder={addOrder}
                 handleClear={props.hdClear}
                 promoId={props.promoId}
-                setLoad={setLoad}
                 />
       
        </TabPanel>
       <TabPanel value={value} index={1} >
-     <OrderList orderIds={orderIds}
-                load={load}/>
+     <OrderList orderIds={orderIds}/>
       </TabPanel>
       </Menu></ThemeProvider>
       </React.Fragment>

@@ -140,7 +140,7 @@ const orderId:string[]=props.orderIds;
 const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 
 //如果没有任何订单，返回“暂无”
-if(orderId.length===0||props.load===false){
+if(orderId.length===0){
   console.log(orderId);
   return( 
     <Box sx={{minHeight:720}}>
