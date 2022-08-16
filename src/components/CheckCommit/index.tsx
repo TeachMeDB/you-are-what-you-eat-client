@@ -7,6 +7,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { CommitOrderUpload, DishesInfo } from "@/models/commit_order";
 import { orderApi } from "@/queries/order";
+import { AddDish } from '@/models/add_dish';
+import { addDishApi } from '@/queries/addDish';
 
 export default function CheckDialog(props) {
  const [openAlert,setOpenAlert]=React.useState(false);
@@ -57,6 +59,8 @@ export default function CheckDialog(props) {
           <Button autoFocus
                   onClick={()=>{
     handleCloseAlert();
+
+ 
   let testData:DishesInfo[]=[];
 
     for(let i=0;i<props.dishes.length;i++){
@@ -64,16 +68,22 @@ export default function CheckDialog(props) {
             let addOne:DishesInfo[]=[{
              dish_id:props.dishes[i].dishid,
              dish_num:props.dishes[i].ordernum,
-             dish_price_to_pay:props.dishes[i].price*props.dishes[i].dishdiscount[0]
+             dish_price_to_pay:props.dishes[i].price*props.dishes[i].dishdiscount[0],
+             remark:"没有备注"
             }];
             testData=testData.concat(addOne);
       }
     }  
 
+    //下面选择新建订单还是加菜
+    if(props.add===false){//新建订单
+
+
     let upload={
      dishes_info:testData,
-     table_id:2
+     table_id:3
     } as CommitOrderUpload;
+
 
    const conduct=async()=>{
     console.log("提交订单内容");
@@ -85,6 +95,8 @@ export default function CheckDialog(props) {
      
      //下单成功提示
      // alert("创建订单:"+value);
+     props.setAdd(true);
+     
      props.hdOpS();
      //添加订单
      props.addOrder(value);
@@ -97,6 +109,41 @@ export default function CheckDialog(props) {
     }).catch((value)=>{
       alert("下单失败:"+value);
     });
+  
+  }
+  else{//加菜
+    let upload={
+      dishes_info:testData,
+      table_id:3,
+      order_id:""
+     } as AddDish;
+   
+     console.log("已有订单："+props.orderIds);
+     upload.order_id=props.orderIds[0];
+    const conduct=async()=>{
+     console.log("增加订单内容");
+      console.log(upload);
+       return addDishApi.postAddDish(upload);
+    }
+      
+     conduct().then((value)=>{
+      
+      //下单成功提示
+      // alert("创建订单:"+value);
+      props.setAdd(true);
+      
+      props.hdOpS();//打开 下单成功 弹窗
+      //添加订单
+      // props.addOrder(value);
+      //清空购物车
+      props.handleClear();
+      // RetAlert(value);
+      //这里不需要刷新界面
+      // window.location.reload();
+     }).catch((value)=>{
+       alert("增加点菜失败:"+value);
+     });
+  }
 
  } }
           

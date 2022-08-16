@@ -301,6 +301,9 @@ if(price!=totPrice) setPrice(totPrice);
                        handleClear={props.handleClear}
                        dishes={props.dishes}
                        totPrice={price}
+                       setAdd={props.setAdd}
+                       add={props.add}
+                       orderIds={props.orderIds}
                       //  setLoad={props.setLoad}
                        />
     </>
@@ -320,6 +323,9 @@ function ShoppingCartFab(props){
   
   const [orderIds,setOrders]=useState<string[]>([]);
   console.log(orderIds);
+
+  const [add,setAdd]=useState<boolean>(false);
+  console.log("加菜而不是创建订单："+add);
 
   const addOrder=(newOrderId:string)=>{
     let newOne:string[]=[newOrderId];
@@ -370,6 +376,9 @@ function ShoppingCartFab(props){
                 addOrder={addOrder}
                 handleClear={props.hdClear}
                 promoId={props.promoId}
+                setAdd={setAdd}
+                add={add}
+                orderIds={orderIds}
                 />
       
        </TabPanel>

@@ -21,6 +21,6 @@ export interface DishInfo {
     table_id:    number;
 }
 
-export interface OrderIds {
-    order_id: string[];
-}
+// export interface OrderIds {
+//     order_id: string[];
+// }

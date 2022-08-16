@@ -151,55 +151,57 @@ if(orderId.length===0){
 }
 
 let orderPrice:OrderTotPrice=initPrice;
-
+let orderDishes:OrderInfo=initOrder;
 const getAllData=useCallback(async()=>{
   try{
   
      orderPrice=await orderPriceApi.getOrderPrice(orderId[0]);
+     orderDishes=await orderApi.getOrderList(orderId[0]);
+     
+
+
+
 //测试订单支付状态api
     //  let orderStatus=await orderPriceApi.getOrderStatus(orderId[0]);
     
     // console.log(orderStatus);
 
     if(orderId.length>1){
-      for(let i=1;i<orderId.length;i++){
+      // for(let i=1;i<orderId.length;i++){
 
-        let newPrice=await orderPriceApi.getOrderPrice(orderId[i]);
-
-        orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
-      }
-      // if(price!=orderPrice){
-      //   console.log(price);
-      //   console.log(orderPrice);
-      
+      //   let newPrice=await orderPriceApi.getOrderPrice(orderId[i]);
+      //   orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
       // }
+      console.log("订单长度id不会大于1了, 你肯定是搞错了");
     }
 
     console.log("debug");
     console.log(orderPrice);
     console.log(orderId);
 
-    let upload={
-      order_id:orderId
-     }as OrderIds;
+    // let upload={
+    //   order_id:orderId
+    //  }as OrderIds;
     
-     const conduct=async()=>{
-         console.log(upload);
-         return orderApi.getOrderList(upload);
-     }
+    //  const conduct=async()=>{
+    //      console.log(upload);
+    //      return orderApi.getOrderList(upload);
+    //  }
     
-     conduct().then((value)=>{
-      // alert("读取所有订单"+value);
-      console.log(value);
-      // dishes=value;
-      if(dishes!=value) {setDishes(value);  setPrice(orderPrice);}
-     }).catch((value)=>{
-         alert("读取订单失败："+value);
-     });
+    //  conduct().then((value)=>{
+    //   // alert("读取所有订单"+value);
+    //   console.log(value);
+    //   // dishes=value;
+    //   if(dishes!=value) {setDishes(value);  setPrice(orderPrice);}
+    //  }).catch((value)=>{
+    //      alert("读取订单失败："+value);
+    //  });
 
      
      if(isMountedRef()){
-     
+      //重新渲染页面
+      if(dishes!=orderDishes)setDishes(orderDishes);
+      if(price!=orderPrice)setPrice(orderPrice);
     }
   }catch(err){
     console.error(err);
