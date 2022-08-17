@@ -338,19 +338,20 @@ export const Minus=(props)=>{
    </SvgIcon>
    );
 }
-
+// let username="default";
 class MainPanel extends React.Component<any,any>{
 
    constructor(props){
     super(props);
     console.log("----------");
+    // console.log(username);
     console.log(props.dishes);
     
     this.state={dishes:InitialDish(props.dishes),
                 nowDishTag:"全部菜品",
                 promoId:-1,
                 sortTag:"默认排序",
-                tableId:1,          
+                tableId:1
               };
                 
    this.handleClickPlus=this.handleClickPlus.bind(this);
@@ -669,6 +670,7 @@ class MainPanel extends React.Component<any,any>{
                       hdSalt={this.handleDishSaltChange}
                       hdSpicy={this.handleDishSpicyChange}
                       hdSweet={this.handleDishSweetChange}
+                      
                     />
                     {/* <InfoIcon /> */}
                   </IconButton>
@@ -681,7 +683,9 @@ class MainPanel extends React.Component<any,any>{
                          promoId={this.state.promoId}
                          hdPlus={this.handleClickPlus}
                          hdMinus={this.handleClickMinus}
-                         hdClear={this.handleClear}/>
+                         hdClear={this.handleClear}
+                         table_id={this.state.tableId}
+                        />
         {/* <SearchFab handleSearchChange={this.handleSearchChange}/> */}
         {/* <FormControl 
           variant="outlined"
@@ -842,7 +846,9 @@ function Dishpanel({dishes}:{dishes:DishAll[]}){
 
   const router = useRouter();
   const user = router.query.user;
-  // console.log(user);
+
+  // username=user;
+  console.log("主页面用户名"+user);
 
   return (
     <ThemeProvider theme={theme}>

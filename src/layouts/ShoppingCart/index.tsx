@@ -22,7 +22,7 @@ import CheckDialog from "@/components/CheckCommit";
 import { PromoPrice } from "@/models/promtions";
 
 
-
+import { useRouter } from 'next/router'
 const theme = createTheme({
   palette: {
     primary: {
@@ -304,6 +304,7 @@ if(price!=totPrice) setPrice(totPrice);
                        setAdd={props.setAdd}
                        add={props.add}
                        orderIds={props.orderIds}
+                       table_id={props.table_id}
                       //  setLoad={props.setLoad}
                        />
     </>
@@ -315,8 +316,13 @@ if(price!=totPrice) setPrice(totPrice);
 function ShoppingCartFab(props){
   // const theme=useTheme();
   // const [load, setLoad] = useState<boolean>(false);
+  const router=useRouter();
+  const user=router.query.user;
   
+
+
   console.log(props.promoId);//-1
+  console.log("获取用户名为："+user);
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -379,11 +385,14 @@ function ShoppingCartFab(props){
                 setAdd={setAdd}
                 add={add}
                 orderIds={orderIds}
+                table_id={props.table_id}
                 />
       
        </TabPanel>
       <TabPanel value={value} index={1} >
-     <OrderList orderIds={orderIds}/>
+     <OrderList orderIds={orderIds}
+                username={user}
+                table_id={props.table_id}/>
       </TabPanel>
       </Menu></ThemeProvider>
       </React.Fragment>

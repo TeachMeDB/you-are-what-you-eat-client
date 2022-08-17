@@ -64,12 +64,12 @@ export default function PayDialog(props){
       },[getAllData]);
    
 
+      console.log("table_id:"+props.table_id);
     let ok:boolean=false;//ok=true代表所有订单支付完成
 
     const updateState = React.useCallback(async () => {
       try{
         console.log("一次轮询");
-      
       const status0=await orderPriceApi.getOrderStatus(props.orderIds[0]);
       if(status0.order_status==="已支付"){
           setOpenClean(true);//跳转到清理桌面

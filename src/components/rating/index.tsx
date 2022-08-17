@@ -282,14 +282,14 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
                       content:"还不错~~~~",
                       rate:5,
                       dish_id:101,
-                      username:"徐满心"
+                      username:"余缨子"
                      };
   
                      testData1.content=content;
                      testData1.rate=value;
                      testData1.dish_id=props.dishes.dish_info[index].dish_id;
   
-                     testData1.username="徐满心";
+                     testData1.username=props.username;
                       const conduct1=async()=>{
                         console.log(testData1);
                         return ratingApi.postDishRating(testData1);
@@ -310,12 +310,12 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
                     let testData2:ServiceRatingUpload={
                       content:"服务很热情，给个好评",
                       rate:5,
-                      username:"default01"
+                      username:"余缨子"
                    } ;
   
                    testData2.content=content;
                    testData2.rate=value;
-                   testData2.username="徐满心";
+                   testData2.username=props.username;
                       const conduct2=async()=>{
                       console.log(testData2);
                       return ratingApi.postServiceRating(testData2);
@@ -334,7 +334,8 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
 
         
         <PayDialog final_price={props.orderTotalPrice}
-                   orderIds={props.orderIds}/>
+                   orderIds={props.orderIds}
+                   table_id={props.table_id}/>
 
             </Container>
             </Paper>

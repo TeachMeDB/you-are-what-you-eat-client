@@ -59,9 +59,7 @@ export default function CheckDialog(props) {
           <Button autoFocus
                   onClick={()=>{
     handleCloseAlert();
-
- 
-  let testData:DishesInfo[]=[];
+    let testData:DishesInfo[]=[];
 
     for(let i=0;i<props.dishes.length;i++){
       if(props.dishes[i].ordernum>0){
@@ -69,7 +67,10 @@ export default function CheckDialog(props) {
              dish_id:props.dishes[i].dishid,
              dish_num:props.dishes[i].ordernum,
              dish_price_to_pay:props.dishes[i].price*props.dishes[i].dishdiscount[0],
-             remark:"没有备注"
+            //  remark:"没有备注"
+            remark:props.dishes[i].dishsalt+", "+props.dishes[i].dishspicy+", "
+            +props.dishes[i].dishsweet
+                   
             }];
             testData=testData.concat(addOne);
       }
@@ -83,10 +84,11 @@ export default function CheckDialog(props) {
      dishes_info:testData,
      table_id:3
     } as CommitOrderUpload;
-
-
+    
+    upload.table_id=props.table_id;
+    
    const conduct=async()=>{
-    console.log("提交订单内容");
+    console.log("提交订单的内容");
      console.log(upload);
       return orderApi.postOrderList(upload);
    }
@@ -115,11 +117,13 @@ export default function CheckDialog(props) {
     let upload={
       dishes_info:testData,
       table_id:3,
-      order_id:""
+      order_id:"0"
      } as AddDish;
    
      console.log("已有订单："+props.orderIds);
      upload.order_id=props.orderIds[0];
+     upload.table_id=props.table_id;
+
     const conduct=async()=>{
      console.log("增加订单内容");
       console.log(upload);
@@ -145,8 +149,7 @@ export default function CheckDialog(props) {
      });
   }
 
- } }
-          
+ } } 
           >
             确认
             </Button>

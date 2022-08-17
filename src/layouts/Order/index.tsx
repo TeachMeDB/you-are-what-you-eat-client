@@ -262,7 +262,9 @@ return (
 
           <RatingDialog dishes={dishes}
              orderTotalPrice={price.orderTotalPrice}
-             orderIds={props.orderIds}/>
+             orderIds={props.orderIds}
+             username={props.username}
+             table_id={props.table_id}/>
        
           </>
 );
