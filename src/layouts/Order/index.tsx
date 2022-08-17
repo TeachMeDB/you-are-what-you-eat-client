@@ -1,6 +1,6 @@
 import { AddShoppingCart, PriceChangeRounded } from "@mui/icons-material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Stack } from "@mui/material";
+import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Stack, Tooltip } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { useRefMounted } from "@/hooks/useRefMounted";
 import { orderApi } from '@/queries/order';
-import { DishInfo, OrderIds, OrderInfo } from "@/models/order_list";
+import { DishInfo,  OrderInfo } from "@/models/order_list";
 import { OrderStatus, OrderTotPrice } from '@/models/orderTotPrice'
 import { orderPriceApi } from "@/queries/orderPrice";
 import RatingDialog from "@/components/rating";
@@ -172,7 +172,7 @@ const getAllData=useCallback(async()=>{
       //   let newPrice=await orderPriceApi.getOrderPrice(orderId[i]);
       //   orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
       // }
-      console.log("订单长度id不会大于1了, 你肯定是搞错了");
+      console.log("订单id长度不会大于1了, 肯定是搞错了");
     }
 
     console.log("debug");
@@ -200,8 +200,26 @@ const getAllData=useCallback(async()=>{
      
      if(isMountedRef()){
       //重新渲染页面
-      if(dishes!=orderDishes)setDishes(orderDishes);
+      // if(dishes!=orderDishes)setDishes(orderDishes);
+      console.log(props.dishes);
+      for(let i=0;i<props.dishes.length;i++){
+        for(let j=0;j<orderDishes.dish_info.length;j++){
+          if(props.dishes[i].dishid===orderDishes.dish_info[j].dish_id){
+            console.log("id相等");
+            orderDishes.dish_info[j].remark=props.dishes[i].dishsalt+", "+props.dishes[i].dishspicy+", "
+            +props.dishes[i].dishsweet;
+          }
+        }
+      }
+      if(dishes!=orderDishes){
+        console.log("re-render");
+        console.log(dishes);
+        console.log(orderDishes);
+        setDishes(orderDishes);
+      }
       if(price!=orderPrice)setPrice(orderPrice);
+
+
     }
   }catch(err){
     console.error(err);
@@ -225,6 +243,9 @@ return(
 </Box>);
 }
 
+
+
+
 return (
   <>
   <ThemeProvider theme={theme}>
@@ -234,13 +255,17 @@ return (
               <ListItem>
               <Grid container spacing={0}>
               <Grid item xs={2.5}> 
+              
               <img src= {item.dish_picture} width={60} height={60}
                    style={{borderRadius:10}} />
+            
                 </Grid>
                <Grid item xs={6}>
+               <Tooltip title={item.remark}>
                 <Typography variant="body1" color="#123456"  lineHeight={2}>
                 {item.dish_name}
                 </Typography>
+                  </Tooltip>
                 <Typography variant="body1" color="red"  >
             ￥{item.dish_price*item.dish_num}
            </Typography>

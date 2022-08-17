@@ -82,7 +82,7 @@ export default function PromoInfo(props){
         {/* <Divider /> */}
         </List>
       )}
-      <Typography color="#BCBCBC" fontSize="5">&nbsp;* 每次用餐至多参加一个活动哦</Typography>
+      <Typography color="#BCBCBC" fontSize="5">&nbsp;* 每次下单至多参加一个活动哦</Typography>
         </Container>
         </ThemeProvider>
     );

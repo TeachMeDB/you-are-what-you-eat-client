@@ -10,6 +10,8 @@ import { orderApi } from "@/queries/order";
 import { AddDish } from '@/models/add_dish';
 import { addDishApi } from '@/queries/addDish';
 
+
+
 export default function CheckDialog(props) {
  const [openAlert,setOpenAlert]=React.useState(false);
  

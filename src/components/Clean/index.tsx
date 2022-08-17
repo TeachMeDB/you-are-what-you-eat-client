@@ -24,7 +24,7 @@ export default function CleanDialog(props){
 
             </Typography>
             <p>&nbsp;</p>
-            {/* <NextLink href="/orderdishes" passHref> */}
+            <NextLink href="/login" passHref>
             <Button variant="outlined" size="large"
              onClick={()=>{
                 // closeSidebar();
@@ -49,7 +49,7 @@ export default function CleanDialog(props){
             }}
             
             >点击完成</Button>
-            {/* </NextLink> */}
+            </NextLink>
             </Container>
         </Paper>
         </Dialog>

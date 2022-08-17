@@ -18,6 +18,7 @@ export interface DishInfo {
      * 菜品制作状态
      */
     dish_status: string;
+    remark:string;//手动新增
     table_id:    number;
 }
 

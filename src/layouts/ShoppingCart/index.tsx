@@ -1,6 +1,6 @@
 import { AddShoppingCart } from "@mui/icons-material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import { SxProps, Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Alert } from "@mui/material";
+import { SxProps, Tooltip,Box, Fab, Menu, Typography, Button, Divider, Grid, IconButton, List, ListItem, createTheme, Alert } from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -247,10 +247,12 @@ if(price!=totPrice) setPrice(totPrice);
                style={{borderRadius:10}} />
             </Grid>
            <Grid item xs={6}>
+            <Tooltip title={dish.dishsalt+", "+dish.dishspicy+", "
+            +dish.dishsweet}>
             <Typography variant="body1" color="#123456"  lineHeight={2}>
             {dish.dishname}
             </Typography>
-      
+          </Tooltip>
        <TypoPrice price={dish.price}
                   num={dish.ordernum}
                   discount={dish.dishdiscount[0]}/>
@@ -376,7 +378,7 @@ function ShoppingCartFab(props){
       </Box>
       <TabPanel value={value} index={0}>
 
-       <NewList dishes={props.dishes}
+      <NewList dishes={props.dishes}
                 handleClickPlus={props.hdPlus}
                 handleClickMinus={props.hdMinus}
                 addOrder={addOrder}
@@ -392,7 +394,8 @@ function ShoppingCartFab(props){
       <TabPanel value={value} index={1} >
      <OrderList orderIds={orderIds}
                 username={user}
-                table_id={props.table_id}/>
+                table_id={props.table_id}
+                dishes={props.dishes}/>
       </TabPanel>
       </Menu></ThemeProvider>
       </React.Fragment>

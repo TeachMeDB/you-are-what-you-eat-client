@@ -20,6 +20,9 @@ import { DishRatingUpload, ServiceRatingUpload } from '@/models/rating';
 import { ratingApi } from '@/queries/rating';
 import PayDialog from '../PayDialog';
 
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 interface FinalDishProps{
     dishname:string;
     rate:number;
@@ -182,6 +185,15 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
 
         return(
         <React.Fragment>
+          <Grid container>
+            <Grid item xs={0.5}>
+        
+        </Grid>
+        <Grid item xs={11.5}>
+        <FormControlLabel control={<Switch defaultChecked />} 
+        label="消耗会员积分用于优惠" />
+        </Grid>
+        </Grid>
           <Button 
               style={{
                 width:"100%",

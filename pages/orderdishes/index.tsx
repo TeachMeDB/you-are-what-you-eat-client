@@ -1,6 +1,7 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { styled } from '@mui/material/styles';
-import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,FormControl, InputLabel, Select, MenuItem, ThemeProvider, createTheme } from '@mui/material';
+import {Grid,Box,Stack, ButtonBase, SvgIcon, SxProps,
+  FormControl, InputLabel, Select, MenuItem, ThemeProvider, createTheme } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import Card from '@mui/material/Card';
