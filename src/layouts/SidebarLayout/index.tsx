@@ -55,6 +55,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({ children }) => {
             //   ml: `${theme.sidebar.width}`
             // }
           }}
+          style={{backgroundColor:""}}
         >
           <Box display="block">{children}</Box>
         </Box>

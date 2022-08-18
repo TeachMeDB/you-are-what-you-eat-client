@@ -594,53 +594,52 @@ class MainPanel extends React.Component<any,any>{
           {/* <Header/> */}
          <PromotionAd handlePromo={this.handlePromo}/>
 
-        <Grid container spacing={2} style={{marginBottom: '27px'}}>
-          <Grid item xs={2}>
-            <FormControl variant="outlined" style={{width:"100%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
-              <TextField 
-              id="outlined-basic" 
-              label="搜索菜品名称" 
-              variant="standard"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              onChange={this.handleSearchChange} 
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={2}>
-              <TableInfoDialog style={{}}handleTableChange={this.handleTableChange} tableId={this.state.tableId}/>
-          </Grid>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={2}>
-              <FormControl sx={{ mt: 2, minWidth: 150 }}>
-                  <InputLabel htmlFor="dishes-sort">排序方式</InputLabel>
-                  <Select
-                      // autoFocus
-                      value={this.state.sortTag}
-                      onChange={this.handleDishesSort}
-                      label="dishesSort"
-                      inputProps={{
-                      name: 'dishes-sort',
-                      id: 'dishes-sort',
-                      }}
-                  >
-                      <MenuItem value="默认排序">默认排序</MenuItem>
-                      <MenuItem value="评分排序">评分排序</MenuItem>
-                      <MenuItem value="菜名排序">菜名排序</MenuItem>
-                  </Select>
+        <Card style={{backgroundColor:""}}>
+          <Grid container spacing={2} style={{ marginBottom: '10px'}}>
+            <Grid item xs={2}>
+              <FormControl variant="outlined" style={{width:"100%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
+                <TextField 
+                id="outlined-basic" 
+                label="搜索菜品名称" 
+                variant="standard"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={this.handleSearchChange} 
+                />
               </FormControl>
-              
+            </Grid>
+            <Grid item xs={3}></Grid>
+            <Grid item xs={2}>
+                <TableInfoDialog style={{}}handleTableChange={this.handleTableChange} tableId={this.state.tableId}/>
+            </Grid>
+            <Grid item xs={3}></Grid>
+            <Grid item xs={2}>
+                <FormControl sx={{ mt: 2, minWidth: 150 }}>
+                    <InputLabel htmlFor="dishes-sort">排序方式</InputLabel>
+                    <Select
+                        // autoFocus
+                        value={this.state.sortTag}
+                        onChange={this.handleDishesSort}
+                        label="dishesSort"
+                        inputProps={{
+                        name: 'dishes-sort',
+                        id: 'dishes-sort',
+                        }}
+                    >
+                        <MenuItem value="默认排序">默认排序</MenuItem>
+                        <MenuItem value="评分排序">评分排序</MenuItem>
+                        <MenuItem value="菜名排序">菜名排序</MenuItem>
+                    </Select>
+                </FormControl>
+                
+            </Grid>  
           </Grid>
-          {/* <Grid item xs={3}>
-              
-          </Grid> */}
-        </Grid>
+        </Card>
         <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
