@@ -143,7 +143,7 @@ const [price,setPrice]=useState<OrderTotPrice>(initPrice);
 if(orderId.length===0){
   console.log(orderId);
   return( 
-    <Box sx={{minHeight:720}}>
+    <Box sx={{minHeight:700}}>
   <Typography textAlign={"center"} lineHeight={4} color="#9C9C9C">
      暂无
   </Typography>
@@ -167,35 +167,12 @@ const getAllData=useCallback(async()=>{
     // console.log(orderStatus);
 
     if(orderId.length>1){
-      // for(let i=1;i<orderId.length;i++){
-
-      //   let newPrice=await orderPriceApi.getOrderPrice(orderId[i]);
-      //   orderPrice.orderTotalPrice +=newPrice.orderTotalPrice;
-      // }
       console.log("订单id长度不会大于1了, 肯定是搞错了");
     }
 
     console.log("debug");
     console.log(orderPrice);
     console.log(orderId);
-
-    // let upload={
-    //   order_id:orderId
-    //  }as OrderIds;
-    
-    //  const conduct=async()=>{
-    //      console.log(upload);
-    //      return orderApi.getOrderList(upload);
-    //  }
-    
-    //  conduct().then((value)=>{
-    //   // alert("读取所有订单"+value);
-    //   console.log(value);
-    //   // dishes=value;
-    //   if(dishes!=value) {setDishes(value);  setPrice(orderPrice);}
-    //  }).catch((value)=>{
-    //      alert("读取订单失败："+value);
-    //  });
 
      
      if(isMountedRef()){
@@ -249,7 +226,7 @@ return(
 return (
   <>
   <ThemeProvider theme={theme}>
-    <Box sx={{minHeight:683}}>{
+    <Box sx={{minHeight:653 ,maxHeight:683}}>{
             dishes.dish_info.map((item,index)=>
            <List >  
               <ListItem>

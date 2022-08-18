@@ -22,6 +22,11 @@ import PayDialog from '../PayDialog';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { useRefMounted } from '@/hooks/useRefMounted';
+import { orderApi } from '@/queries/order';
+import { orderPriceApi } from '@/queries/orderPrice';
+import { vipInfoApi } from '@/queries/vip';
+import { UpdateCredit } from '@/models/vip';
 
 interface FinalDishProps{
     dishname:string;
@@ -136,8 +141,14 @@ function DishCard(props){
 function RatingDialog(props) {
   
   const [openSuccess, setOpenSuccess] = React.useState(false);
-
-
+  let originPrice:number=props.orderTotalPrice;
+  const [price,setPrice]=React.useState<number>(originPrice);
+  let pricetoChange=props.orderTotalPrice;
+  console.log("当前结账价格"+price);
+  // if(price==0){
+  //   setPrice(props.orderTotalPrice);
+  // }
+  console.log("传参价格"+props.orderTotalPrice);
 
 const handleOpenSuccess = () => {
   console.log("打开success");
@@ -183,6 +194,72 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
    const [hover, setHover] = React.useState(-1);
    let [index,setIdx]=React.useState<number|null>(0);
 
+//获取会员信息
+// let cred=0.0;
+let restCred=0.0;
+const [cred,setCred]=React.useState(0.0);
+// const [restCred,setRestCred]=React.useState(0.0);
+
+
+const isMountedRef = useRefMounted();
+const getAllData=React.useCallback(async()=>{
+  try{
+     let vipInfo=await vipInfoApi.getVipInfo(props.username);
+     console.log("获取到的会员积分"+vipInfo.credit);
+    
+     if(isMountedRef()){
+      if(cred!=vipInfo.credit){
+        setCred(vipInfo.credit);
+        // setRestCred(vipInfo.credit);
+       }
+     }
+      
+   }catch(err){
+    console.error(err);
+  }
+},[isMountedRef]);
+
+
+React.useEffect(()=>{
+  getAllData();
+},[getAllData]);
+
+   const [checked,setChecked]=React.useState(false);
+   let change=false;
+
+   const handleChangeSw = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    change=true;
+    if(checked==false){//
+        // let decr_price=cred/10;
+        if(props.orderTotalPrice<cred){//要减的价格超过了限额
+            //直接打九折
+            restCred=cred-props.orderTotalPrice;
+            pricetoChange=(0.9*props.orderTotalPrice).toFixed(2);//更新价格
+        }
+        else{//没超过限额，积分全扣
+            console.log("看这里");
+            console.log("要扣的积分"+cred*1.0/10);
+            pricetoChange=props.orderTotalPrice-cred*1.0/10;
+            pricetoChange=pricetoChange.toFixed(2);//更新价格
+            restCred=0;//剩余积分
+            console.log(pricetoChange);
+        }
+        if(price!=pricetoChange){
+          setPrice(pricetoChange);
+        }
+        console.log("使用积分,price="+price);
+    }
+    else{//价格不变
+      restCred=cred;
+      pricetoChange=originPrice;
+      if(price!=pricetoChange){
+        setPrice(pricetoChange);
+      }
+      console.log("取消使用积分,price="+price);
+    }
+  };
+
         return(
         <React.Fragment>
           <Grid container>
@@ -190,21 +267,77 @@ const handleCloseSuccess = (event?: React.SyntheticEvent | Event, reason?: strin
         
         </Grid>
         <Grid item xs={11.5}>
-        <FormControlLabel control={<Switch defaultChecked />} 
+        <FormControlLabel control={
+        <Switch  checked={checked}
+                 onChange={handleChangeSw}/>} 
         label="消耗会员积分用于优惠" />
         </Grid>
         </Grid>
-          <Button 
+          {checked&&<Button 
               style={{
                 width:"100%",
                 backgroundColor:"#98313e",
                 color:"white",
                 borderRadius:"0"
               }}
-              onClick={handleClickOpen}
+              onClick={()=>{
+                handleClickOpen();
+
+                let upload={
+                  credit:0,
+                  user_name:"余缨子"
+                } as UpdateCredit;
+                upload.credit=restCred;
+                upload.user_name=props.username;
+                console.log("更新会员积分:"+upload);
+                
+                const conduct=async()=>{
+                  return vipInfoApi.postVipCredit(upload);
+                }
+
+                conduct().then((value)=>{
+                    console.log("成功更新会员积分");
+                }).catch(()=>{
+                    alert("会员积分更新失败！");
+                });
+
+              }}
+              >
+            ￥{price}&nbsp;
+           结账</Button>}
+
+           {!checked&&<Button 
+              style={{
+                width:"100%",
+                backgroundColor:"#98313e",
+                color:"white",
+                borderRadius:"0"
+              }}
+              onClick={()=>{
+                handleClickOpen();
+
+                let upload={
+                  credit:0,
+                  user_name:"余缨子"
+                } as UpdateCredit;
+                upload.credit=restCred;
+                upload.user_name=props.username;
+                console.log("更新会员积分:"+upload);
+                
+                const conduct=async()=>{
+                  return vipInfoApi.postVipCredit(upload);
+                }
+
+                conduct().then((value)=>{
+                    console.log("成功更新会员积分");
+                }).catch(()=>{
+                    alert("会员积分更新失败！");
+                });
+
+              }}
               >
             ￥{props.orderTotalPrice}&nbsp;
-           结账</Button>
+           结账</Button>}
 
           <Dialog 
             // fullWidth={true}

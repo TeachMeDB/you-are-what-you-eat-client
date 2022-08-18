@@ -43,14 +43,14 @@ export default function PayDialog(props){
         setOpen(false);
       };
 
-      const [website,setWebsite]=React.useState<QRcode>({qr_code:"https://www.baidu.com/"});
+      const [website,setWebsite]=React.useState<QRcode>({qrcode:"https://www.baidu.com/"});
 
       const getAllData=React.useCallback(async()=>{
         try{
         // const info:PayInfo={final_price:props.final_price,order_ids:props.orderIds};
  
          let ws=await payApi.getQRstring( props.orderIds[0], props.final_price);
-         console.log("得到的二维码url:"+ws);
+         console.log("得到的二维码url:"+ws.qrcode);
          setWebsite(ws);//刷新二维码
             
         }catch(err){
@@ -69,9 +69,12 @@ export default function PayDialog(props){
 
     const updateState = React.useCallback(async () => {
       try{
-        console.log("一次轮询");
+        console.log("一次轮询"+website.qrcode);
+        // console.log(website);
       const status0=await orderPriceApi.getOrderStatus(props.orderIds[0]);
+      console.log(status0.order_status);
       if(status0.order_status==="已支付"){
+        console.log("支付完成！！");
           setOpenClean(true);//跳转到清理桌面
           return (
             <React.Fragment>
@@ -82,11 +85,11 @@ export default function PayDialog(props){
           );
       }
       //  ok=true;//给ok一个变true的机会
-      else if(status0.order_status==="支付失败"){
-        let ws=await payApi.getQRstring(props.orderIds[0], props.final_price);
-          console.log(ws);
-          setWebsite(ws);//刷新二维码
-      }
+      // else if(status0.order_status==="支付失败"){
+      //   let ws=await payApi.getQRstring(props.orderIds[0], props.final_price);
+      //     console.log(ws);
+      //     setWebsite(ws);//刷新二维码
+      // }
 
       // for(let i=1;i<props.orderIds.length;i++){
       //   const status = await orderPriceApi.getOrderStatus(props.orderIds[i]);
@@ -129,7 +132,7 @@ export default function PayDialog(props){
             <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
             <Typography variant="h5">扫码付款</Typography>
             <p>&nbsp;</p>
-     <QRCode value={website.qr_code}
+     <QRCode value={website.qrcode}
              level="H"
              size={200}
              imageSettings={{

@@ -1,5 +1,5 @@
 export interface QRcode {
-    qr_code: string;
+    qrcode: string;
 }
 
 // export interface PayInfo {
