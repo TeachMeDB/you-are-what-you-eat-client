@@ -592,9 +592,8 @@ class MainPanel extends React.Component<any,any>{
             nowDishTag = {this.state.nowDishTag}
           />
           {/* <Header/> */}
-         <PromotionAd handlePromo={this.handlePromo}/>
-
-        <Card style={{backgroundColor:""}}>
+          <Card style={{backgroundColor:""}}>
+          <PromotionAd handlePromo={this.handlePromo}/>      
           <Grid container spacing={2} style={{ marginBottom: '10px'}}>
             <Grid item xs={2}>
               <FormControl variant="outlined" style={{width:"100%"}} sx={{ mt: 2, ml: 3, minWidth: 120 }}>
