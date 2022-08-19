@@ -97,6 +97,7 @@ export default function PayDialog(props){
     <React.Fragment>
    
     <Button size="large"
+    variant="contained"
       onClick={handleClickOpen}>直接去付款</Button>
     <Dialog  open={open} fullScreen={true}>
     
