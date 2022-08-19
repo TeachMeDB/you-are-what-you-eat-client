@@ -7,7 +7,7 @@ import { useContext } from 'react';
 
 export default function CleanDialog(props){
      console.log(props.open);
-     let img="/static/images/status/wood.jpg";
+     let img="/static/images/status/paper.jpg";
     // const { closeSidebar } = useContext(SidebarContext);
     return (
         <Dialog open={props.open} fullScreen={true}>

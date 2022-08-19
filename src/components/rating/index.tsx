@@ -95,7 +95,7 @@ const labels: { [index: string]: string } = {
   
 const LeftArrow=()=>{
     return(
-        <SvgIcon sx={{ fontSize: 60 }}>
+        <SvgIcon sx={{ fontSize: 100 }}>
     <path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
 </SvgIcon>
     );
@@ -103,7 +103,7 @@ const LeftArrow=()=>{
 
 const RightArrow=()=>{
     return(
-        <SvgIcon  sx={{ fontSize: 60 }}>
+        <SvgIcon  sx={{ fontSize: 100 }}>
    <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
 </SvgIcon>
     );
@@ -135,7 +135,7 @@ function DishCard(props){
     //         </CardActionArea>
     //        </Card>
 
-    <ImageList sx={{ minWidth: 645, height: 220 }}>
+    <ImageList sx={{ minWidth: 645, height: 230 }}>
 
     {
       <ImageListItem >
@@ -285,7 +285,7 @@ React.useEffect(()=>{
     }
   };
 
-  let img="/static/images/status/wood.jpg";
+  let img="/static/images/status/paper.jpg";
 
         return(
         <React.Fragment>
