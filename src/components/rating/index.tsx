@@ -28,6 +28,12 @@ import { orderPriceApi } from '@/queries/orderPrice';
 import { vipInfoApi } from '@/queries/vip';
 import { UpdateCredit } from '@/models/vip';
 
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
+import InfoIcon from '@mui/icons-material/Info';
+
 interface FinalDishProps{
     dishname:string;
     rate:number;
@@ -113,23 +119,42 @@ function DishCard(props){
   if(props.index <= props.maxIndex){
     
   return(
-    <Card sx={{ maxWidth: 345 }} >
-    <CardActionArea>
-      <CardMedia
-        component="img"
-        height={190}
-        image={props.dishes[props.index].dish_picture}
-        alt="dishpic"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="body2" component="div">
-          {props.dishes[props.index].dish_name}
-        </Typography>
-          </CardContent>
-            </CardActionArea>
-           </Card>
+    // <Card sx={{ maxWidth: 345 }} >
+    // <CardActionArea>
+    //   <CardMedia
+    //     component="img"
+    //     height={190}
+    //     image={props.dishes[props.index].dish_picture}
+    //     alt="dishpic"
+    //   />
+    //   <CardContent>
+    //     <Typography gutterBottom variant="body2" component="div">
+    //       {props.dishes[props.index].dish_name}
+    //     </Typography>
+    //       </CardContent>
+    //         </CardActionArea>
+    //        </Card>
+
+    <ImageList sx={{ minWidth: 645, height: 220 }}>
+
+    {
+      <ImageListItem >
+        <img
+          src={props.dishes[props.index].dish_picture}
+          alt="dishpic"
+          loading="lazy"
+        />
+        <ImageListItemBar
+          title={props.dishes[props.index].dish_name}
+          subtitle=" "
+        />
+      </ImageListItem>
+   }
+  </ImageList>
 
   );}
+
+
   else
   {
     console.log("123");
@@ -426,8 +451,9 @@ React.useEffect(()=>{
         </Grid>
         
         </Grid>
+        <Typography lineHeight={1}>&nbsp;</Typography>
         <Button size="large"
-                // variant="outlined"
+                variant="contained"
                 onClick={()=>{
                   // 这里必须先定义一个再赋值
 
@@ -485,7 +511,7 @@ React.useEffect(()=>{
 
                 }}
         >提交评价</Button>
-
+     &nbsp;&nbsp;&nbsp;&nbsp;
        {checked&& <PayDialog final_price={price}
                    orderIds={props.orderIds}
                    table_id={props.table_id}/>
