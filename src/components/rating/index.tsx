@@ -260,6 +260,8 @@ React.useEffect(()=>{
     }
   };
 
+  let img="/static/images/status/wood.jpg";
+
         return(
         <React.Fragment>
           <Grid container>
@@ -352,7 +354,13 @@ React.useEffect(()=>{
       </Alert>
     </Snackbar>
         <Paper
-        sx={{height:'100%',textAlign:'center' }}>
+        sx={{height:'100%',textAlign:'center',
+        //  backgroundColor:"#CFCFCF",
+         backgroundImage:`url(${img})`,
+         backgroundRepeat:'no-repeat',
+         backgroundSize:"cover"
+      }}
+        >
             <Container>
             <p>&nbsp;</p><p>&nbsp;</p>
             <Promt dishend={dishend}/>
@@ -419,6 +427,7 @@ React.useEffect(()=>{
         
         </Grid>
         <Button size="large"
+                // variant="outlined"
                 onClick={()=>{
                   // 这里必须先定义一个再赋值
 
@@ -477,10 +486,16 @@ React.useEffect(()=>{
                 }}
         >提交评价</Button>
 
-        
-        <PayDialog final_price={props.orderTotalPrice}
+       {checked&& <PayDialog final_price={price}
                    orderIds={props.orderIds}
                    table_id={props.table_id}/>
+      
+      }
+      {!checked&& <PayDialog final_price={props.orderTotalPrice}
+                   orderIds={props.orderIds}
+                   table_id={props.table_id}/>
+      
+      }
 
             </Container>
             </Paper>

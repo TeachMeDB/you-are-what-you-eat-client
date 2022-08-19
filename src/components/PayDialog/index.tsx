@@ -75,36 +75,9 @@ export default function PayDialog(props){
       console.log(status0.order_status);
       if(status0.order_status==="已支付"){
         console.log("支付完成！！");
-          setOpenClean(true);//跳转到清理桌面
-          return (
-            <React.Fragment>
-            
-            <CleanDialog open={openClean}/>
-            
-            </React.Fragment>
-          );
+        if(!openClean) setOpenClean(true);//跳转到清理桌面
+          console.log("打开清理组件"+openClean);
       }
-      //  ok=true;//给ok一个变true的机会
-      // else if(status0.order_status==="支付失败"){
-      //   let ws=await payApi.getQRstring(props.orderIds[0], props.final_price);
-      //     console.log(ws);
-      //     setWebsite(ws);//刷新二维码
-      // }
-
-      // for(let i=1;i<props.orderIds.length;i++){
-      //   const status = await orderPriceApi.getOrderStatus(props.orderIds[i]);
-       
-      //   if(status.order_status!=="已支付"){//说明还有没支付的订单
-      //       ok=false;//不能退出，保持不动
-      //   }
-      //   if(status.order_status==="支付失败"){
-      //     //刷新页面，重新渲染二维码
-      //     let ws=await payApi.getQRstring(props.orderIds[0], props.final_price);
-      //     console.log(ws);
-      //     setWebsite(ws);//刷新二维码
-      //   }
-      // }
-
 
       }catch(err){
         console.error(err);
@@ -122,11 +95,14 @@ export default function PayDialog(props){
 //支付未完成
    return (
     <React.Fragment>
+   
     <Button size="large"
       onClick={handleClickOpen}>直接去付款</Button>
     <Dialog  open={open} fullScreen={true}>
     
     <CssBaseline/>
+    <CleanDialog open={openClean} fullScreen={true}/>
+    {/* <CleanDialog open={true} fullScreen={true}/> */}
     <Container maxWidth="sm" 
                sx={{textAlign:"center"}}>
             <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
