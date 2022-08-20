@@ -231,7 +231,7 @@ interface DishProps{
        >
          <DialogContent style={{padding: '0'}}>
           {/* <h1>Hello!</h1> */}
-          <PromotionInfo id={props.id} dishes={props.dishes} pic={props.pic}/>
+          <PromotionInfo id={props.id} dishes={props.dishes} pic={props.pic} dish_all={props.dish_all}/>
 
           
          </DialogContent>
@@ -294,6 +294,7 @@ useEffect(()=>{
                 promotions.map((promo, index) =>
                <Backgrd id={promo.promotion_id} 
                         dishes={promo.dishes}
+                        dish_all={props.dish_all}
                         handlePromo={props.handlePromo}
                         pic={promo.picture}
                         />)
