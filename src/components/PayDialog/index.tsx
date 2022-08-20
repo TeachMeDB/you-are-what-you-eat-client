@@ -102,8 +102,8 @@ export default function PayDialog(props){
     <Dialog  open={open} fullScreen={true}>
     
     <CssBaseline/>
-    {/* <CleanDialog open={openClean} fullScreen={true}/> */}
-    <CleanDialog open={true} fullScreen={true}/>
+    <CleanDialog open={openClean} fullScreen={true}/>
+    {/* <CleanDialog open={true} fullScreen={true}/> */}
     <Container maxWidth="sm" 
                sx={{textAlign:"center"}}>
             <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
