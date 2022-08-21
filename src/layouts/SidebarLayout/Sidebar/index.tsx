@@ -56,14 +56,15 @@ function Sidebar(props) {
         }}
       >
         <Scrollbar>
-          <Box mt={3}>
+          <Box mt={2}>
             <Box
-              mx={2}
+              ml={7}
               sx={{
                 width: 52
               }}
             >
-              <Logo />
+              <img src="/static/images/logo_small.png" alt="" style={{width:"100%"}}/>
+              {/* <Logo /> */}
             </Box>
           </Box>
           <Divider
