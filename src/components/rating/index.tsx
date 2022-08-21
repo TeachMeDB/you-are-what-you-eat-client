@@ -294,12 +294,16 @@ React.useEffect(()=>{
         
         </Grid>
         <Grid item xs={11.5}>
+
+        {props.username!=undefined&&
         <FormControlLabel control={
         <Switch  checked={checked}
                  onChange={handleChangeSw}/>} 
-        label="消耗会员积分用于优惠" />
+        label="消耗会员积分用于优惠" />}
+
         </Grid>
         </Grid>
+        
           {checked&&<Button 
               style={{
                 width:"100%",
@@ -312,12 +316,13 @@ React.useEffect(()=>{
 
                 let upload={
                   credit:0,
-                  user_name:"余缨子"
+                  user_name:"default"
                 } as UpdateCredit;
                 upload.credit=restCred;
                 upload.user_name=props.username;
                 console.log("更新会员积分:"+upload);
                 
+                if(props.username!=undefined){
                 const conduct=async()=>{
                   return vipInfoApi.postVipCredit(upload);
                 }
@@ -328,8 +333,11 @@ React.useEffect(()=>{
                     alert("会员积分更新失败！");
                 });
 
-              }}
+              }
+            }
+            }
               >
+            
             ￥{price}&nbsp;
            结账</Button>}
 
@@ -345,12 +353,13 @@ React.useEffect(()=>{
 
                 let upload={
                   credit:0,
-                  user_name:"余缨子"
+                  user_name:"default"
                 } as UpdateCredit;
                 upload.credit=restCred;
                 upload.user_name=props.username;
                 console.log("更新会员积分:"+upload);
                 
+                if(props.username!=undefined){
                 const conduct=async()=>{
                   return vipInfoApi.postVipCredit(upload);
                 }
@@ -361,7 +370,7 @@ React.useEffect(()=>{
                     alert("会员积分更新失败！");
                 });
 
-              }}
+              }}}
               >
             ￥{props.orderTotalPrice}&nbsp;
            结账</Button>}
@@ -462,13 +471,13 @@ React.useEffect(()=>{
                       content:"还不错~~~~",
                       rate:5,
                       dish_id:101,
-                      username:"余缨子"
+                      username:"default"
                      };
   
                      testData1.content=content;
                      testData1.rate=value;
                      testData1.dish_id=props.dishes.dish_info[index].dish_id;
-  
+                     if(props.username!=undefined)
                      testData1.username=props.username;
                       const conduct1=async()=>{
                         console.log(testData1);
@@ -490,11 +499,12 @@ React.useEffect(()=>{
                     let testData2:ServiceRatingUpload={
                       content:"服务很热情，给个好评",
                       rate:5,
-                      username:"余缨子"
+                      username:"default"
                    } ;
   
                    testData2.content=content;
                    testData2.rate=value;
+                   if(props.username!=undefined)
                    testData2.username=props.username;
                       const conduct2=async()=>{
                       console.log(testData2);
