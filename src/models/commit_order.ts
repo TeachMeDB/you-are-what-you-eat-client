@@ -1,6 +1,7 @@
 export interface CommitOrderUpload {
     dishes_info: DishesInfo[];
     table_id:number;
+    username:string;
 }
 
 export interface DishesInfo {

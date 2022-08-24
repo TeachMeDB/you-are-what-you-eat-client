@@ -307,6 +307,7 @@ if(price!=totPrice) setPrice(totPrice);
                        add={props.add}
                        orderIds={props.orderIds}
                        table_id={props.table_id}
+                       username={props.username}
                       //  setLoad={props.setLoad}
                        />
     </>
@@ -388,6 +389,7 @@ function ShoppingCartFab(props){
                 add={add}
                 orderIds={orderIds}
                 table_id={props.table_id}
+                username={user}
                 />
       
        </TabPanel>

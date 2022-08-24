@@ -15,6 +15,7 @@ import { addDishApi } from '@/queries/addDish';
 export default function CheckDialog(props) {
  const [openAlert,setOpenAlert]=React.useState(false);
  
+ console.log("购物车获取用户名："+props.username);
  const handleOpenAlert = () => {
     console.log("打开alert");
     setOpenAlert(true);
@@ -84,10 +85,12 @@ export default function CheckDialog(props) {
 
     let upload={
      dishes_info:testData,
-     table_id:3
+     table_id:3,
+     username:"default"
     } as CommitOrderUpload;
     
     upload.table_id=props.table_id;
+    if(props.username!=undefined) upload.username=props.username;
     
    const conduct=async()=>{
     console.log("提交订单的内容");
