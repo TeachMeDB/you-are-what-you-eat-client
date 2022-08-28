@@ -4,8 +4,8 @@ const redirects = {
   async redirects() {
     return [
       {
-        source: '/dashboards',
-        destination: '/dashboards/crypto',
+        source: '/',
+        destination: '/login',
         permanent: true
       }
     ];
