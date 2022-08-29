@@ -107,7 +107,7 @@ function Hero() {
         <Grid item md={10} lg={8} mx="auto">
           <LabelWrapper color="success">Version 1.0.0</LabelWrapper>
           <TypographyH1 sx={{ mb: 2 }} variant="h1">
-            Tokyo Free White Next.js Typescript Admin Dashboard
+          人如其食客户端
           </TypographyH1>
           <TypographyH2
             sx={{ lineHeight: 1.5, pb: 4 }}
@@ -132,7 +132,6 @@ function Hero() {
             component="a"
             target="_blank"
             rel="noopener"
-            href="https://bloomui.com/product/tokyo-free-white-nextjs-typescript-material-ui-admin-dashboard/"
             size="large"
             variant="text"
           >
@@ -182,8 +181,7 @@ function Hero() {
                   <b>Built with Typescript</b>
                 </Box>
                 <Typography component="span" variant="subtitle2">
-                  Tokyo Free White features a modern technology stack and is
-                  built with React + Typescript.
+                人如其食客户端
                 </Typography>
               </Typography>
             </Grid>

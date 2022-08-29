@@ -86,7 +86,7 @@ function Sidebar(props) {
         />
         {/* <Box >
           <Button
-            href="https://bloomui.com"
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
             variant="contained"

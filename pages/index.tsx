@@ -28,7 +28,7 @@ const HeaderWrapper = styled(Card)(
 const OverviewWrapper = styled(Box)(
   ({ theme }) => `
     overflow: auto;
-    background: ${theme.palette.common.white};
+    //background: theme.palette.common.white;
     flex: 1;
     overflow-x: hidden;
 `
@@ -38,7 +38,7 @@ function Overview() {
   return (
     <OverviewWrapper>
       <Head>
-        <title>Tokyo Free White NextJS Typescript Admin Dashboard</title>
+        <title>人如其食客户端</title>
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
@@ -70,11 +70,11 @@ function Overview() {
         <Typography textAlign="center" variant="subtitle1">
           Crafted by{' '}
           <Link
-            href="https://bloomui.com"
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            BloomUI.com
+            人如其食
           </Link>
         </Typography>
       </Container>

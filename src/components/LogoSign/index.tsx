@@ -99,7 +99,7 @@ function Logo() {
 
   return (
     <TooltipWrapper
-      title="Tokyo "
+      title="人如其食 "
       arrow
     >
       <LogoWrapper href="/">
