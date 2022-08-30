@@ -271,7 +271,7 @@ React.useEffect(()=>{
             console.log(pricetoChange);
         }
         if(price!=pricetoChange){
-           pricetoChange=pricetoChange.toFixed(2);
+          //  pricetoChange=pricetoChange.toFixed(2);
           setPrice(pricetoChange);
         }
         console.log("使用积分,price="+price);
@@ -280,7 +280,7 @@ React.useEffect(()=>{
       restCred=cred;
       pricetoChange=originPrice;
       if(price!=pricetoChange){
-        pricetoChange=pricetoChange.toFixed(2);
+        // pricetoChange=pricetoChange.toFixed(2);
         setPrice(pricetoChange);
       }
       console.log("取消使用积分,price="+price);
