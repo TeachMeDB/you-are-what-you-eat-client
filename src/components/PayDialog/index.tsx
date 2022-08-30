@@ -64,8 +64,8 @@ export default function PayDialog(props){
       },[getAllData]);
    
 
-      console.log("table_id:"+props.table_id);
-    let ok:boolean=false;//ok=true代表所有订单支付完成
+    //   console.log("table_id:"+props.table_id);
+    // let ok:boolean=false;//ok=true代表所有订单支付完成
 
     const updateState = React.useCallback(async () => {
       try{

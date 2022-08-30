@@ -159,7 +159,7 @@ const handleCloseSuccess = () => {
     console.log(props.dishes.length);
     let empt=true;
 
-    const [price,setPrice]=React.useState<number>(0);
+    const [price,setPrice]=React.useState<number>(0.00);
 
     for(let i=0;i<props.dishes.length;i++){
         if(props.dishes[i].ordernum>0){

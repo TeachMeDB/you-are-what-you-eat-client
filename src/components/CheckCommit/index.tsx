@@ -31,6 +31,7 @@ export default function CheckDialog(props) {
   console.log("确认下单弹窗");
   console.log(props.open);
 
+  let price=props.totPrice.toFixed(2);
   return (
     <React.Fragment>
            <Button 
@@ -43,7 +44,7 @@ export default function CheckDialog(props) {
           onClick={handleOpenAlert}
          >
         
-      ￥{props.totPrice} 下单</Button>
+      ￥{price} 下单</Button>
       <Dialog
         open={openAlert}
         onClose={handleCloseAlert}

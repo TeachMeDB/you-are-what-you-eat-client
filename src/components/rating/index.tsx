@@ -166,7 +166,7 @@ function DishCard(props){
 function RatingDialog(props) {
   
   const [openSuccess, setOpenSuccess] = React.useState(false);
-  let originPrice:number=props.orderTotalPrice;
+  let originPrice:number=props.orderTotalPrice.toFixed(2);
   const [price,setPrice]=React.useState<number>(originPrice);
   let pricetoChange=props.orderTotalPrice;
   console.log("当前结账价格"+price);
@@ -271,6 +271,7 @@ React.useEffect(()=>{
             console.log(pricetoChange);
         }
         if(price!=pricetoChange){
+           pricetoChange=pricetoChange.toFixed(2);
           setPrice(pricetoChange);
         }
         console.log("使用积分,price="+price);
@@ -279,6 +280,7 @@ React.useEffect(()=>{
       restCred=cred;
       pricetoChange=originPrice;
       if(price!=pricetoChange){
+        pricetoChange=pricetoChange.toFixed(2);
         setPrice(pricetoChange);
       }
       console.log("取消使用积分,price="+price);
@@ -286,6 +288,9 @@ React.useEffect(()=>{
   };
 
   let img="/static/images/status/paper.jpg";
+
+  console.log("结账价格1"+price);
+  console.log("结账价格2"+originPrice);
 
         return(
         <React.Fragment>
@@ -299,7 +304,7 @@ React.useEffect(()=>{
         <FormControlLabel control={
         <Switch  checked={checked}
                  onChange={handleChangeSw}/>} 
-        label="消耗会员积分用于优惠" />}
+        label="使用会员积分（最多抵扣10%）" />}
 
         </Grid>
         </Grid>
@@ -372,7 +377,7 @@ React.useEffect(()=>{
 
               }}}
               >
-            ￥{props.orderTotalPrice}&nbsp;
+            ￥{originPrice}&nbsp;
            结账</Button>}
 
           <Dialog 
@@ -527,7 +532,7 @@ React.useEffect(()=>{
                    table_id={props.table_id}/>
       
       }
-      {!checked&& <PayDialog final_price={props.orderTotalPrice}
+      {!checked&& <PayDialog final_price={originPrice}
                    orderIds={props.orderIds}
                    table_id={props.table_id}/>
       

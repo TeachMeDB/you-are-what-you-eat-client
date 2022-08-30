@@ -60,53 +60,7 @@ const theme = createTheme({
     status:string;
   }
 
-  // const InitOrderDish=():Array<OrderDishProps>=>{
-  //   return [
-       
-  //       {
-  //           dishname:"番茄炒蛋",
-  //           price:5.5,
-  //           picture:"/static/images/status/tomato.png",
-  //           ordernum:1,
-  //           status:"已上菜"
-  //       },
-  //        {
-  //           dishname:"清炒土豆丝",
-  //           price:9,
-  //           picture:"/static/images/status/potato.png",
-  //           ordernum:1,
-  //           status:"已上菜"
-  //       },
-  //       {
-  //           dishname:"虾仁粉丝煲",
-  //           price:25.5,
-  //           picture:"/static/images/status/fans.jpg",
-  //           ordernum:2,
-  //           status:"制作中"
-  //       } ,
-  //     {
-  //         dishname:"北京烤鸭",
-  //         price:40,
-  //         picture:"/static/images/status/duck.jpg",
-  //         ordernum:1,
-  //         status:"制作中"
-  //     },
-  //       {
-  //         dishname:"炒洋葱",
-  //         price:48,
-  //         picture:"/static/images/status/onion.png",
-  //         ordernum:1,
-  //         status:"制作中"
-  //     },
-  //     {
-  //         dishname:"干锅花菜",
-  //         price:51,
-  //         picture:"/static/images/status/broc.jpg",
-  //         ordernum:1,
-  //         status:"制作中"
-  //     }
-  //     ]
-  //   }
+
   
 function Status(props){
 // 需要根据status调整color
