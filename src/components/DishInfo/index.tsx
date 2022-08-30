@@ -90,7 +90,7 @@ class DishInfo extends Component {
                                 <StarRateIcon sx={{ mt: 2.2,color: '#98313e' }}/>
                             </Grid>
                             <Grid item xs={2}>
-                                <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.props.dish.rate}</h2>
+                                <h2 style={{fontWeight:'500',color:'#98313e'}}>{this.props.dish.rate.toFixed(1)}</h2>
                             </Grid>
                         </Grid>
                         <Divider />
