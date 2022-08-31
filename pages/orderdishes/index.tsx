@@ -718,87 +718,6 @@ class MainPanel extends React.Component<any,any>{
         </FormControl> */}
         </>
       )
-
-//         return(
-// <Box sx={{minWidth:100}}>
-//  <Grid container spacing={1}> 
-//     {
-//       this.state.dishes.map((dish,index)=>
-//       <Grid item xs={4} key={index}>
-//         <Card sx={{ minWidth:320 }} >
-//       <CardMedia
-//         component="img"
-//         height="140" 
-
-//         image={dish.picture}
-//         alt={dish.dishname}
-//       />
-//       <CardContent>
-        
-//         <Grid container spacing={1}>
-//         <Grid item xs={9}>
-//         <Typography gutterBottom variant="h5" component="div">
-//           {dish.dishname}
-//         </Typography>
-//         </Grid>
-
-//         <Grid item xs={3}>
-//           <Stack direction="row">
-//        <Box >
-//        <SvgIcon fontSize="small">
-//          <path fill="#FFD700" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
-//        </SvgIcon></Box>
-//         <Typography variant="body2" color="#9C9C9C" >
-//          &nbsp;&nbsp;{dish.rate.toFixed(1)}
-//         </Typography>
-//         </Stack>
-//         </Grid>
-//         </Grid>
-
-//         <Typography variant="body2" color="text.secondary">
-//         {dish.price} 元/份
-//         </Typography>
-
-//       </CardContent>
-//       <Grid container spacing={2}>
-//         <Grid item xs={8}>
-//           <CardActions>
-
-//             <Stack direction="row" >
-//             <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-//             this.handleClickMinus(index);}}>
-//             <Minus ordernum={dish.ordernum}/>
-//             </IconButton> 
-
-//             <Typography variant="body1" color="#123456"  lineHeight={3}>
-//             {dish.ordernum>0?dish.ordernum:"  "}
-//             </Typography>
-//             <IconButton onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-//             this.handleClickPlus(index);
-//             }}>
-//             <Plus ordernum={dish.ordernum}/>
-//             </IconButton>
-//             </Stack>
-
-//           </CardActions>
-//         </Grid>
-//         <Grid item xs={4}>
-//           <DishInfoDialog 
-//             dish={dish}
-//           />
-//         </Grid>
-//       </Grid>
-      
-//      </Card> </Grid>
-     
-  
-//      )
-//     }
-//     </Grid> 
-//     </Box>
-
-
-//         );
     }
 }
 
@@ -814,39 +733,10 @@ const theme = createTheme({
 });
 
 function Dishpanel({dishes}:{dishes:DishAll[]}){
-  
-  // const isMountedRef = useRefMounted();
-
-  // console.log('dishesTag: ', dishesTag);
-  
-  // const [dishesInfo, setDishesInfo] = useState<DishesInfo | null>(null);
-
-  // const getDishesInfo = useCallback(async () => {
-  //   try {
-  //     const response = await dishesApi.getDishesInfo(orderId.orderId as string);
-
-  //     if (isMountedRef()) {
-  //       setOrderDetail(response);
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }, [isMountedRef]);
-
-  // useEffect(() => {
-  //   getOrderDetail();
-  // }, [getOrderDetail]);
-
-  // if (!orderDetail) {
-  //   return null;
-  // }
-
-  // console.log("新api",dishes)
 
   const router = useRouter();
   const user = router.query.user;
 
-  // username=user;
   console.log("主页面用户名"+user);
 
   return (
@@ -860,21 +750,6 @@ function Dishpanel({dishes}:{dishes:DishAll[]}){
  Dishpanel.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
 export default Dishpanel;
-
-// export async function getServerSideProps() {
-//   console.log("api执行了一次");
-//   console.log(nowDishTag);
-//   const dishes= await dishesApi.getCategoryDishes(nowDishTag,4);
-
-
-//   return { props: { dishes } }
-// }
-
-// export async function getServerSideProps(context) {
-//   const dishesTag = context.query;
-
-//   return { props: { dishesTag } }
-// }
 
 export async function getServerSideProps() {
   const dishes= await dishesApi.getAllDishes();
