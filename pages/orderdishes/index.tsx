@@ -639,7 +639,7 @@ class MainPanel extends React.Component<any,any>{
             </Grid>  
           </Grid>
         </Card>
-        <ImageList sx={{ width: '100%', height: '100%' }} cols={3} gap={10}>
+        <ImageList sx={{ width: '100%' }} cols={3} gap={10} rowHeight={350}>
           {/* <ImageListItem key="Subheader" cols={2}>
             <ListSubheader component="div">December</ListSubheader>
           </ImageListItem> */}
@@ -650,6 +650,7 @@ class MainPanel extends React.Component<any,any>{
                 src={item ? item.picture : "/static/images/nodish_picture.png"}
                 alt={item.dishname}
                 loading="lazy"
+                style={{height:"100%"}}
               />
               <ImageListItemBar
                 title={item.dishname+"\n"}
