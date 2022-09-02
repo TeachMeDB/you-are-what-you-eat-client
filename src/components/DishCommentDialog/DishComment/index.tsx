@@ -25,7 +25,7 @@ class DishComment extends Component {
                                         <ListItem style={{padding:"8px 8px 0px 0px"}}>
                                             <ListItemAvatar>
                                             <Avatar>
-                                                <PersonIcon />
+                                                <img src="/static/images/logo_small.png" style={{width:"100%"}} alt="" />
                                             </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText primary={item.comment_time} secondary={<Rating name="read-only" value={item.comment_star} readOnly />}/>

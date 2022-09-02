@@ -226,7 +226,7 @@ class DishInfo extends Component {
                                         <ListItem style={{padding:"8px 8px 0px 0px"}}>
                                             <ListItemAvatar>
                                             <Avatar>
-                                                <img src="/static/images/nodish_picture.png" style={{width:"100%"}} alt="" />
+                                                <img src="/static/images/logo_small.png" style={{width:"100%"}} alt="" />
                                                 {/* <PersonIcon /> */}
                                             </Avatar>
                                             </ListItemAvatar>
