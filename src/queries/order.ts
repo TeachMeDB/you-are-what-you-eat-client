@@ -13,13 +13,13 @@ import {GetApi,PostApi} from "@/utils/requests"
 class OrderApi {
 
     public async getOrderList(order_id:string){
-        return (await (GetApi("OrderDish/GetOrderDishInfo",{
+        return (await (GetApi("orderDishInfo",{
             order_id:order_id
         }))).data as OrderInfo;
     }
 
     public async postOrderList(orderList:CommitOrderUpload){
-        let post=await PostApi("OrderDish/PostOrder",orderList);
+        let post=await PostApi("order",orderList);
         return (
         post.statusText as string,
         post.data as RetOrderId

@@ -13,7 +13,7 @@ import {GetApi,PostApi} from "@/utils/requests"
 class AddDishApi {
 
     public async postAddDish(addDish:AddDish){
-        let post=await PostApi("OrderDish/AddDish",addDish);
+        let post=await PostApi("dishesInOrder",addDish);
         return (
         post.statusText as string
         );

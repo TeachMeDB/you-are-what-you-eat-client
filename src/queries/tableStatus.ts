@@ -4,13 +4,13 @@ import {
 } from '@/models/release_table';
 
 
-import {GetApi,PostApi} from "@/utils/requests"
+import {GetApi,PostApi, PutApi} from "@/utils/requests"
 
 
 class TableApi {
 
     public async postReleaseTable(tableStatus:ReleaseTable){
-        return (await PostApi("OrderDish/PostUpdateTable",tableStatus)).statusText as string;
+        return (await PutApi("tableStatus",tableStatus)).statusText as string;
     }
 
 }
